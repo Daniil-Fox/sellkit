@@ -51,7 +51,7 @@
 
   cursor: pointer;
   position: relative;
-  transition: flex 0.7s ease-in;
+  transition: flex 0.7s ease-in, background-color 0.4s ease-in;
   &:not(:last-child) {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
@@ -89,6 +89,7 @@
     writing-mode: vertical-lr;
     white-space: nowrap;
     overflow: hidden;
+    transition: color 0.4s ease-in;
   }
   &__content {
     width: 100%;
