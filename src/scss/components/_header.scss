@@ -1,0 +1,99 @@
+// ваш код
+.header {
+  position: fixed;
+  padding: 12px 29px;
+  padding-top: 11px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+  }
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  &__logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 33px;
+    width: auto;
+    svg {
+      height: 100%;
+      width: auto;
+      fill: #fff;
+      // .kit {
+      //   fill: #006aff;
+      // }
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__tel {
+    display: inline-block;
+    position: relative;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #fff;
+    letter-spacing: 0.046em;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 10%;
+      opacity: 0;
+      height: 1px;
+      background-color: currentColor;
+      transition: 0.3s ease-in;
+    }
+    @include hover {
+      &::after {
+        width: 100%;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    padding-right: 13px;
+    border-radius: 100px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px 0 rgba(0, 14, 43, 0.09);
+    letter-spacing: 0.005em;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: #001840;
+    &::before {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      background-image: url("./../img/zz.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}

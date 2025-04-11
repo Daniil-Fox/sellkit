@@ -1,0 +1,43 @@
+.nav {
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      a {
+        display: inline-block;
+        position: relative;
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        color: #fff;
+
+        letter-spacing: 0.027em;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 10%;
+          opacity: 0;
+          height: 1px;
+          background-color: currentColor;
+          transition: 0.3s ease-in;
+        }
+        @include hover {
+          &::after {
+            width: 100%;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

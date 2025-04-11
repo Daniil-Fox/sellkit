@@ -1,0 +1,32 @@
+.title1 {
+  margin: 0;
+  font-family: var(--second-family);
+  font-weight: 400;
+  font-size: 110px;
+  line-height: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+}
+
+.title3 {
+  margin: 0;
+  font-family: var(--second-family);
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 100%;
+  text-transform: uppercase;
+
+  &--white {
+    color: #fff;
+  }
+}
+
+.desc1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  text-align: center;
+  color: #fff;
+}
