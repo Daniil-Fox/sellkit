@@ -2,8 +2,10 @@
   position: relative;
   padding: 100px 0;
   padding-top: 96px;
+  background-color: #000e2b;
   background-image: url("./../img/cubes.webp"),
-    radial-gradient(ellipse at bottom, #000e2b 0%, #090a0f 100%);
+    radial-gradient(ellipse at bottom, #162341 0%, #000e2b 100%),
+    url("./../img/cubes.webp");
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -35,7 +37,7 @@
   &__items {
     position: relative;
     z-index: 10;
-    height: 700px;
+    height: 65vh;
     display: flex;
     border-radius: 2rem;
     overflow: hidden;
