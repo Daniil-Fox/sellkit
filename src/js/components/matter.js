@@ -11,7 +11,7 @@ import {
 } from "matter-js";
 
 const engine = Engine.create();
-engine.gravity.y = 0.05;
+engine.gravity.y = 0.0;
 
 const container = document.querySelector(".lb__canvas");
 
@@ -39,6 +39,7 @@ World.add(engine.world, mouseConstraint);
 render.mouse = mouse;
 
 const elements = [
+  // Ваши элементы...
   {
     text: "сео-настройки",
     color: "#f86790",
@@ -146,6 +147,7 @@ function createRoundedRectangle(x, y, width, height, radius) {
   });
 }
 
+// Создание элементов и тел
 elements.forEach((element) => {
   const htmlEl = document.createElement("div");
   htmlEl.className = "floating-element";
@@ -159,7 +161,7 @@ elements.forEach((element) => {
 
   const body = createRoundedRectangle(
     Math.random() * (container.offsetWidth - 200) + 100,
-    Math.random() * (container.offsetHeight - 100) + 50,
+    50, // Все блоки размещаются в верхней части canvas
     htmlEl.offsetWidth,
     htmlEl.offsetHeight,
     50
@@ -168,53 +170,45 @@ elements.forEach((element) => {
   bodies.push(body);
 });
 
-const walls = [
-  Bodies.rectangle(container.offsetWidth / 2, -11, container.offsetWidth, 20, {
-    isStatic: true,
-    render: {
-      visible: false,
-    },
-  }),
-  Bodies.rectangle(
-    container.offsetWidth / 2,
-    container.offsetHeight + 10,
-    container.offsetWidth,
-    20,
-    {
-      isStatic: true,
-      render: {
-        visible: false,
-      },
-    }
-  ),
-  Bodies.rectangle(
-    -10,
-    container.offsetHeight / 2,
-    20,
-    container.offsetHeight,
-    {
-      isStatic: true,
-      render: {
-        visible: false,
-      },
-    }
-  ),
-  Bodies.rectangle(
-    container.offsetWidth + 10,
-    container.offsetHeight / 2,
-    20,
-    container.offsetHeight,
-    {
-      isStatic: true,
-      render: {
-        visible: false,
-      },
-    }
-  ),
-];
+// Добавление стенок
+function createWalls() {
+  const walls = [
+    Bodies.rectangle(
+      container.offsetWidth / 2,
+      -11,
+      container.offsetWidth,
+      20,
+      { isStatic: true }
+    ),
+    Bodies.rectangle(
+      container.offsetWidth / 2,
+      container.offsetHeight + 10,
+      container.offsetWidth,
+      20,
+      { isStatic: true }
+    ),
+    Bodies.rectangle(
+      -10,
+      container.offsetHeight / 2,
+      20,
+      container.offsetHeight,
+      { isStatic: true }
+    ),
+    Bodies.rectangle(
+      container.offsetWidth + 10,
+      container.offsetHeight / 2,
+      20,
+      container.offsetHeight,
+      { isStatic: true }
+    ),
+  ];
 
-World.add(engine.world, [...bodies, ...walls]);
+  World.add(engine.world, walls);
+}
 
+// Создаем стенки при инициализации
+createWalls();
+World.add(engine.world, bodies);
 Runner.run(engine);
 Render.run(render);
 
@@ -231,16 +225,25 @@ function updateElements() {
 
 updateElements();
 
-setInterval(() => {
-  if (!mouseConstraint.body) {
-    bodies.forEach((body) => {
-      Body.applyForce(body, body.position, {
-        x: (Math.random() - 0.5) * 0.001,
-        y: (Math.random() - 0.5) * 0.001,
-      });
+let blocksHaveFallen = false; // переменная для отслеживания падения блоков
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !blocksHaveFallen) {
+        // Когда canvas становится видимым
+        engine.gravity.y = 0.05; // Устанавливаем гравитацию
+        blocksHaveFallen = true; // Устанавливаем, что блоки уже упали
+      }
     });
+  },
+  {
+    root: null,
+    threshold: 1.0,
   }
-}, 3000);
+);
+
+// Наблюдение за canvas
+observer.observe(container);
 
 mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
   const mousePosition = mouseConstraint.mouse.position;
@@ -254,5 +257,29 @@ mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
 mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
   htmlElements.forEach((el) => {
     el.style.cursor = "grab";
+  });
+});
+
+window.addEventListener("resize", () => {
+  render.options.width = container.offsetWidth;
+  render.options.height = container.offsetHeight;
+
+  World.clear(engine.world);
+  createWalls();
+  World.add(engine.world, mouseConstraint);
+
+  bodies.forEach((body, index) => {
+    Body.scale(
+      body,
+      htmlElements[index].offsetWidth / body.bounds.max.x,
+      htmlElements[index].offsetHeight / body.bounds.max.y
+    );
+    Body.setPosition(body, {
+      x:
+        Math.random() *
+          (container.offsetWidth - htmlElements[index].offsetWidth) +
+        htmlElements[index].offsetWidth / 2,
+      y: 50, // Ставим в верхнюю часть
+    });
   });
 });

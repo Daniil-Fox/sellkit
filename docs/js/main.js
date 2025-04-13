@@ -21640,7 +21640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var matter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! matter-js */ "./node_modules/matter-js/build/matter.js");
 
 const engine = matter_js__WEBPACK_IMPORTED_MODULE_0__.Engine.create();
-engine.gravity.y = 0.05;
+engine.gravity.y = 0.0;
 const container = document.querySelector(".lb__canvas");
 const render = matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.create({
   element: document.querySelector("#canvas-container"),
@@ -21664,7 +21664,9 @@ const mouseConstraint = matter_js__WEBPACK_IMPORTED_MODULE_0__.MouseConstraint.c
 });
 matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
 render.mouse = mouse;
-const elements = [{
+const elements = [
+// Ваши элементы...
+{
   text: "сео-настройки",
   color: "#f86790",
   fontSize: "32px",
@@ -21777,6 +21779,8 @@ function createRoundedRectangle(x, y, width, height, radius) {
     }
   });
 }
+
+// Создание элементов и тел
 elements.forEach(element => {
   const htmlEl = document.createElement("div");
   htmlEl.className = "floating-element";
@@ -21787,31 +21791,29 @@ elements.forEach(element => {
   htmlEl.contentEditable = "true";
   container.appendChild(htmlEl);
   htmlElements.push(htmlEl);
-  const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, Math.random() * (container.offsetHeight - 100) + 50, htmlEl.offsetWidth, htmlEl.offsetHeight, 50);
+  const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, 50,
+  // Все блоки размещаются в верхней части canvas
+  htmlEl.offsetWidth, htmlEl.offsetHeight, 50);
   bodies.push(body);
 });
-const walls = [matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, -11, container.offsetWidth, 20, {
-  isStatic: true,
-  render: {
-    visible: false
-  }
-}), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + 10, container.offsetWidth, 20, {
-  isStatic: true,
-  render: {
-    visible: false
-  }
-}), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-10, container.offsetHeight / 2, 20, container.offsetHeight, {
-  isStatic: true,
-  render: {
-    visible: false
-  }
-}), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth + 10, container.offsetHeight / 2, 20, container.offsetHeight, {
-  isStatic: true,
-  render: {
-    visible: false
-  }
-})];
-matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, [...bodies, ...walls]);
+
+// Добавление стенок
+function createWalls() {
+  const walls = [matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, -11, container.offsetWidth, 20, {
+    isStatic: true
+  }), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + 10, container.offsetWidth, 20, {
+    isStatic: true
+  }), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-10, container.offsetHeight / 2, 20, container.offsetHeight, {
+    isStatic: true
+  }), matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth + 10, container.offsetHeight / 2, 20, container.offsetHeight, {
+    isStatic: true
+  })];
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, walls);
+}
+
+// Создаем стенки при инициализации
+createWalls();
+matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, bodies);
 matter_js__WEBPACK_IMPORTED_MODULE_0__.Runner.run(engine);
 matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.run(render);
 function updateElements() {
@@ -21823,16 +21825,22 @@ function updateElements() {
   requestAnimationFrame(updateElements);
 }
 updateElements();
-setInterval(() => {
-  if (!mouseConstraint.body) {
-    bodies.forEach(body => {
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.applyForce(body, body.position, {
-        x: (Math.random() - 0.5) * 0.001,
-        y: (Math.random() - 0.5) * 0.001
-      });
-    });
-  }
-}, 3000);
+let blocksHaveFallen = false; // переменная для отслеживания падения блоков
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !blocksHaveFallen) {
+      // Когда canvas становится видимым
+      engine.gravity.y = 0.05; // Устанавливаем гравитацию
+      blocksHaveFallen = true; // Устанавливаем, что блоки уже упали
+    }
+  });
+}, {
+  root: null,
+  threshold: 1.0
+});
+
+// Наблюдение за canvas
+observer.observe(container);
 mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
   const mousePosition = mouseConstraint.mouse.position;
   const body = matter_js__WEBPACK_IMPORTED_MODULE_0__.Query.point(bodies, mousePosition)[0];
@@ -21844,6 +21852,20 @@ mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
 mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
   htmlElements.forEach(el => {
     el.style.cursor = "grab";
+  });
+});
+window.addEventListener("resize", () => {
+  render.options.width = container.offsetWidth;
+  render.options.height = container.offsetHeight;
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.clear(engine.world);
+  createWalls();
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
+  bodies.forEach((body, index) => {
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.scale(body, htmlElements[index].offsetWidth / body.bounds.max.x, htmlElements[index].offsetHeight / body.bounds.max.y);
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
+      x: Math.random() * (container.offsetWidth - htmlElements[index].offsetWidth) + htmlElements[index].offsetWidth / 2,
+      y: 50 // Ставим в верхнюю часть
+    });
   });
 });
 
