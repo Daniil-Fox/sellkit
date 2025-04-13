@@ -1,6 +1,6 @@
 .products {
   position: relative;
-  padding: 100px 0;
+  padding: 100px 0 149px;
   padding-top: 96px;
   background-color: #000e2b;
   background-image: url("./../img/cubes.webp");
@@ -14,6 +14,11 @@
     gap: 20px;
 
     margin-bottom: 28px;
+  }
+  &__main {
+    &:not(:last-child) {
+      margin-bottom: 100px;
+    }
   }
   &__title {
     max-width: 962px;

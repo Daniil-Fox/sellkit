@@ -4,8 +4,8 @@ const mouse = {
 };
 const mouseElem = document.querySelector(".mouse");
 window.addEventListener("mousemove", (e) => {
-  mouse.x = e.pageX;
-  mouse.y = e.pageY;
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
 
   mouseElem.style.left = `${mouse.x}px`;
   mouseElem.style.top = `${mouse.y}px`;

@@ -1,0 +1,23 @@
+.loyal {
+  padding: 100px 0;
+  background-image: url("./../img/cubes2.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  &__title {
+    grid-column: 2 span;
+  }
+
+  &__btn {
+    &::before {
+      background-image: url("./../img/pin.svg");
+    }
+  }
+}
