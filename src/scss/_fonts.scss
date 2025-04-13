@@ -5,6 +5,7 @@
   normal
 );
 @include font-face("Bebas Neue", "../fonts/BebasNeueRegular", 400, normal);
+@include font-face("Bebas Neue", "../fonts/BebasNeueBold", 700, normal);
 @include font-face("Inter", "../fonts/Inter-Regular", 400, normal);
 @include font-face("Inter", "../fonts/Inter-Medium", 500, normal);
 @include font-face("Inter", "../fonts/Inter-SemiBold", 600, normal);

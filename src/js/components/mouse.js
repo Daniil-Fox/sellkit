@@ -50,7 +50,7 @@ document.addEventListener("mouseup", (e) => {
 });
 
 const orealZone = document.querySelectorAll("[data-mouse-oreal]");
-
+const blueZone = document.querySelectorAll("[data-mouse-blue]");
 if (orealZone.length > 0) {
   orealZone.forEach((el) => {
     el.addEventListener("mouseenter", (e) => {
@@ -58,6 +58,16 @@ if (orealZone.length > 0) {
     });
     el.addEventListener("mouseleave", (e) => {
       mouseElem.classList.remove("oreal");
+    });
+  });
+}
+if (blueZone.length > 0) {
+  blueZone.forEach((el) => {
+    el.addEventListener("mouseenter", (e) => {
+      mouseElem.classList.add("white");
+    });
+    el.addEventListener("mouseleave", (e) => {
+      mouseElem.classList.remove("white");
     });
   });
 }

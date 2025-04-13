@@ -1,5 +1,7 @@
 .loyal {
   padding: 100px 0;
+  padding-top: 93px;
+  background-color: #fff;
   background-image: url("./../img/cubes2.webp");
   background-size: cover;
   background-repeat: no-repeat;
@@ -9,6 +11,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
+
+    margin-bottom: 39px;
   }
 
   &__title {
@@ -16,8 +20,73 @@
   }
 
   &__btn {
+    margin-top: 7px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-right: 18px;
+    padding-left: 19px;
+    gap: 10px;
     &::before {
       background-image: url("./../img/pin.svg");
     }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    &:not(:last-child) {
+      margin-bottom: 98px;
+    }
+  }
+
+  &__item {
+    &:nth-child(1) {
+      grid-column-start: 2;
+    }
+  }
+}
+
+.loyal-item {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background-image: url("./../img/plus.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  &__fig {
+    margin: 0;
+    font-family: var(--third-family);
+    font-weight: 700;
+    font-size: 120px;
+    line-height: 100%;
+    color: #006aff;
+    letter-spacing: 0.005em;
+  }
+  &__title {
+    margin: 0;
+    margin-bottom: 12px;
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: #001840;
+  }
+
+  &__desc {
+    margin: 0;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #001840;
   }
 }
