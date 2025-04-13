@@ -10,6 +10,8 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_products_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/products.js */ "./src/js/components/products.js");
+/* harmony import */ var _components_mouse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mouse.js */ "./src/js/components/mouse.js");
+
 
 
 /***/ }),
@@ -30,6 +32,72 @@ __webpack_require__.r(__webpack_exports__);
   htmlEl: document.documentElement,
   bodyEl: document.body
 });
+
+/***/ }),
+
+/***/ "./src/js/components/mouse.js":
+/*!************************************!*\
+  !*** ./src/js/components/mouse.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+const mouse = {
+  x: 0,
+  y: 0
+};
+const mouseElem = document.querySelector(".mouse");
+window.addEventListener("mousemove", e => {
+  mouse.x = e.pageX;
+  mouse.y = e.pageY;
+  mouseElem.style.left = `${mouse.x}px`;
+  mouseElem.style.top = `${mouse.y}px`;
+});
+document.querySelectorAll("a").forEach(el => {
+  el.addEventListener("mouseenter", e => {
+    mouseElem.classList.add("hovered");
+  });
+  el.addEventListener("mouseleave", e => {
+    mouseElem.classList.remove("hovered");
+  });
+  el.addEventListener("mousedown", e => {
+    mouseElem.classList.add("active");
+  });
+  el.addEventListener("mouseup", e => {
+    mouseElem.classList.remove("active");
+  });
+});
+document.querySelectorAll("button").forEach(el => {
+  el.addEventListener("mouseenter", e => {
+    mouseElem.classList.add("hovered");
+  });
+  el.addEventListener("mouseleave", e => {
+    mouseElem.classList.remove("hovered");
+  });
+  el.addEventListener("mousedown", e => {
+    mouseElem.classList.add("active");
+  });
+  el.addEventListener("mouseup", e => {
+    mouseElem.classList.remove("active");
+  });
+});
+document.addEventListener("mousedown", e => {
+  mouseElem.classList.add("active");
+});
+document.addEventListener("mouseup", e => {
+  mouseElem.classList.remove("active");
+});
+const orealZone = document.querySelectorAll("[data-mouse-oreal]");
+if (orealZone.length > 0) {
+  orealZone.forEach(el => {
+    el.addEventListener("mouseenter", e => {
+      mouseElem.classList.add("oreal");
+    });
+    el.addEventListener("mouseleave", e => {
+      mouseElem.classList.remove("oreal");
+    });
+  });
+}
 
 /***/ }),
 
@@ -90,36 +158,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (function () {
-  const burger = document?.querySelector('[data-burger]');
-  const menu = document?.querySelector('[data-menu]');
-  const menuItems = document?.querySelectorAll('[data-menu-item]');
-  const overlay = document?.querySelector('[data-menu-overlay]');
-  burger?.addEventListener('click', e => {
-    burger?.classList.toggle('burger--active');
-    menu?.classList.toggle('menu--active');
-    if (menu?.classList.contains('menu--active')) {
-      burger?.setAttribute('aria-expanded', 'true');
-      burger?.setAttribute('aria-label', 'Закрыть меню');
+  const burger = document?.querySelector("[data-burger]");
+  const menu = document?.querySelector("[data-menu]");
+  const menuItems = document?.querySelectorAll("[data-menu-item]");
+  const overlay = document?.querySelector("[data-menu-overlay]");
+  burger?.addEventListener("click", e => {
+    burger?.classList.toggle("burger--active");
+    menu?.classList.toggle("menu--active");
+    if (menu?.classList.contains("menu--active")) {
+      burger?.setAttribute("aria-expanded", "true");
+      burger?.setAttribute("aria-label", "Закрыть меню");
       (0,_functions_disable_scroll_js__WEBPACK_IMPORTED_MODULE_0__.disableScroll)();
     } else {
-      burger?.setAttribute('aria-expanded', 'false');
-      burger?.setAttribute('aria-label', 'Открыть меню');
+      burger?.setAttribute("aria-expanded", "false");
+      burger?.setAttribute("aria-label", "Открыть меню");
       (0,_functions_enable_scroll_js__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
     }
   });
-  overlay?.addEventListener('click', () => {
-    burger?.setAttribute('aria-expanded', 'false');
-    burger?.setAttribute('aria-label', 'Открыть меню');
-    burger.classList.remove('burger--active');
-    menu.classList.remove('menu--active');
+  overlay?.addEventListener("click", () => {
+    burger?.setAttribute("aria-expanded", "false");
+    burger?.setAttribute("aria-label", "Открыть меню");
+    burger.classList.remove("burger--active");
+    menu.classList.remove("menu--active");
     (0,_functions_enable_scroll_js__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
   });
   menuItems?.forEach(el => {
-    el.addEventListener('click', () => {
-      burger?.setAttribute('aria-expanded', 'false');
-      burger?.setAttribute('aria-label', 'Открыть меню');
-      burger.classList.remove('burger--active');
-      menu.classList.remove('menu--active');
+    el.addEventListener("click", () => {
+      burger?.setAttribute("aria-expanded", "false");
+      burger?.setAttribute("aria-label", "Открыть меню");
+      burger.classList.remove("burger--active");
+      menu.classList.remove("menu--active");
       (0,_functions_enable_scroll_js__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
     });
   });

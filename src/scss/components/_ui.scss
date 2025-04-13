@@ -59,3 +59,49 @@
 .burger {
   @include burger;
 }
+
+.mouse {
+  position: absolute;
+  z-index: 1;
+  z-index: 100;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  background-color: #006aff;
+  pointer-events: none;
+  border: 0.5px solid #006aff;
+  transition: background-color 0.2s ease-in, transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 50%;
+    transform: scale(0), translate(-50%, -50%);
+    width: 130px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    filter: blur(60px);
+    background-color: #006aff;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease-in;
+  }
+
+  &.hovered {
+    transform: scale(2.5);
+    background-color: transparent;
+    opacity: 0.5;
+  }
+  &.active {
+    transform: scale(1.7);
+  }
+
+  &.oreal {
+    &::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+}
