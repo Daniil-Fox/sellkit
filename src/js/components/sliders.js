@@ -78,3 +78,8 @@ prodSlider.on("autoplayStop", () => {
     prodSlider.autoplay.start();
   }
 });
+
+new Swiper(".clients__thumbs", {
+  slidesPerView: "auto",
+  spaceBetween: 0,
+});

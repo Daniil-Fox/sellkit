@@ -21602,6 +21602,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mouse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mouse.js */ "./src/js/components/mouse.js");
 /* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
 /* harmony import */ var _components_matter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/matter.js */ "./src/js/components/matter.js");
+/* harmony import */ var _components_cards_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/cards.js */ "./src/js/components/cards.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/js/components/header.js");
+
+
 
 
 
@@ -21625,6 +21629,102 @@ __webpack_require__.r(__webpack_exports__);
   documentEl: document,
   htmlEl: document.documentElement,
   bodyEl: document.body
+});
+
+/***/ }),
+
+/***/ "./src/js/components/cards.js":
+/*!************************************!*\
+  !*** ./src/js/components/cards.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".clients__tab");
+  const cards = document.querySelectorAll(".clients__card");
+  const clientsItems = document.querySelector(".clients__items");
+  const maxVisibleCards = parseInt(clientsItems.getAttribute("data-visible-cards")) || Infinity;
+  function filterCards(category) {
+    let visibleCards = 0;
+
+    // Сначала добавляем класс hidden всем карточкам
+    cards.forEach(card => {
+      card.classList.add("hidden");
+    });
+    cards.forEach(card => {
+      const cardCategories = card.getAttribute("data-client-card").split(",").map(c => c.trim());
+      const shouldShow = category === "all" || cardCategories.includes(category);
+      if (shouldShow && visibleCards < maxVisibleCards) {
+        card.classList.remove("hidden");
+        visibleCards++;
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+    clientsItems.setAttribute("data-visible-cards", visibleCards);
+  }
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const category = tab.getAttribute("data-client");
+      filterCards(category);
+    });
+  });
+  filterCards("all");
+});
+
+/***/ }),
+
+/***/ "./src/js/components/header.js":
+/*!*************************************!*\
+  !*** ./src/js/components/header.js ***!
+  \*************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = Array.from(document.querySelectorAll("[data-header]"));
+  if (sections.length > 0) {
+    const header = document.querySelector("header"); // Ваш элемент хедера
+    const offset = 0; // Смещение для проверки, можно настроить при необходимости
+
+    // Функция получения текущей секции, соприкасающейся с верхом viewport
+    function updateHeaderClass() {
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // Находим все секции, у которых верхняя граница <= верха viewport + offset
+      // И из них берем ту, у которой значение верхней границы ближе всех к верху
+      let currentSection = null;
+      let minDistance = Infinity;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top - offset);
+        if (rect.top <= offset && distance < minDistance) {
+          minDistance = distance;
+          currentSection = section;
+        }
+      });
+      if (currentSection) {
+        // Получаем значение data-header для текущей активной секции
+        const headerClass = currentSection.getAttribute("data-header");
+
+        // Сбрасываем все классы, которые отвечают за цвет (можно указать конкретный префикс)
+        header.className = header.className.split(" ").filter(c => !c.startsWith("header-color-")).join(" ");
+
+        // Добавляем класс, соответствующий секции
+        header.classList.add(`header-color-${headerClass}`);
+      }
+    }
+    window.addEventListener("scroll", updateHeaderClass);
+    window.addEventListener("resize", updateHeaderClass);
+
+    // Запускаем один раз при загрузке страницы
+    updateHeaderClass();
+  }
 });
 
 /***/ }),
@@ -22082,6 +22182,10 @@ prodSlider.on("autoplayStop", () => {
   if (!isAutoplayPaused) {
     prodSlider.autoplay.start();
   }
+});
+new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".clients__thumbs", {
+  slidesPerView: "auto",
+  spaceBetween: 0
 });
 
 /***/ }),
