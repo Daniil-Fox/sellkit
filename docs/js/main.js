@@ -21686,6 +21686,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions/throttle.js */ "./src/js/functions/throttle.js");
+
 document.addEventListener("DOMContentLoaded", () => {
   const sections = Array.from(document.querySelectorAll("[data-header]"));
   if (sections.length > 0) {
@@ -21719,8 +21721,9 @@ document.addEventListener("DOMContentLoaded", () => {
         header.classList.add(`header-color-${headerClass}`);
       }
     }
-    window.addEventListener("scroll", updateHeaderClass);
-    window.addEventListener("resize", updateHeaderClass);
+    let throttledUpdate = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(updateHeaderClass);
+    window.addEventListener("scroll", throttledUpdate);
+    window.addEventListener("resize", throttledUpdate);
 
     // Запускаем один раз при загрузке страницы
     updateHeaderClass();
@@ -22298,6 +22301,45 @@ const enableScroll = () => {
   });
   _vars_js__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.removeAttribute('data-position');
   _vars_js__WEBPACK_IMPORTED_MODULE_0__["default"].htmlEl.style.scrollBehavior = 'smooth';
+};
+
+/***/ }),
+
+/***/ "./src/js/functions/throttle.js":
+/*!**************************************!*\
+  !*** ./src/js/functions/throttle.js ***!
+  \**************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   throttle: () => (/* binding */ throttle)
+/* harmony export */ });
+const throttle = function (func) {
+  let delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 250;
+  let isThrottled = false;
+  let savedArgs = null;
+  let savedThis = null;
+  return function wrap() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (isThrottled) {
+      savedArgs = args, savedThis = this;
+      return;
+    }
+    func.apply(this, args);
+    isThrottled = true;
+    setTimeout(() => {
+      isThrottled = false;
+      if (savedThis) {
+        wrap.apply(savedThis, savedArgs);
+        savedThis = null;
+        savedArgs = null;
+      }
+    }, delay);
+  };
 };
 
 /***/ })

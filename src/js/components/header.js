@@ -1,3 +1,5 @@
+import { throttle } from "./../functions/throttle.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const sections = Array.from(document.querySelectorAll("[data-header]"));
 
@@ -39,8 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    window.addEventListener("scroll", updateHeaderClass);
-    window.addEventListener("resize", updateHeaderClass);
+    let throttledUpdate = throttle(updateHeaderClass);
+
+    window.addEventListener("scroll", throttledUpdate);
+    window.addEventListener("resize", throttledUpdate);
 
     // Запускаем один раз при загрузке страницы
     updateHeaderClass();
