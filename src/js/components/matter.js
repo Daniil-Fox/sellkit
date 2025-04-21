@@ -159,13 +159,19 @@ elements.forEach((element) => {
   container.appendChild(htmlEl);
   htmlElements.push(htmlEl);
 
+  // Создаем тело с начальной позицией
   const body = createRoundedRectangle(
     Math.random() * (container.offsetWidth - 200) + 100,
-    50, // Все блоки размещаются в верхней части canvas
+    Math.max(25, 50), // Позволяет установить объекты гарантированно ниже потолка
     htmlEl.offsetWidth,
     htmlEl.offsetHeight,
     50
   );
+
+  // Проверяем, чтобы тело было ниже потолка
+  if (body.position.y < 20) {
+    Body.setPosition(body, { x: body.position.x, y: 20 });
+  }
 
   bodies.push(body);
 });

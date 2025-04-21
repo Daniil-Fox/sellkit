@@ -21604,6 +21604,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_matter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/matter.js */ "./src/js/components/matter.js");
 /* harmony import */ var _components_cards_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/cards.js */ "./src/js/components/cards.js");
 /* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/js/components/header.js");
+/* harmony import */ var _components_delivery_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/delivery.js */ "./src/js/components/delivery.js");
+
 
 
 
@@ -21675,6 +21677,72 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   filterCards("all");
 });
+
+/***/ }),
+
+/***/ "./src/js/components/delivery.js":
+/*!***************************************!*\
+  !*** ./src/js/components/delivery.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const deliveryItems = document.querySelectorAll(".d-item");
+if (deliveryItems.length > 0) {
+  function clearActive(cur) {
+    deliveryItems.forEach(item => {
+      if (item == cur) return;
+      item.classList.remove("active");
+      const content = item.querySelector(".d-item__text");
+      const topContent = item.querySelector(".d-item__top");
+      content.style.maxHeight = content.scrollHeight + "px";
+      function contentHide() {
+        topContent.style.display = "grid";
+        setTimeout(() => {
+          topContent.style.opacity = 1;
+        }, 0);
+        content.removeEventListener("transitionend", contentHide);
+      }
+      content.style.maxHeight = null;
+      content.addEventListener("transitionend", contentHide);
+    });
+  }
+  deliveryItems.forEach(item => {
+    const btn = item.querySelector(".d-item__btn");
+    const content = item.querySelector(".d-item__text");
+    const topContent = item.querySelector(".d-item__top");
+    if (item.classList.contains("active")) {
+      topContent.style.display = "none";
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      clearActive(item);
+      let isActive = item.classList.toggle("active");
+      if (isActive) {
+        function onTransitionEnd() {
+          topContent.style.display = "none";
+          content.style.maxHeight = content.scrollHeight + "px";
+          topContent.removeEventListener("transitionend", onTransitionEnd);
+        }
+        topContent.style.opacity = 0;
+        topContent.addEventListener("transitionend", onTransitionEnd);
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        function contentHide() {
+          topContent.style.display = "grid";
+          setTimeout(() => {
+            topContent.style.opacity = 1;
+          }, 0);
+          content.removeEventListener("transitionend", contentHide);
+        }
+        content.style.maxHeight = null;
+        content.addEventListener("transitionend", contentHide);
+      }
+    });
+  });
+}
 
 /***/ }),
 
@@ -21894,9 +21962,19 @@ elements.forEach(element => {
   htmlEl.contentEditable = "true";
   container.appendChild(htmlEl);
   htmlElements.push(htmlEl);
-  const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, 50,
-  // Все блоки размещаются в верхней части canvas
+
+  // Создаем тело с начальной позицией
+  const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, Math.max(25, 50),
+  // Позволяет установить объекты гарантированно ниже потолка
   htmlEl.offsetWidth, htmlEl.offsetHeight, 50);
+
+  // Проверяем, чтобы тело было ниже потолка
+  if (body.position.y < 20) {
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
+      x: body.position.x,
+      y: 20
+    });
+  }
   bodies.push(body);
 });
 
@@ -22029,13 +22107,29 @@ document.addEventListener("mouseup", e => {
 });
 const orealZone = document.querySelectorAll("[data-mouse-oreal]");
 const blueZone = document.querySelectorAll("[data-mouse-blue]");
+const oreal = document.querySelector("#oreal");
 if (orealZone.length > 0) {
   orealZone.forEach(el => {
-    el.addEventListener("mouseenter", e => {
-      mouseElem.classList.add("oreal");
+    const oreal = document.createElement("div");
+    oreal.classList.add("oreal");
+    el.style.position = "relative"; // чтобы абсолют позиционировался относительно этого блока
+    el.append(oreal);
+
+    // Размеры элемента oreal для центрирования
+    const orealWidth = oreal.clientWidth; // установи так, как у тебя в CSS
+    const orealHeight = oreal.clientHeight;
+    el.addEventListener("mouseenter", () => {
+      oreal.style.opacity = "1";
     });
-    el.addEventListener("mouseleave", e => {
-      mouseElem.classList.remove("oreal");
+    el.addEventListener("mouseleave", () => {
+      oreal.style.opacity = "0";
+    });
+    el.addEventListener("mousemove", e => {
+      const rect = el.getBoundingClientRect();
+      // Координаты курсора относительно блока
+      const x = e.clientX - rect.left - orealWidth / 2;
+      const y = e.clientY - rect.top - orealHeight / 2;
+      oreal.style.transform = `translate(${x}px, ${y}px)`;
     });
   });
 }
@@ -22424,6 +22518,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_burger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions/burger.js */ "./src/js/functions/burger.js");
 
 
+const svgPaths = document.querySelectorAll(".spider path");
+if (svgPaths.length > 0) {
+  const items = document.querySelectorAll(".integrate__item");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        svgPaths.forEach(path => {
+          path.style.animation = "draw 5s forwards 0.4s";
+        });
+        items.forEach(item => {
+          item.style.opacity = 1;
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.9
+  });
+  observer.observe(document.querySelector(".spider"));
+}
 })();
 
 /******/ })()

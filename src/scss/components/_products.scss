@@ -3,19 +3,33 @@
   padding: 100px 0 149px;
   padding-top: 96px;
   background-color: #000e2b;
-  background-image: url("./../img/cubes.webp");
+
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image: url("./../img/cubes.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    mix-blend-mode: screen;
+  }
   &__header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
-
+    position: relative;
+    z-index: 6;
     margin-bottom: 28px;
   }
   &__main {
+    position: relative;
+    z-index: 6;
     &:not(:last-child) {
       margin-bottom: 100px;
     }

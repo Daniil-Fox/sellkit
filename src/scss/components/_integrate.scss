@@ -1,0 +1,144 @@
+.integrate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  padding: 100px 40px;
+
+  &__left,
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 150px;
+  }
+  &__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__line {
+    display: flex;
+    gap: 24px;
+  }
+  &__mid {
+    display: flex;
+    justify-content: center;
+  }
+  &__item {
+    position: absolute;
+    width: 100px;
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+    transition: 0.5s ease-in;
+
+    &--logo {
+      position: static;
+      width: 230px;
+      opacity: 1;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &--1 {
+      top: 0px;
+      left: 0;
+    }
+    &--2 {
+      top: 0;
+      left: 124px;
+    }
+    &--3 {
+      top: 0;
+      left: 248px;
+    }
+
+    &--4 {
+      left: 124px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--5 {
+      bottom: 0px;
+      left: 0;
+    }
+    &--6 {
+      bottom: 0;
+      left: 124px;
+    }
+    &--7 {
+      bottom: 0;
+      left: 248px;
+    }
+
+    &--8 {
+      top: 0px;
+      right: 248px;
+    }
+    &--9 {
+      top: 0;
+      right: 124px;
+    }
+    &--10 {
+      top: 0;
+      right: 0;
+    }
+
+    &--11 {
+      right: 124px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--12 {
+      bottom: 0px;
+
+      right: 248px;
+    }
+    &--13 {
+      bottom: 0;
+      right: 124px;
+    }
+    &--14 {
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.spider {
+  &__left {
+    margin-right: 7px;
+    margin-top: 10px;
+    svg {
+      width: 100%;
+      height: 100%;
+      path {
+        stroke-dasharray: 1000; /* Должно быть больше, чем длина пути */
+        stroke-dashoffset: 1000; /* Начальное значение для "скрытия" пути */
+      }
+    }
+  }
+  &__right {
+    margin-left: 7px;
+    margin-top: 2px;
+    svg {
+      width: 100%;
+      height: 100%;
+      path {
+        stroke-dasharray: 1000; /* Должно быть больше, чем длина пути */
+        stroke-dashoffset: 1000; /* Начальное значение для "скрытия" пути */
+      }
+    }
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0; /* Убираем смещение для отображения пути */
+  }
+}

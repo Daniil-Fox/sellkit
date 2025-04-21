@@ -1,6 +1,8 @@
 .prod-slider {
   width: 100%;
   overflow: visible;
+  position: relative;
+  z-index: 6;
   &__img {
     position: absolute;
     left: 0;

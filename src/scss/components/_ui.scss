@@ -130,3 +130,19 @@
     border-color: #fff;
   }
 }
+
+.oreal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 130px;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  filter: blur(60px);
+  background-color: #006aff;
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.3s ease-in;
+}

@@ -16,6 +16,10 @@
   line-height: 100%;
   text-transform: uppercase;
   color: #001840;
+
+  &--white {
+    color: #fff;
+  }
 }
 .title3 {
   margin: 0;
@@ -45,4 +49,7 @@
   font-size: 16px;
   line-height: 140%;
   color: #001840;
+  &--white {
+    color: #fff;
+  }
 }

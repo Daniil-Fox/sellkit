@@ -1,0 +1,234 @@
+.d-item {
+  padding: 20px 36px;
+  padding-bottom: 23px;
+  padding-right: 104px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: flex-start;
+  gap: 44px;
+  position: relative;
+  transition: backdrop-filter 0.5s ease-in, background-color 0.5s ease-in,
+    border-radius 0.5s ease-in;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    span {
+      font-family: var(--second-family);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 140%;
+      text-transform: uppercase;
+      color: #7a8fb9;
+      opacity: 0.6;
+      white-space: nowrap;
+    }
+  }
+  &__video {
+    padding-left: 10px;
+    padding-right: 9px;
+  }
+  &__content {
+    grid-column: 2 span;
+    display: grid;
+    align-self: flex-end;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 44px;
+  }
+  &__top {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 44px;
+    grid-column: 2 span;
+    max-width: 100%;
+    transition: 0.2s ease-in;
+
+    .plug {
+      flex: 1;
+    }
+  }
+  &__text {
+    grid-column: 2 span;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 44px;
+    padding-top: 5px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in;
+    will-change: max-height;
+  }
+
+  &__wrapper {
+    width: 100%;
+    height: 322px;
+    border-radius: 12px;
+    background-color: #15316c;
+    overflow: hidden;
+    position: relative;
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__play {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: #fff;
+      transition: opacity 0.3s ease-in;
+    }
+    @include hover {
+      svg {
+        opacity: 0.7;
+      }
+    }
+    &:active {
+      svg {
+        opacity: 0.7;
+      }
+    }
+    &:focus {
+      svg {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: 24px;
+    right: 48px;
+    width: 20px;
+    aspect-ratio: 1 / 1;
+
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+
+      &:last-child {
+        opacity: 0;
+      }
+    }
+
+    @include hover {
+      svg {
+        opacity: 0.3;
+      }
+    }
+  }
+  &__title {
+    margin: 0;
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  &__desc {
+    margin: 0;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    color: #fff;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__excerpt {
+    grid-column-start: 2;
+    max-width: 400px;
+    padding-left: 29px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #fff;
+  }
+
+  &.active {
+    backdrop-filter: blur(20px);
+    background-color: rgba(0, 14, 43, 0.4);
+    border-radius: 20px;
+    padding-top: 27px;
+    padding-bottom: 27px;
+    .d-item__btn {
+      svg {
+        &:first-child {
+          opacity: 0;
+          transform: rotate(45deg);
+        }
+        &:last-child {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.d-ben {
+  padding-left: 26px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 23px;
+    background-image: url("./../img/star-single.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &:not(:last-child) {
+    margin-bottom: 19px;
+  }
+  &__capture {
+    margin: 0;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 140%;
+    color: #fff;
+  }
+
+  &__text {
+    margin: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: rgba(255, 255, 255, 0.6);
+    p {
+      margin: 0;
+    }
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+  }
+}

@@ -51,13 +51,33 @@ document.addEventListener("mouseup", (e) => {
 
 const orealZone = document.querySelectorAll("[data-mouse-oreal]");
 const blueZone = document.querySelectorAll("[data-mouse-blue]");
+const oreal = document.querySelector("#oreal");
 if (orealZone.length > 0) {
   orealZone.forEach((el) => {
-    el.addEventListener("mouseenter", (e) => {
-      mouseElem.classList.add("oreal");
+    const oreal = document.createElement("div");
+    oreal.classList.add("oreal");
+
+    el.style.position = "relative"; // чтобы абсолют позиционировался относительно этого блока
+    el.append(oreal);
+
+    // Размеры элемента oreal для центрирования
+    const orealWidth = oreal.clientWidth; // установи так, как у тебя в CSS
+    const orealHeight = oreal.clientHeight;
+
+    el.addEventListener("mouseenter", () => {
+      oreal.style.opacity = "1";
     });
-    el.addEventListener("mouseleave", (e) => {
-      mouseElem.classList.remove("oreal");
+
+    el.addEventListener("mouseleave", () => {
+      oreal.style.opacity = "0";
+    });
+
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      // Координаты курсора относительно блока
+      const x = e.clientX - rect.left - orealWidth / 2;
+      const y = e.clientY - rect.top - orealHeight / 2;
+      oreal.style.transform = `translate(${x}px, ${y}px)`;
     });
   });
 }

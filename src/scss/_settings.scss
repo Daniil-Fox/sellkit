@@ -12,6 +12,11 @@
 }
 html {
   cursor: none;
+  font-size: calc(100vw / 192);
+
+  @media (min-width: 1920px) {
+    font-size: 10px;
+  }
 }
 * {
   cursor: none !important;
