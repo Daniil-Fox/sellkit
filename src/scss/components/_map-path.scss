@@ -1,0 +1,79 @@
+.map-path {
+  width: 164px;
+  height: 420px;
+  position: absolute;
+  bottom: 109px;
+  right: 63px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  &__from,
+  &__to {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  &__from {
+    bottom: -8px;
+    right: -13px;
+  }
+  &__to {
+    left: -33px;
+    top: 41px;
+    width: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #3c3c3c;
+    svg {
+      height: 100%;
+    }
+  }
+  &__path {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-height: 0;
+    overflow: hidden;
+
+    svg {
+      flex-shrink: 0;
+      width: 100%;
+    }
+  }
+}
+/* Animation classes */
+.map-path.animate .map-path__from {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.map-path.animate .map-path__path {
+  animation: drawPath 1.5s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+.map-path.animate .map-path__to {
+  animation: scaleIn 0.6s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drawPath {
+  to {
+    max-height: 500px;
+  }
+}

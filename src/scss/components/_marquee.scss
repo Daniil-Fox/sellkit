@@ -1,0 +1,35 @@
+.marquee {
+  --m-gap: 38px;
+
+  display: flex;
+  gap: var(--m-gap);
+  min-width: 100%;
+  width: 100%;
+  &__row {
+    display: flex;
+    gap: var(--m-gap);
+    min-width: 100%;
+    flex-shrink: 0;
+    gap: 38px;
+
+    animation: marquee 80s linear infinite;
+  }
+  &__item {
+    flex-shrink: 0;
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 154px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: #fff;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

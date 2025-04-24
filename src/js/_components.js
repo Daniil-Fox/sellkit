@@ -5,3 +5,4 @@ import "./components/matter.js";
 import "./components/cards.js";
 import "./components/header.js";
 import "./components/delivery.js";
+import "./components/aos.js";

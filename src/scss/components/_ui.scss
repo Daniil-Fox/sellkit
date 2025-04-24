@@ -76,6 +76,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: url("./../img/star.svg");
   }
 }
 .burger {
@@ -84,6 +85,8 @@
 
 .mouse {
   position: fixed;
+  left: 0;
+  top: 0;
   z-index: 999999;
   width: 16px;
   height: 16px;

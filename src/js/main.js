@@ -27,3 +27,27 @@ if (svgPaths.length > 0) {
 
   observer.observe(document.querySelector(".spider"));
 }
+
+const mapPath = document.querySelector(".map-path");
+
+if (mapPath) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("animate");
+            observer.unobserve(entry.target);
+          }, 500);
+        }
+      });
+    },
+    {
+      threshold: 1,
+    }
+  );
+
+  document.querySelectorAll(".map-path").forEach((path) => {
+    observer.observe(path);
+  });
+}

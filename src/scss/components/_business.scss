@@ -1,0 +1,68 @@
+.business {
+  background-color: #006aff;
+  overflow: hidden;
+  &__header {
+    padding: 35px 0;
+    min-height: 720px;
+    background-image: url("./../img/business.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(#000, 0.5);
+    }
+  }
+  &__label {
+    margin-top: 7px;
+    gap: 10px;
+    padding-right: 17px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  &__title {
+    grid-column: 2 span;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    position: relative;
+    z-index: 4;
+  }
+  &__label {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.17);
+
+    &::before {
+      background-image: url("./../img/star.svg");
+    }
+  }
+  &__body {
+    padding: 40px 0;
+    margin-bottom: 43px;
+  }
+  &__items {
+    position: relative;
+    z-index: 5;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+
+    .loyal-item {
+      &:first-child {
+        grid-column-start: 2;
+      }
+    }
+  }
+  &__marquee {
+    margin-bottom: -23px;
+  }
+}

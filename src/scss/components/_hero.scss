@@ -9,7 +9,7 @@
   justify-content: center;
   position: relative;
   // padding-top: 30.65vh;
-  padding-top: 5.5vh;
+  padding-top: 6vh;
   &::before,
   &::after {
     content: "";
@@ -119,6 +119,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 3px;
   }
 
   &__content {
@@ -142,7 +143,7 @@
     margin-bottom: 24px;
   }
   &__title {
-    margin-bottom: 0.7rem;
+    margin-bottom: 10px;
   }
   &__btn {
     padding: 15px 58px 17px;
