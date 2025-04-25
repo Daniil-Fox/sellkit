@@ -1,0 +1,77 @@
+.plans {
+  padding: 54px 0;
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    gap: 10px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-right: 17px;
+  }
+
+  &__desc {
+    max-width: 350px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: right;
+    color: #001840;
+    p {
+      margin: 0;
+    }
+  }
+  &__title {
+    margin-bottom: 10px;
+    font-size: 70px;
+  }
+  &__tabs {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__tab {
+    padding: 10px 24px;
+    padding-right: 25px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 130%;
+    color: #000e2b;
+    border-radius: 100px;
+    background-color: #f1f5f9;
+    position: relative;
+    &.active {
+      color: #fff;
+      background-color: #006aff;
+    }
+
+    &:not(:first-child) {
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        top: -7px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background-color: #fe9861;
+        background-image: url("./../img/!.svg");
+        background-size: 5px 9px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
