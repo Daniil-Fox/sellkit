@@ -1,5 +1,7 @@
 .cta {
   &__form {
+    position: relative;
+    z-index: 9;
     max-width: 452px;
     .form__fields {
       max-width: 438px;
