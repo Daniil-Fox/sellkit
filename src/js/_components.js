@@ -7,3 +7,4 @@ import "./components/header.js";
 import "./components/delivery.js";
 import "./components/romb.js";
 import "./components/aos.js";
+import "./components/faq.js";

@@ -45,9 +45,27 @@
     border-radius: 100px;
     background-color: #f1f5f9;
     position: relative;
+    transition: color 0.3s ease-in, background-color 0.3s ease-in;
+    @include hover {
+      background-color: #006aff;
+      color: #fff;
+      &::after {
+        transform: scale(1.2) translate(4px, -4px);
+      }
+    }
+    &:focus {
+      background-color: #398cff;
+      color: #fff;
+      &::after {
+        transform: scale(1.2) translate(4px, -4px);
+      }
+    }
     &.active {
       color: #fff;
       background-color: #006aff;
+      &::after {
+        transform: scale(1.2) translate(4px, -4px);
+      }
     }
 
     &:not(:first-child) {
@@ -65,6 +83,7 @@
         background-size: 5px 9px;
         background-position: center;
         background-repeat: no-repeat;
+        transition: transform 0.3s ease-in;
       }
     }
   }
@@ -73,5 +92,18 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+  }
+  &__bottom {
+    margin-top: 23px;
+  }
+  &__btn {
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    padding: 15.5px 55px 14px;
   }
 }

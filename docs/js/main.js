@@ -104721,6 +104721,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_delivery_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/delivery.js */ "./src/js/components/delivery.js");
 /* harmony import */ var _components_romb_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/romb.js */ "./src/js/components/romb.js");
 /* harmony import */ var _components_aos_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/aos.js */ "./src/js/components/aos.js");
+/* harmony import */ var _components_faq_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/faq.js */ "./src/js/components/faq.js");
+
 
 
 
@@ -104903,6 +104905,40 @@ if (deliveryItems.length > 0) {
         content.addEventListener("transitionend", onContentClose);
       }
     });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/components/faq.js":
+/*!**********************************!*\
+  !*** ./src/js/components/faq.js ***!
+  \**********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const faqItems = document.querySelectorAll(".faq-item");
+if (faqItems.length > 0) {
+  function clearActive(cur) {
+    faqItems.forEach(item => {
+      if (item == cur) return;
+      item.querySelector(".faq-item__content").style.maxHeight = null;
+      item.classList.remove("active");
+    });
+  }
+  faqItems.forEach(item => {
+    const btn = item.querySelector(".faq-item__header");
+    const content = item.querySelector(".faq-item__content");
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      let isActive = item.classList.toggle("active");
+      clearActive(item);
+      content.style.maxHeight = isActive ? content.scrollHeight + "px" : null;
+    });
+    if (item.classList.contains("active")) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
   });
 }
 
