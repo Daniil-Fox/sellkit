@@ -24,7 +24,7 @@ if (deliveryItems.length > 0) {
   }
 
   deliveryItems.forEach((item) => {
-    const btn = item.querySelector(".d-item__btn");
+    const btn = item.querySelector(".d-item__header");
     const content = item.querySelector(".d-item__text");
     const topContent = item.querySelector(".d-item__top");
 
