@@ -23,9 +23,11 @@ html {
 }
 .page__body {
   margin: 0;
-  min-width: 360px;
+  min-width: 320px;
   min-height: 100%;
   font-size: 16px;
+
+  background-size: 100% auto;
 }
 
 img {
@@ -40,6 +42,9 @@ a {
 
 .site-container {
   overflow: hidden; // если используете на сайте position: sticky - уберите эту настройку
+  background-color: #fff;
+  background-image: url("./../img/cubes2.webp");
+  background-size: 100% auto;
 }
 
 .is-hidden {
