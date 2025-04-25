@@ -1,0 +1,82 @@
+.cta {
+  &__form {
+    max-width: 452px;
+    .form__fields {
+      max-width: 438px;
+    }
+  }
+
+  &__content {
+    padding: 40px;
+    padding-left: 72px;
+    padding-top: 35px;
+    border-radius: 20px;
+    background-color: #006aff;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: -799px;
+      bottom: -963px;
+      width: 1692px;
+      aspect-ratio: 1 / 1;
+      background-image: url("./../img/phones/star.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &__phone {
+    position: absolute;
+    &--1 {
+      z-index: 3;
+      left: -9px;
+      bottom: 7px;
+      width: 18.8%;
+      height: 94.81865%;
+
+      transform: rotate(13.51deg);
+
+      background-image: url("./../img/phones/01.webp");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    &--2 {
+      left: 15.9%;
+      bottom: -19%;
+      width: 15.1%;
+      height: 77.02936%;
+      transform: rotate(-15.92deg);
+      background-image: url("./../img/phones/02.webp");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    &--3 {
+      z-index: 3;
+      right: 3.8%;
+      bottom: -9.7%;
+      width: 20.08%;
+      height: 102.42%;
+      transform: rotate(-6.83deg);
+      background-image: url("./../img/phones/03.webp");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 70px;
+  }
+  &__wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
