@@ -8,7 +8,7 @@
   gap: 44px;
   position: relative;
   transition: backdrop-filter 0.5s ease-in, background-color 0.5s ease-in,
-    border-radius 0.5s ease-in;
+    border-radius 0.5s ease-in, padding 0.2s ease;
   &:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
