@@ -1,0 +1,44 @@
+.footer {
+  padding: 24px 0 32px;
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    svg {
+      fill: #006aff;
+
+      .kit {
+        fill: #001840;
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &__link {
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 140%;
+    text-transform: uppercase;
+    text-align: center;
+    color: #001840;
+
+    &--up {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #006aff;
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+}

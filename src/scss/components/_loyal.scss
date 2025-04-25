@@ -6,16 +6,25 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
-
+    position: relative;
     margin-bottom: 39px;
   }
-
-  &__title {
+  &__heading {
     grid-column: 2 span;
   }
-
+  &__title {
+  }
+  &__canvas {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    transform: translate(-20%, -10%);
+    width: 550px;
+    height: 550px;
+  }
   &__btn {
-    margin-top: 7px;
+    margin-bottom: 10px;
     padding-top: 11px;
     padding-bottom: 11px;
     padding-right: 18px;
@@ -52,7 +61,7 @@
 
 .loyal-wrapper {
   background-color: #fff;
-  background-image: url("./../img/cubes2.webp");
+  // background-image: url("./../img/cubes2.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
