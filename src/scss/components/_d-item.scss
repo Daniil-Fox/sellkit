@@ -12,7 +12,9 @@
   &:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-
+  @include hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
   &__header {
     display: flex;
     align-items: center;
