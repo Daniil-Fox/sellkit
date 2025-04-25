@@ -188,7 +188,10 @@
   &.active {
     backdrop-filter: blur(20px);
     background-color: rgba(0, 14, 43, 0.4);
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
+    &:first-child {
+      border-radius: 20px;
+    }
     .d-item__btn {
       svg {
         &:first-child {
