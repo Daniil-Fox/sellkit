@@ -104722,6 +104722,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_romb_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/romb.js */ "./src/js/components/romb.js");
 /* harmony import */ var _components_aos_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/aos.js */ "./src/js/components/aos.js");
 /* harmony import */ var _components_faq_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/faq.js */ "./src/js/components/faq.js");
+/* harmony import */ var _components_plans_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/plans.js */ "./src/js/components/plans.js");
+
 
 
 
@@ -105338,6 +105340,34 @@ if (blueZone.length > 0) {
     });
     el.addEventListener("mouseleave", e => {
       mouseElem.classList.remove("white");
+    });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/components/plans.js":
+/*!************************************!*\
+  !*** ./src/js/components/plans.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const planTabs = document.querySelectorAll(".plans__tab");
+if (planTabs.length > 0) {
+  const planContent = document.querySelectorAll(".plans__content");
+  const clearActive = () => {
+    planContent.forEach(el => el.classList.add("hidden"));
+    planTabs.forEach(el => el.classList.remove("active"));
+  };
+  planTabs.forEach(tab => {
+    tab.addEventListener("click", e => {
+      e.preventDefault();
+      clearActive();
+      const type = tab.dataset.planTab;
+      tab.classList.add("active");
+      document.querySelector(`.plans__content[data-plan=${type}]`).classList.remove("hidden");
     });
   });
 }
