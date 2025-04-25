@@ -34,6 +34,8 @@
   }
 
   &__label {
+    position: relative;
+    z-index: 3;
     padding: 6px 17px 4.5px 18px;
     font-family: var(--font-family);
     font-weight: 400;

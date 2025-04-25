@@ -7,8 +7,7 @@
   align-items: flex-start;
   gap: 44px;
   position: relative;
-  transition: backdrop-filter 0.5s ease-in, background-color 0.5s ease-in,
-    border-radius 0.5s ease-in;
+  transition: backdrop-filter 0.5s ease-in, background-color 0.5s ease-in;
   &:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
@@ -188,10 +187,7 @@
   &.active {
     backdrop-filter: blur(20px);
     background-color: rgba(0, 14, 43, 0.4);
-    border-radius: 0 0 20px 20px;
-    &:first-child {
-      border-radius: 20px;
-    }
+
     .d-item__btn {
       svg {
         &:first-child {
