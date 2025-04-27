@@ -104771,7 +104771,7 @@ aos__WEBPACK_IMPORTED_MODULE_0__.init({
   // Global settings:
   disable: false,
   // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
-  startEvent: "DOMContentLoaded",
+  startEvent: "load",
   // name of the event dispatched on the document, that AOS should initialize on
   initClassName: "aos-init",
   // class applied after initialization
@@ -104791,7 +104791,7 @@ aos__WEBPACK_IMPORTED_MODULE_0__.init({
   // offset (in px) from the original trigger point
   delay: 0,
   // values from 0 to 3000, with step 50ms
-  duration: 700,
+  duration: 800,
   // values from 0 to 3000, with step 50ms
   easing: "ease",
   // default easing for AOS animations
@@ -104800,6 +104800,9 @@ aos__WEBPACK_IMPORTED_MODULE_0__.init({
   mirror: false,
   // whether elements should animate out while scrolling past them
   anchorPlacement: "center-center" // defines which position of the element regarding to window should trigger the animation
+});
+window.addEventListener("load", function () {
+  aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
 });
 
 /***/ }),
@@ -105917,22 +105920,26 @@ __webpack_require__.r(__webpack_exports__);
 const svgPaths = document.querySelectorAll(".spider path");
 if (svgPaths.length > 0) {
   const items = document.querySelectorAll(".integrate__item");
+  const logo = document.querySelector(".int-logo");
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        svgPaths.forEach(path => {
-          path.style.animation = "draw 5s forwards 0.4s";
-        });
-        items.forEach(item => {
-          item.style.opacity = 1;
-        });
-        observer.unobserve(entry.target);
+        logo.classList.add("animate");
+        setTimeout(() => {
+          svgPaths.forEach(path => {
+            path.style.animation = "draw 8s forwards 0.4s";
+          });
+          items.forEach(item => {
+            item.style.opacity = 1;
+          });
+          observer.unobserve(entry.target);
+        }, 1300);
       }
     });
   }, {
-    threshold: 0.9
+    threshold: 1
   });
-  observer.observe(document.querySelector(".spider"));
+  observer.observe(logo);
 }
 const mapPath = document.querySelector(".map-path");
 if (mapPath) {
@@ -105942,7 +105949,7 @@ if (mapPath) {
         setTimeout(() => {
           entry.target.classList.add("animate");
           observer.unobserve(entry.target);
-        }, 500);
+        }, 1000);
       }
     });
   }, {

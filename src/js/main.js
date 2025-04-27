@@ -5,27 +5,30 @@ const svgPaths = document.querySelectorAll(".spider path");
 
 if (svgPaths.length > 0) {
   const items = document.querySelectorAll(".integrate__item");
-
+  const logo = document.querySelector(".int-logo");
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          svgPaths.forEach((path) => {
-            path.style.animation = "draw 5s forwards 0.4s";
-          });
-          items.forEach((item) => {
-            item.style.opacity = 1;
-          });
-          observer.unobserve(entry.target);
+          logo.classList.add("animate");
+          setTimeout(() => {
+            svgPaths.forEach((path) => {
+              path.style.animation = "draw 8s forwards 0.4s";
+            });
+            items.forEach((item) => {
+              item.style.opacity = 1;
+            });
+            observer.unobserve(entry.target);
+          }, 1300);
         }
       });
     },
     {
-      threshold: 0.9,
+      threshold: 1,
     }
   );
 
-  observer.observe(document.querySelector(".spider"));
+  observer.observe(logo);
 }
 
 const mapPath = document.querySelector(".map-path");
@@ -38,7 +41,7 @@ if (mapPath) {
           setTimeout(() => {
             entry.target.classList.add("animate");
             observer.unobserve(entry.target);
-          }, 500);
+          }, 1000);
         }
       });
     },

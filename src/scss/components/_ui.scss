@@ -149,3 +149,18 @@
 
   transition: opacity 0.3s ease-in;
 }
+
+[data-aos="draw-plus"] {
+  &::after {
+    transform: scale(0.3);
+    transition-property: transform, opacity;
+    transition-duration: inherit;
+    transition-delay: inherit;
+  }
+
+  &.aos-animate {
+    &::after {
+      transform: scale(1);
+    }
+  }
+}

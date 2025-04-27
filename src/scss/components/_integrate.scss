@@ -31,11 +31,12 @@
     width: 100px;
     aspect-ratio: 1 / 1;
     opacity: 0;
-    transition: 0.5s ease-in;
-
+    transition: 0.6s ease-in-out;
+    transition-delay: 1.2s;
     &--logo {
       position: static;
       width: 230px;
+      aspect-ratio: 1 / 1;
       opacity: 1;
     }
     img {
@@ -108,6 +109,21 @@
       bottom: 0;
       right: 0;
     }
+
+    &--3,
+    &--7,
+    &--8,
+    &--12 {
+      transition-delay: 0.2s;
+    }
+
+    &--1,
+    &--5,
+    &--4,
+    &--10,
+    &--14 {
+      transition-delay: 0.7s;
+    }
   }
 }
 
@@ -140,5 +156,95 @@
 @keyframes draw {
   to {
     stroke-dashoffset: 0; /* Убираем смещение для отображения пути */
+  }
+}
+
+.int-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.animate {
+    animation: anim-logo 0.8s ease-in forwards;
+    .int-logo {
+      &__wrapper,
+      &__logo {
+        &::before,
+        &::after {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+  &__wrapper {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      border-radius: 40px;
+      z-index: -3;
+      inset: -39px;
+      background-color: rgba(0, 106, 255, 0.2);
+      transform: scale(0.2);
+      transition: transform 0.6s ease-in;
+      transition-delay: 0.7s;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 44px;
+      z-index: -4;
+      inset: -54px;
+      background-color: #062963;
+      transform: scale(0.2);
+      transition: transform 0.6s ease-in;
+      transition-delay: 0.8s;
+    }
+  }
+  &__logo {
+    width: 122px;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    transform: scale(0.9);
+    &::before {
+      content: "";
+      position: absolute;
+      border-radius: 24px;
+      z-index: -1;
+      inset: -9px;
+      background-color: #006aff;
+      transform: scale(0.2);
+      transition: transform 0.6s ease-in;
+      transition-delay: 0.5s;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 30px;
+      z-index: -2;
+      inset: -24px;
+      background-color: rgba(0, 106, 255, 0.3);
+      transform: scale(0.2);
+      transition: transform 0.6s ease-in;
+      transition-delay: 0.6s;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+@keyframes anim-logo {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
   }
 }
