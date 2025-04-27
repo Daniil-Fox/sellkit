@@ -1,25 +1,59 @@
 import AOS from "aos";
 
+// Возвращаемся к стандартной реализации AOS с небольшими модификациями
 AOS.init({
-  // Global settings:
-  disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
-  startEvent: "load", // name of the event dispatched on the document, that AOS should initialize on
-  initClassName: "aos-init", // class applied after initialization
-  animatedClassName: "aos-animate", // class applied on animation
-  useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
-  disableMutationObserver: false, // disables automatic mutations' detections (advanced)
-  debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
-  throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
-
-  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
-  offset: 100, // offset (in px) from the original trigger point
-  delay: 0, // values from 0 to 3000, with step 50ms
-  duration: 800, // values from 0 to 3000, with step 50ms
-  easing: "ease", // default easing for AOS animations
-  once: true, // whether animation should happen only once - while scrolling down
-  mirror: false, // whether elements should animate out while scrolling past them
-  anchorPlacement: "center-center", // defines which position of the element regarding to window should trigger the animation
+  offset: 100, // Настраиваем смещение для точного срабатывания
+  delay: 0,
+  duration: 800,
+  easing: "ease",
+  once: true, // Анимация будет срабатывать только один раз
+  mirror: false,
+  anchorPlacement: "top-center", // Привязка к центру вьюпорта
 });
+
+// Добавляем дополнительную проверку загрузки AOS
+document.addEventListener("DOMContentLoaded", function () {
+  // Проверяем, что AOS успешно инициализирован
+  setTimeout(() => {
+    const aosElements = document.querySelectorAll("[data-aos]");
+    console.log("AOS elements found:", aosElements.length);
+
+    // Если AOS не инициализировался должным образом, запускаем обновление
+    if (!document.querySelector(".aos-init")) {
+      console.log("AOS not initialized properly, refreshing...");
+      AOS.refreshHard();
+    }
+
+    // Проверяем стили элементов
+    aosElements.forEach((element) => {
+      if (!element.classList.contains("aos-init")) {
+        element.classList.add("aos-init");
+      }
+    });
+  }, 300);
+});
+
+// Обработчик события прокрутки для ручного обновления видимости
+window.addEventListener(
+  "scroll",
+  function () {
+    AOS.refresh();
+  },
+  { passive: true }
+);
+
+// При загрузке всех ресурсов
 window.addEventListener("load", function () {
-  AOS.refresh();
+  setTimeout(() => {
+    console.log("Window loaded, refreshing AOS");
+    AOS.refresh();
+  }, 100);
+});
+
+// При изменении размера окна
+window.addEventListener("resize", function () {
+  setTimeout(() => {
+    console.log("Window resized, refreshing AOS");
+    AOS.refresh();
+  }, 100);
 });
