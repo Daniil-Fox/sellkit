@@ -23,6 +23,9 @@
       text-align: center;
       justify-content: center;
     }
+    @include small-tablet {
+      margin-bottom: 32px;
+    }
   }
 
   &__label {
@@ -31,6 +34,9 @@
     padding-top: 11px;
     padding-bottom: 11px;
     padding-right: 17px;
+    @include small-tablet {
+      margin-bottom: 8px;
+    }
   }
 
   &__desc {
@@ -40,6 +46,12 @@
     line-height: 140%;
     text-align: right;
     color: #001840;
+    @include small-tablet {
+      font-size: 14px;
+    }
+    @include mobile {
+      font-size: 13px;
+    }
     p {
       margin: 0;
     }
@@ -54,11 +66,20 @@
         display: block;
         margin-bottom: 16px;
       }
+      @include small-tablet {
+        margin-bottom: 15px;
+      }
     }
   }
   &__title {
     margin-bottom: 10px;
     font-size: 70px;
+    @include small-tablet {
+      font-size: 50px;
+    }
+    @include mobile {
+      font-size: 42px;
+    }
   }
   &__tabs {
     display: flex;
@@ -81,7 +102,8 @@
     position: relative;
     transition: color 0.3s ease-in, background-color 0.3s ease-in;
     @include mobile {
-      padding: 5px 14px 1px;
+      padding: 6px 16px;
+      font-size: 12px;
     }
     @include hover {
       background-color: #006aff;
@@ -121,6 +143,10 @@
         background-position: center;
         background-repeat: no-repeat;
         transition: transform 0.3s ease-in;
+        @include mobile {
+          right: -11px;
+          top: -6px;
+        }
       }
     }
   }
@@ -155,6 +181,9 @@
   }
   &__bottom {
     margin-top: 23px;
+    @include small-tablet {
+      margin-top: 31px;
+    }
   }
   &__btn {
     font-family: var(--second-family);
@@ -165,5 +194,11 @@
     text-align: center;
     color: #fff;
     padding: 15.5px 55px 14px;
+    @include mobile {
+      width: 100%;
+      font-size: 26px;
+      padding-top: 17px;
+      padding-bottom: 17px;
+    }
   }
 }

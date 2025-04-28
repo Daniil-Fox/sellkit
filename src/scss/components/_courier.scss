@@ -92,6 +92,9 @@
       padding-top: 158px;
       margin: 0 calc(-1 * var(--container-offset));
     }
+    @include small-tablet {
+      padding-bottom: 78px;
+    }
   }
   &__map {
     position: relative;
@@ -119,6 +122,9 @@
   }
   &__header {
     margin-bottom: 39px;
+    @include tablet {
+      margin-bottom: 46px;
+    }
   }
   &__body {
     grid-column: 2 / 2 span;
@@ -131,5 +137,9 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px 40px;
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
   }
 }
