@@ -7,7 +7,10 @@
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-
+  @include small-tablet {
+    padding-top: 0;
+    padding-bottom: 60px;
+  }
   &::after {
     content: "";
     position: absolute;
@@ -26,16 +29,53 @@
     position: relative;
     z-index: 6;
     margin-bottom: 28px;
+
+    @include tablet {
+      flex-direction: column-reverse;
+      gap: 12px;
+      margin-bottom: 17px;
+    }
   }
   &__main {
     position: relative;
     z-index: 6;
     &:not(:last-child) {
       margin-bottom: 100px;
+      @include tablet {
+        margin-bottom: 60px;
+      }
+      @include small-tablet {
+        margin-bottom: 27px;
+      }
     }
   }
   &__title {
     max-width: 962px;
+    @include tablet {
+      max-width: 100%;
+      width: 100%;
+    }
+    span {
+      span {
+        display: none;
+        @include small-tablet {
+          display: inline;
+        }
+      }
+      @include small-tablet {
+        margin-top: 9px;
+        font-family: var(--font-family);
+        display: block;
+        font-weight: 500;
+        line-height: 130%;
+        text-transform: uppercase;
+        color: #7a8fb9;
+
+        margin-left: auto;
+        font-size: 18px;
+        max-width: 292px;
+      }
+    }
   }
   &__btn {
     font-family: var(--font-family);
@@ -49,6 +89,10 @@
     line-height: 130%;
     text-transform: initial;
     color: #fff;
+
+    @include small-tablet {
+      font-size: 12px;
+    }
   }
 
   &__items {
@@ -63,6 +107,7 @@
     @include tablet {
       flex-direction: column;
       height: auto;
+      margin: 0 calc(-1 * var(--container-offset));
     }
   }
 }
@@ -101,7 +146,8 @@
       position: static;
       flex-direction: row;
       justify-content: flex-start;
-      gap: 16px;
+      gap: 24px;
+      padding: 22px 16px 21px;
     }
   }
 
@@ -134,12 +180,9 @@
 
     @include tablet {
       line-height: 1;
-      font-size: 40px;
+      font-size: 28px;
       transform: none;
       writing-mode: unset;
-    }
-    @include small-tablet {
-      font-size: 28px;
     }
   }
   &__content {
@@ -190,6 +233,10 @@
       transform: rotateZ(0);
       font-size: 32px;
       color: #fff;
+
+      @include tablet {
+        font-size: 28px;
+      }
     }
   }
 }

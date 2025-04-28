@@ -3,19 +3,17 @@
   height: 420px;
   position: absolute;
   bottom: 109px;
-  right: 63px;
+  right: -81px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  @media (max-width: 1440px) {
-    bottom: 320px;
-  }
   @include tablet {
-    bottom: unset;
-    // top: -36%;
-    // right: -15%;
     width: 189px;
     height: 268px;
+  }
+  @include mobile {
+    bottom: 20px;
+    right: -86px;
   }
   &__from,
   &__to {
@@ -37,6 +35,10 @@
         width: 100%;
         height: 100%;
       }
+    }
+    @include mobile {
+      right: 34px;
+      bottom: -3px;
     }
   }
   &__to {

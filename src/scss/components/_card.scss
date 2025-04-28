@@ -11,6 +11,12 @@
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
+    @include small-tablet {
+      border-radius: 15px;
+    }
+    @include mobile {
+      border-radius: 12px;
+    }
   }
   &.hidden {
     opacity: 0;
@@ -32,6 +38,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+
+    @include mobile {
+      left: 5px;
+      top: 5px;
+    }
   }
 
   &__label {
@@ -49,11 +60,24 @@
     background: rgba(255, 255, 255, 0.01);
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 1000px;
+
+    @include small-tablet {
+      font-size: 10px;
+    }
+    @include mobile {
+      font-size: 7px;
+      padding: 3px 9px;
+    }
   }
 
   &__img {
     height: 210px;
-
+    @include small-tablet {
+      height: 150px;
+    }
+    @include mobile {
+      height: 106px;
+    }
     img {
       display: block;
       width: 100%;
@@ -66,6 +90,13 @@
     padding: 33px;
     padding-top: 74px;
     text-align: center;
+
+    @include small-tablet {
+      padding: 60px 12px 30px;
+    }
+    @include mobile {
+      padding: 36px 12px 18px;
+    }
   }
 
   &__icon {
@@ -80,7 +111,14 @@
     overflow: hidden;
     box-shadow: 0 4px 13px 0 rgba(6, 38, 83, 0.11);
     // background: #fff;
-
+    @include small-tablet {
+      width: 80px;
+      height: 80px;
+    }
+    @include mobile {
+      width: 62px;
+      height: 62px;
+    }
     img {
       display: block;
       width: 100%;
@@ -99,6 +137,13 @@
     text-transform: uppercase;
     text-align: center;
     color: #001840;
+    @include small-tablet {
+      font-size: 26px;
+      margin-bottom: 1px;
+    }
+    @include mobile {
+      font-size: 20px;
+    }
   }
 
   &__links {
@@ -106,7 +151,9 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 16px;
-
+    @include small-tablet {
+      gap: 8px;
+    }
     a {
       display: inline-block;
       position: relative;
@@ -116,7 +163,12 @@
       text-transform: uppercase;
       text-decoration-skip-ink: none;
       color: rgba(0, 24, 64, 0.44);
-
+      @include small-tablet {
+        font-size: 13px;
+      }
+      @include mobile {
+        font-size: 10px;
+      }
       &::after {
         content: "";
         position: absolute;

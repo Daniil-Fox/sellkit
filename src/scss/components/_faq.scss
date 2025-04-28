@@ -16,6 +16,10 @@
     justify-content: space-between;
 
     flex-grow: 1;
+
+    @include tablet {
+      display: none;
+    }
   }
 
   &__desc {

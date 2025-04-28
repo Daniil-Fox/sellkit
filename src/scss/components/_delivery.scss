@@ -4,6 +4,9 @@
   padding-bottom: 97px;
   background-color: #000e2b;
   position: relative;
+  @include small-tablet {
+    padding: 60px 0;
+  }
   &__shapes {
     position: absolute;
     inset: 0;
@@ -90,6 +93,12 @@
     @media (max-width: 1260px) {
       display: block;
     }
+    @include small-tablet {
+      margin-bottom: 35px;
+    }
+    @include mobile {
+      margin-bottom: 38px;
+    }
   }
   &__right {
     grid-column: 2 span;
@@ -107,6 +116,14 @@
     @media (max-width: 1260px) {
       font-size: 90px;
       padding-right: 10%;
+    }
+    @include tablet {
+      font-size: 70px;
+    }
+    @include small-tablet {
+      font-size: 50px;
+      line-height: 120%;
+      margin-bottom: 25px;
     }
     @media (max-width: 900px) {
       padding-right: 0;
@@ -126,6 +143,11 @@
           transform: translate(-66px, 25px);
           background-image: url("./../img/stars.svg");
           background-size: contain;
+          @include small-tablet {
+            width: 34px;
+            height: 42px;
+            transform: translate(-48px, 0);
+          }
         }
       }
     }
@@ -138,14 +160,32 @@
     @media (max-width: 1260px) {
       max-width: 100%;
     }
+    @include mobile {
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
   }
   &__btn {
     font-size: 32px;
     padding: 11px 30px 12px;
     padding-right: 31px;
+    @include tablet {
+      font-size: 28px;
+    }
+    @include small-tablet {
+      font-size: 24px;
+    }
+    @include mobile {
+      width: 100%;
+      font-size: 22px;
+      padding-top: 12px;
+    }
   }
   &__items {
     margin-bottom: 100px;
+    @include small-tablet {
+      margin: 0 calc(-1 * var(--container-offset));
+    }
   }
   &__label {
     font-size: 13px;
@@ -156,6 +196,10 @@
     border-color: #fff;
     @media (max-width: 1260px) {
       margin-top: 0;
+    }
+    @include small-tablet {
+      font-size: 12px;
+      margin-bottom: 6px;
     }
     &::before {
       background-image: url("./../img/star.svg");

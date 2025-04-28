@@ -18,6 +18,11 @@
 
     position: relative;
     z-index: 6;
+
+    @media (max-width: 900px) {
+      text-align: center;
+      justify-content: center;
+    }
   }
 
   &__label {
@@ -38,6 +43,18 @@
     p {
       margin: 0;
     }
+    @media (max-width: 900px) {
+      display: none;
+    }
+    &--mob {
+      display: none;
+      max-width: 100%;
+      text-align: center;
+      @media (max-width: 900px) {
+        display: block;
+        margin-bottom: 16px;
+      }
+    }
   }
   &__title {
     margin-bottom: 10px;
@@ -46,6 +63,10 @@
   &__tabs {
     display: flex;
     gap: 8px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
   }
 
   &__tab {
@@ -59,6 +80,9 @@
     background-color: #f1f5f9;
     position: relative;
     transition: color 0.3s ease-in, background-color 0.3s ease-in;
+    @include mobile {
+      padding: 5px 14px 1px;
+    }
     @include hover {
       background-color: #006aff;
       color: #fff;
@@ -106,7 +130,13 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
+    @include small-tablet {
+      grid-template-columns: 1fr;
+    }
     &.hidden {
       opacity: 0;
       transform: scale(0.8);

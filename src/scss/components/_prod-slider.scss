@@ -15,6 +15,9 @@
     border-radius: 20px;
     overflow: hidden;
     background-color: #fff;
+    @include tablet {
+      border-radius: 12px;
+    }
     img {
       display: block;
       width: 100%;
@@ -42,10 +45,23 @@
     background-color: #fff;
     color: #001840;
     transition: background-color 0.3s ease-in, color 0.3s ease-in;
+    @include tablet {
+      width: 26px;
+      height: 26px;
+    }
+    @include mobile {
+      width: 21px;
+      height: 21px;
+    }
     svg {
       fill: currentColor;
       width: 15px;
       height: 12px;
+
+      @include tablet {
+        width: 55%;
+        height: 45%;
+      }
     }
 
     &::before {
@@ -62,6 +78,12 @@
     font-size: 20px;
     line-height: 140%;
     color: #fff;
+    @include tablet {
+      font-size: 16px;
+    }
+    @include mobile {
+      font-size: 12px;
+    }
   }
 
   &__icon {
@@ -73,7 +95,14 @@
     aspect-ratio: 1 / 1;
     border-radius: 9.9px;
     overflow: hidden;
-
+    @include tablet {
+      width: 60px;
+    }
+    @include small-tablet {
+      width: 36px;
+      top: 6px;
+      right: 6px;
+    }
     img {
       display: block;
       width: 100%;
@@ -94,7 +123,15 @@
     justify-content: flex-end;
     padding: 15px;
     transition: transform 0.3s;
-
+    @include tablet {
+      width: 290px;
+    }
+    @include small-tablet {
+      width: 240px;
+    }
+    @include mobile {
+      width: 156px;
+    }
     @include hover {
       transform: translateY(-5px);
 

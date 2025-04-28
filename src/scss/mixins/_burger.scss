@@ -18,6 +18,10 @@
   @include tablet {
     margin: 0;
   }
+  @include small-tablet {
+    --burger-width: 16px;
+    --burger-height: 14px;
+  }
   &::before,
   &::after {
     content: "";

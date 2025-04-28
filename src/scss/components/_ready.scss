@@ -7,6 +7,9 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 33px;
   overflow: hidden;
+  @include tablet {
+    border-radius: 20px;
+  }
   &::before {
     content: "";
     position: absolute;
@@ -67,9 +70,21 @@
     position: relative;
     z-index: 9;
     padding: 73px 99px;
+
+    @media (max-width: 1300px) {
+      padding: 70px 45px;
+    }
+    @include tablet {
+      padding: 31px 20px 12px;
+    }
   }
 
   &__title {
     margin-bottom: 37px;
+
+    @include small-tablet {
+      font-size: 40px;
+      margin-bottom: 3px;
+    }
   }
 }

@@ -43,81 +43,79 @@ const elements = [
   {
     text: "сео-настройки",
     color: "#f86790",
-    fontSize: "32px",
     fontColor: "#ffffff",
   },
   {
     text: "Экспресс-полигоны",
     color: "#81ffd2",
-    fontSize: "32px",
     fontColor: "#001840",
   },
-  { text: "QR-меню", color: "#46caee", fontSize: "32px", fontColor: "#ffffff" },
+  { text: "QR-меню", color: "#46caee", fontColor: "#ffffff" },
   {
     text: "телеграм бот",
     color: "#b0fcff",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
   {
     text: "PUSH-рассылки",
     color: "#ffddd2",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
   {
     text: "Бронирование столика",
     color: "#fff6a9",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
   {
     text: "модификаторы",
     color: "#3828ce",
-    fontSize: "32px",
+
     fontColor: "#ffffff",
   },
   {
     text: "Сегментация",
     color: "#ffc98b",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
-  { text: "отчёты", color: "#f3c7f5", fontSize: "32px", fontColor: "#001840" },
+  { text: "отчёты", color: "#f3c7f5", fontColor: "#001840" },
   {
     text: "Приложение для курьеров",
     color: "#d0e3ff",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
   {
     text: "Промокоды",
     color: "#001840",
-    fontSize: "32px",
+
     fontColor: "#ffffff",
   },
   {
     text: "Авторасчет доставки",
     color: "#c2f6a6",
-    fontSize: "32px",
+
     fontColor: "#001840",
   },
   {
     text: "Предзаказ",
     color: "#b2a9ff",
-    fontSize: "32px",
+
     fontColor: "#ffffff",
   },
   {
     text: "Оценки и отзывы",
     color: "#f68310",
-    fontSize: "32px",
+
     fontColor: "#ffffff",
   },
   {
     text: "Сайт и приложение",
     color: "#ff7370",
-    fontSize: "32px",
+
     fontColor: "#ffffff",
   },
 ];
@@ -165,7 +163,7 @@ elements.forEach((element) => {
     Math.max(25, 50), // Позволяет установить объекты гарантированно ниже потолка
     htmlEl.offsetWidth,
     htmlEl.offsetHeight,
-    50
+    window.matchMedia("(max-width: 1024px)").matches ? 25 : 50
   );
 
   // Проверяем, чтобы тело было ниже потолка

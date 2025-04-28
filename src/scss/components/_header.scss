@@ -22,6 +22,9 @@
     @include tablet {
       order: 4;
     }
+    @include small-tablet {
+      padding-right: 4px;
+    }
   }
   &__logo {
     position: absolute;
@@ -34,6 +37,9 @@
       position: static;
       transform: none;
       order: -1;
+    }
+    @include small-tablet {
+      height: 24px;
     }
     svg {
       height: 100%;
@@ -62,6 +68,9 @@
       margin-left: auto;
       margin-right: 20px;
     }
+    @include small-tablet {
+      margin-right: 24px;
+    }
   }
 
   &__tel {
@@ -88,6 +97,10 @@
         width: 100%;
         opacity: 1;
       }
+    }
+
+    @include small-tablet {
+      font-size: 14px;
     }
   }
 }

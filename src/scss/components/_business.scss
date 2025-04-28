@@ -18,6 +18,11 @@
       inset: 0;
       background: rgba(#000, 0.5);
     }
+
+    @include small-tablet {
+      min-height: 435px;
+      padding: 22px 0;
+    }
   }
   &__label {
     margin-top: 7px;
@@ -25,9 +30,21 @@
     padding-right: 17px;
     padding-top: 11px;
     padding-bottom: 11px;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.17);
+    @include small-tablet {
+      margin: 0;
+      margin-bottom: 12px;
+      &::before {
+        background-image: url("./../img/star-white.svg");
+      }
+    }
   }
   &__title {
     grid-column: 2 span;
+    @include small-tablet {
+      font-size: 42px;
+    }
   }
   &__container {
     display: grid;
@@ -35,18 +52,19 @@
     gap: 40px;
     position: relative;
     z-index: 4;
-  }
-  &__label {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.17);
 
-    &::before {
-      background-image: url("./../img/star.svg");
+    @include small-tablet {
+      display: block;
     }
   }
+
   &__body {
     padding: 40px 0;
     margin-bottom: 43px;
+
+    @include small-tablet {
+      padding-top: 24px;
+    }
   }
   &__items {
     position: relative;
@@ -56,13 +74,26 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px 40px;
 
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+    @include small-tablet {
+      gap: 22px;
+    }
+
     .loyal-item {
       &:first-child {
         grid-column-start: 2;
+        @include tablet {
+          grid-column-start: 1;
+        }
       }
     }
   }
   &__marquee {
     margin-bottom: -23px;
+    @include small-tablet {
+      margin-bottom: -12px;
+    }
   }
 }

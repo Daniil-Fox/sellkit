@@ -20,6 +20,12 @@
     line-height: 100%;
     color: #006aff;
     letter-spacing: 0.005em;
+    @include tablet {
+      font-size: 90px;
+    }
+    @include small-tablet {
+      font-size: 80px;
+    }
   }
   &__title {
     margin: 0;
@@ -30,6 +36,13 @@
     line-height: 100%;
     text-transform: uppercase;
     color: #001840;
+    @include tablet {
+      font-size: 35px;
+    }
+    @include small-tablet {
+      font-size: 30px;
+      margin-bottom: 5px;
+    }
   }
 
   &__desc {
@@ -39,6 +52,12 @@
     font-size: 16px;
     line-height: 140%;
     color: #001840;
+    @include small-tablet {
+      font-size: 14px;
+    }
+    @include mobile {
+      font-size: 13px;
+    }
   }
 
   &--white {

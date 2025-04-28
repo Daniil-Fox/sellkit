@@ -4,6 +4,9 @@
   @include tablet {
     padding-top: 50px;
   }
+  @include small-tablet {
+    padding-top: 20px;
+  }
   &__header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -16,11 +19,26 @@
       flex-direction: column;
       padding-right: 250px;
     }
+    @include small-tablet {
+      padding-right: 0;
+    }
   }
   &__heading {
     grid-column: 2 span;
   }
   &__title {
+    span {
+      @include small-tablet {
+        display: block;
+        max-width: 293px;
+        margin-left: auto;
+        margin-top: 8px;
+        font-family: var(--font-family);
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 130%;
+      }
+    }
   }
   &__canvas {
     position: absolute;
@@ -50,10 +68,18 @@
     &::before {
       background-image: url("./../img/pin.svg");
     }
+    @include tablet {
+      margin-bottom: 8px;
+    }
   }
   &__cover {
     height: 750px;
-
+    @include tablet {
+      height: 600px;
+    }
+    @include small-tablet {
+      height: 530px;
+    }
     img {
       display: block;
       width: 100%;
@@ -66,9 +92,16 @@
     gap: 30px 40px;
     @include tablet {
       grid-template-columns: 1fr;
+      gap: 22px;
     }
     &:not(:last-child) {
       margin-bottom: 98px;
+      @include tablet {
+        margin-bottom: 50px;
+      }
+      @include small-tablet {
+        margin-bottom: 38px;
+      }
     }
   }
 

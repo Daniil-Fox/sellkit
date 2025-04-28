@@ -5,13 +5,14 @@
   gap: var(--m-gap);
   min-width: 100%;
   width: 100%;
+  @include small-tablet {
+    --m-gap: 20px;
+  }
   &__row {
     display: flex;
     gap: var(--m-gap);
     min-width: 100%;
     flex-shrink: 0;
-    gap: 38px;
-
     animation: marquee 80s linear infinite;
   }
   &__item {
@@ -22,6 +23,15 @@
     line-height: 100%;
     text-transform: uppercase;
     color: #fff;
+    @include tablet {
+      font-size: 120px;
+    }
+    @include small-tablet {
+      font-size: 100px;
+    }
+    @include mobile {
+      font-size: 77px;
+    }
   }
 }
 
