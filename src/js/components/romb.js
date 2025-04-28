@@ -232,8 +232,9 @@ function setupEventListeners() {
   renderer.domElement.addEventListener("mouseup", onMouseUp);
   renderer.domElement.addEventListener("mousemove", onMouseMove);
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+
   window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));

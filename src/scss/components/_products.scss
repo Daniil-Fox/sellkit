@@ -59,6 +59,11 @@
     border-radius: 2rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
+
+    @include tablet {
+      flex-direction: column;
+      height: auto;
+    }
   }
 }
 
@@ -71,6 +76,10 @@
   cursor: pointer;
   position: relative;
   transition: flex 0.7s ease-in, background-color 0.4s ease-in;
+  @include tablet {
+    flex: 1 0 auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
   &:not(:last-child) {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
@@ -87,6 +96,13 @@
     padding: 31px 25px 38px;
 
     transition: 0.5s ease-in;
+
+    @include tablet {
+      position: static;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 16px;
+    }
   }
 
   &__num {
@@ -96,6 +112,12 @@
     line-height: 140%;
     color: #7a8fb9;
     white-space: nowrap;
+    @include tablet {
+      font-size: 26px;
+    }
+    @include small-tablet {
+      font-size: 16px;
+    }
   }
   &__title {
     font-family: var(--second-family);
@@ -109,6 +131,16 @@
     white-space: nowrap;
     overflow: hidden;
     transition: color 0.4s ease-in;
+
+    @include tablet {
+      line-height: 1;
+      font-size: 40px;
+      transform: none;
+      writing-mode: unset;
+    }
+    @include small-tablet {
+      font-size: 28px;
+    }
   }
   &__content {
     width: 100%;

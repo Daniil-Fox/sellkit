@@ -7,6 +7,16 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media (max-width: 1440px) {
+    bottom: 320px;
+  }
+  @include tablet {
+    bottom: unset;
+    // top: -36%;
+    // right: -15%;
+    width: 189px;
+    height: 268px;
+  }
   &__from,
   &__to {
     position: absolute;
@@ -17,6 +27,17 @@
   &__from {
     bottom: -8px;
     right: -13px;
+
+    @include tablet {
+      width: 26px;
+      height: 43px;
+      right: 40px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
   &__to {
     left: -33px;
@@ -29,6 +50,12 @@
     justify-content: center;
     padding: 15px;
     background-color: #3c3c3c;
+    @include tablet {
+      width: 40px;
+      padding: 9px;
+      left: 20px;
+      top: 30px;
+    }
     svg {
       height: 100%;
     }
@@ -43,6 +70,20 @@
     svg {
       flex-shrink: 0;
       width: 100%;
+      &:first-child {
+        display: block;
+      }
+      &:last-child {
+        display: none;
+      }
+      @include tablet {
+        &:first-child {
+          display: none;
+        }
+        &:last-child {
+          display: block;
+        }
+      }
     }
   }
 }

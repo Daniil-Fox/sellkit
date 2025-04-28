@@ -96,6 +96,9 @@
   border: 0.5px solid #006aff;
   transition: background-color 0.2s ease-in, transform 0.2s ease-in,
     opacity 0.2s ease-in;
+  @include tablet {
+    display: none;
+  }
   &::before {
     content: "";
     position: absolute;
@@ -148,6 +151,9 @@
   pointer-events: none;
 
   transition: opacity 0.3s ease-in;
+  @include tablet {
+    display: none;
+  }
 }
 
 [data-aos="draw-plus"] {

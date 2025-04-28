@@ -86,6 +86,10 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     margin-bottom: 44px;
+
+    @media (max-width: 1260px) {
+      display: block;
+    }
   }
   &__right {
     grid-column: 2 span;
@@ -99,6 +103,14 @@
     line-height: 100%;
     text-transform: uppercase;
     color: #fff;
+
+    @media (max-width: 1260px) {
+      font-size: 90px;
+      padding-right: 10%;
+    }
+    @media (max-width: 900px) {
+      padding-right: 0;
+    }
     span {
       display: block;
       &:last-child {
@@ -122,6 +134,10 @@
     max-width: 635px;
     margin-bottom: 16px;
     line-height: 1.4;
+
+    @media (max-width: 1260px) {
+      max-width: 100%;
+    }
   }
   &__btn {
     font-size: 32px;
@@ -138,6 +154,9 @@
     gap: 11px;
     color: #fff;
     border-color: #fff;
+    @media (max-width: 1260px) {
+      margin-top: 0;
+    }
     &::before {
       background-image: url("./../img/star.svg");
     }

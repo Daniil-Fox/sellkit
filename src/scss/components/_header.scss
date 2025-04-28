@@ -18,6 +18,10 @@
     display: flex;
     align-items: center;
     gap: 20px;
+
+    @include tablet {
+      order: 4;
+    }
   }
   &__logo {
     position: absolute;
@@ -26,6 +30,11 @@
     transform: translate(-50%, -50%);
     height: 33px;
     width: auto;
+    @include tablet {
+      position: static;
+      transform: none;
+      order: -1;
+    }
     svg {
       height: 100%;
       width: auto;
@@ -37,10 +46,22 @@
     }
   }
 
+  &__nav,
+  &__btn {
+    @include tablet {
+      display: none;
+    }
+  }
+
   &__right {
     display: flex;
     align-items: center;
     gap: 24px;
+
+    @include tablet {
+      margin-left: auto;
+      margin-right: 20px;
+    }
   }
 
   &__tel {

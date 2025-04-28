@@ -14,6 +14,10 @@
   background-color: transparent;
   cursor: pointer;
   transition: color 0.3s ease-in;
+
+  @include tablet {
+    margin: 0;
+  }
   &::before,
   &::after {
     content: "";

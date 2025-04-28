@@ -1,13 +1,21 @@
 .loyal {
   padding-bottom: 0;
   padding-top: 93px;
-
+  @include tablet {
+    padding-top: 50px;
+  }
   &__header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     position: relative;
     margin-bottom: 39px;
+
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      padding-right: 250px;
+    }
   }
   &__heading {
     grid-column: 2 span;
@@ -22,6 +30,15 @@
     transform: translate(-20%, 0%);
     width: 550px;
     height: 550px;
+
+    @include tablet {
+      width: 250px;
+      height: 250px;
+      left: unset;
+      right: -240px;
+      top: 0;
+      transform: translate(0%, 25%);
+    }
   }
   &__btn {
     margin-bottom: 10px;
@@ -47,6 +64,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px 40px;
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
     &:not(:last-child) {
       margin-bottom: 98px;
     }
@@ -55,6 +75,9 @@
   &__item {
     &:nth-child(1) {
       grid-column-start: 2;
+      @include tablet {
+        grid-column-start: 1;
+      }
     }
   }
 }

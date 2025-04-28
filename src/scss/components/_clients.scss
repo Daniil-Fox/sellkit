@@ -54,6 +54,10 @@
     gap: 16px;
     position: relative;
     margin-bottom: 32px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__avs {

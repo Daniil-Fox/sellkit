@@ -17,6 +17,12 @@
   text-transform: uppercase;
   color: #001840;
 
+  @include tablet {
+    font-size: 60px;
+  }
+  @include small-tablet {
+    font-size: 42px;
+  }
   &--white {
     color: #fff;
   }
