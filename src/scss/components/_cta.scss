@@ -1,4 +1,7 @@
 .cta {
+  @include small-tablet {
+    margin-bottom: 32px;
+  }
   &__form {
     position: relative;
     z-index: 9;

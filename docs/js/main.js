@@ -930,6 +930,15 @@ function initMapPathAnimations() {
     });
   }
 }
+const upBtn = document.querySelector(".footer__link--up");
+if (upBtn) {
+  upBtn.addEventListener("click", e => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0
+    });
+  });
+}
 })();
 
 /******/ })()
