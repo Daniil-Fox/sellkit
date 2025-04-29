@@ -2,6 +2,38 @@ import "./_components.js";
 import { burger } from "./functions/burger.js";
 import initLoyalItems from "./components/loyal-items.js";
 import { initHeavyComponents, initVeryHeavyComponents } from "./_components.js";
+import { initPreloader } from "./components/preloader.js";
+
+// Глобальный флаг завершения загрузки компонентов
+let componentsLoaded = false;
+let matterInitialized = false;
+
+// Инициализация прелоадера
+const preloader = initPreloader();
+
+// Создаем обработчик события для отслеживания инициализации matter.js
+const matterInitEvent = new CustomEvent("matterInitialized");
+
+// Отслеживаем завершение инициализации matter.js
+window.addEventListener("matterInitialized", () => {
+  matterInitialized = true;
+
+  // Проверяем, загрузились ли уже все компоненты
+  if (componentsLoaded) {
+    // Завершаем работу прелоадера вручную
+    finishPreloader();
+  }
+});
+
+// Функция для завершения работы прелоадера
+function finishPreloader() {
+  // Добавляем небольшую задержку для более плавного перехода
+  setTimeout(() => {
+    if (preloader && typeof preloader.finishLoading === "function") {
+      preloader.finishLoading();
+    }
+  }, 300);
+}
 
 // Приоритетные компоненты загружаются сразу
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,7 +56,16 @@ window.addEventListener("load", () => {
 
   // Загружаем самые тяжелые компоненты в последнюю очередь
   setTimeout(() => {
+    // Загружаем matter.js и другие тяжелые компоненты
     initVeryHeavyComponents();
+
+    // Устанавливаем флаг, что компоненты загружены
+    componentsLoaded = true;
+
+    // Если matter.js уже инициализирован, закрываем прелоадер
+    if (matterInitialized) {
+      finishPreloader();
+    }
   }, 1000);
 });
 

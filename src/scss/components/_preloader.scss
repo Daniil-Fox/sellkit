@@ -1,0 +1,86 @@
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #202020;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+  &.loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &__logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 30px;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    // Анимация для букв логотипа
+    path {
+      fill: transparent;
+      stroke: #fff;
+      stroke-width: 1;
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: logoStroke 2s ease forwards;
+
+      &.kit {
+        animation-delay: 0.5s;
+      }
+    }
+
+    @keyframes logoStroke {
+      to {
+        stroke-dashoffset: 0;
+        fill: #fff;
+      }
+    }
+  }
+
+  &__progress {
+    width: 200px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+
+    &-bar {
+      height: 100%;
+      width: 0;
+      background-color: #fff;
+      border-radius: 3px;
+      transition: width 0.3s ease-out;
+    }
+  }
+
+  &__text {
+    color: #fff;
+    font-size: 14px;
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    &__logo {
+      width: 140px;
+    }
+
+    &__progress {
+      width: 140px;
+    }
+  }
+}
