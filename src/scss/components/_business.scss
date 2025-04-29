@@ -64,6 +64,7 @@
 
     @include small-tablet {
       padding-top: 24px;
+      margin-bottom: 15px;
     }
   }
   &__items {
@@ -94,6 +95,16 @@
     margin-bottom: -23px;
     @include small-tablet {
       margin-bottom: -12px;
+    }
+  }
+
+  &__mob {
+    display: none;
+    @include small-tablet {
+      margin-top: 23px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

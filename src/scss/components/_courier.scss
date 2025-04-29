@@ -7,6 +7,10 @@
   z-index: 2;
   @include tablet {
     padding-top: 0;
+    padding-bottom: 50px;
+  }
+  @include small-tablet {
+    padding-bottom: 68px;
   }
   &__map-left {
     position: absolute;
@@ -119,11 +123,17 @@
     padding-bottom: 11px;
     padding-right: 17px;
     gap: 10px;
+    @include small-tablet {
+      margin-bottom: 9px;
+    }
   }
   &__header {
     margin-bottom: 39px;
     @include tablet {
       margin-bottom: 46px;
+    }
+    @include small-tablet {
+      margin-bottom: 42px;
     }
   }
   &__body {
@@ -140,6 +150,15 @@
     @include tablet {
       grid-template-columns: 1fr;
       gap: 22px;
+    }
+  }
+
+  &__mob {
+    display: none;
+    @include small-tablet {
+      display: flex;
+      align-items: center;
+      margin-top: 24px;
     }
   }
 }

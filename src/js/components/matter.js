@@ -27,6 +27,9 @@ const render = Render.create({
 });
 
 const mouse = Mouse.create(render.canvas);
+// Установка pixelRatio для более точного отслеживания мыши
+mouse.pixelRatio = window.devicePixelRatio || 1;
+
 const mouseConstraint = MouseConstraint.create(engine, {
   mouse: mouse,
   constraint: {
@@ -154,13 +157,14 @@ elements.forEach((element) => {
   htmlEl.style.fontSize = element.fontSize;
   htmlEl.style.color = element.fontColor;
   htmlEl.contentEditable = "true";
+  htmlEl.style.cursor = "grab"; // Добавляем курсор для лучшего UX
   container.appendChild(htmlEl);
   htmlElements.push(htmlEl);
 
   // Создаем тело с начальной позицией
   const body = createRoundedRectangle(
     Math.random() * (container.offsetWidth - 200) + 100,
-    Math.max(25, 50), // Позволяет установить объекты гарантированно ниже потолка
+    Math.max(100, container.offsetHeight * 0.2), // Гарантированно размещаем ниже потолка
     htmlEl.offsetWidth,
     htmlEl.offsetHeight,
     window.matchMedia("(max-width: 1024px)").matches ? 25 : 50
@@ -168,7 +172,7 @@ elements.forEach((element) => {
 
   // Проверяем, чтобы тело было ниже потолка
   if (body.position.y < 20) {
-    Body.setPosition(body, { x: body.position.x, y: 20 });
+    Body.setPosition(body, { x: body.position.x, y: 100 });
   }
 
   bodies.push(body);
@@ -235,14 +239,17 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting && !blocksHaveFallen) {
         // Когда canvas становится видимым
-        engine.gravity.y = 0.05; // Устанавливаем гравитацию
-        blocksHaveFallen = true; // Устанавливаем, что блоки уже упали
+        // Добавляем таймаут для плавной инициализации
+        setTimeout(() => {
+          engine.gravity.y = 0.05; // Устанавливаем гравитацию
+          blocksHaveFallen = true; // Устанавливаем, что блоки уже упали
+        }, 200);
       }
     });
   },
   {
     root: null,
-    threshold: 1.0,
+    threshold: 0.5, // Уменьшаем порог для более раннего срабатывания
   }
 );
 
@@ -255,12 +262,16 @@ mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
   if (body) {
     const index = bodies.indexOf(body);
     htmlElements[index].style.cursor = "grabbing";
+    // Поднимаем элемент над остальными при перетаскивании
+    htmlElements[index].style.zIndex = "10";
   }
 });
 
 mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
   htmlElements.forEach((el) => {
     el.style.cursor = "grab";
+    // Сбрасываем z-index
+    el.style.zIndex = "";
   });
 });
 
@@ -275,15 +286,19 @@ window.addEventListener("resize", () => {
   bodies.forEach((body, index) => {
     Body.scale(
       body,
-      htmlElements[index].offsetWidth / body.bounds.max.x,
-      htmlElements[index].offsetHeight / body.bounds.max.y
+      htmlElements[index].offsetWidth /
+        Math.max(1, body.bounds.max.x - body.bounds.min.x),
+      htmlElements[index].offsetHeight /
+        Math.max(1, body.bounds.max.y - body.bounds.min.y)
     );
     Body.setPosition(body, {
       x:
         Math.random() *
           (container.offsetWidth - htmlElements[index].offsetWidth) +
         htmlElements[index].offsetWidth / 2,
-      y: 50, // Ставим в верхнюю часть
+      y: Math.max(100, Math.random() * container.offsetHeight * 0.3), // Распределяем по верхней части
     });
   });
+
+  World.add(engine.world, bodies);
 });

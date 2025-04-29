@@ -18,7 +18,14 @@
     background-color: #fff;
     color: #006aff;
   }
-
+  &:focus {
+    background-color: #fff;
+    color: #006aff;
+  }
+  &:active {
+    background-color: #105dca;
+    color: #fff;
+  }
   &--stroke {
     border: 1px solid #333e55;
     background-color: transparent;
@@ -170,6 +177,46 @@
   &.aos-animate {
     &::after {
       transform: scale(1);
+    }
+  }
+}
+
+.loyal-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 56px 13px;
+  border-radius: 1000px;
+  background-color: #fff;
+
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  color: #232323;
+  border: 1px solid #fff;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+  @include hover {
+    background-color: #006aff;
+    color: #fff;
+  }
+  &:focus {
+    background-color: #006aff;
+    color: #fff;
+  }
+  &:active {
+    background-color: #105dca;
+    color: #fff;
+  }
+
+  &-dark {
+    background-color: #232323;
+    border-color: #232323;
+    color: #fff;
+    @include hover {
+      background-color: #fff;
     }
   }
 }

@@ -57,8 +57,13 @@
       top: 0;
       transform: translate(0%, 25%);
     }
+    @include small-tablet {
+      right: -60px;
+    }
   }
   &__btn {
+    position: relative;
+    z-index: 5;
     margin-bottom: 10px;
     padding-top: 11px;
     padding-bottom: 11px;

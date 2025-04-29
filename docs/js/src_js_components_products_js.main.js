@@ -1,5 +1,14 @@
-const prodItems = document.querySelectorAll(".prod-item");
+"use strict";
+(self["webpackChunkgulp_builder"] = self["webpackChunkgulp_builder"] || []).push([["src_js_components_products_js"],{
 
+/***/ "./src/js/components/products.js":
+/*!***************************************!*\
+  !*** ./src/js/components/products.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+const prodItems = document.querySelectorAll(".prod-item");
 function clearActive() {
   const el = document.querySelector(".prod-item.active");
   if (el) {
@@ -35,13 +44,11 @@ function handleScreenSize() {
         if (video.readyState >= 2) {
           video.play();
         } else {
-          video.addEventListener(
-            "loadeddata",
-            () => {
-              video.play();
-            },
-            { once: true }
-          );
+          video.addEventListener("loadeddata", () => {
+            video.play();
+          }, {
+            once: true
+          });
         }
       });
     }
@@ -67,7 +74,7 @@ function handleScreenSize() {
 }
 
 // Оптимизируем загрузку видео для всех элементов
-prodItems.forEach((item) => {
+prodItems.forEach(item => {
   const itemTitle = item.querySelector(".prod-item__title");
   const video = item.querySelector("video");
 
@@ -80,14 +87,11 @@ prodItems.forEach((item) => {
     video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
     video.muted = true; // Гарантируем, что видео будет без звука
   }
-
-  item.addEventListener("click", (e) => {
+  item.addEventListener("click", e => {
     e.preventDefault();
     clearActive();
-
     const fullText = itemTitle.dataset.fullText;
     itemTitle.textContent = "";
-
     item.classList.add("active");
 
     // Оптимизированное воспроизведение видео
@@ -96,13 +100,11 @@ prodItems.forEach((item) => {
         video.play();
       } else {
         video.load(); // Загружаем видео при необходимости
-        video.addEventListener(
-          "loadeddata",
-          () => {
-            video.play();
-          },
-          { once: true }
-        );
+        video.addEventListener("loadeddata", () => {
+          video.play();
+        }, {
+          once: true
+        });
       }
     }
 
@@ -126,12 +128,11 @@ prodItems.forEach((item) => {
 
 // Используем requestIdleCallback для неблокирующей инициализации если доступно
 if ("requestIdleCallback" in window) {
-  requestIdleCallback(
-    () => {
-      handleScreenSize();
-    },
-    { timeout: 500 }
-  );
+  requestIdleCallback(() => {
+    handleScreenSize();
+  }, {
+    timeout: 500
+  });
 } else {
   // Fallback для браузеров, не поддерживающих requestIdleCallback
   setTimeout(handleScreenSize, 400);
@@ -145,3 +146,8 @@ window.addEventListener("resize", () => {
   // Создаем новый таймаут
   resizeTimeout = setTimeout(handleScreenSize, 200);
 });
+
+/***/ })
+
+}]);
+//# sourceMappingURL=src_js_components_products_js.main.js.map

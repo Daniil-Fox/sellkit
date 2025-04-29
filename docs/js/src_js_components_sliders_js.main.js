@@ -1,0 +1,99 @@
+"use strict";
+(self["webpackChunkgulp_builder"] = self["webpackChunkgulp_builder"] || []).push([["src_js_components_sliders_js"],{
+
+/***/ "./src/js/components/sliders.js":
+/*!**************************************!*\
+  !*** ./src/js/components/sliders.js ***!
+  \**************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
+
+
+swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay]);
+const prodSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-slider", {
+  slidesPerView: "auto",
+  spaceBetween: 13,
+  loop: true,
+  loopedSlides: 8,
+  // Указываем количество слайдов для правильной работы loop
+  speed: 4000,
+  allowTouchMove: true,
+  grabCursor: true,
+  freeMode: {
+    enabled: true,
+    momentum: false
+  },
+  // Настройки автопрокрутки
+  autoplay: {
+    delay: 1,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: false,
+    stopOnLastSlide: false
+  },
+  // Настройки для корректной работыループа
+  watchSlidesProgress: true,
+  observer: true,
+  observeParents: true
+});
+let isAutoplayPaused = false;
+let autoplayResume;
+
+// Обработчик наведения мыши
+prodSlider.el.addEventListener("mouseenter", () => {
+  if (!isAutoplayPaused) {
+    prodSlider.autoplay.stop();
+    isAutoplayPaused = true;
+    clearTimeout(autoplayResume);
+  }
+});
+
+// Обработчик ухода мыши
+prodSlider.el.addEventListener("mouseleave", () => {
+  if (isAutoplayPaused) {
+    autoplayResume = setTimeout(() => {
+      prodSlider.autoplay.start();
+      isAutoplayPaused = false;
+    }, 100);
+  }
+});
+
+// Обработчик начала касания
+prodSlider.el.addEventListener("touchstart", () => {
+  if (!isAutoplayPaused) {
+    prodSlider.autoplay.stop();
+    isAutoplayPaused = true;
+    clearTimeout(autoplayResume);
+  }
+});
+
+// Обработчик окончания касания
+prodSlider.el.addEventListener("touchend", () => {
+  if (isAutoplayPaused) {
+    autoplayResume = setTimeout(() => {
+      prodSlider.autoplay.start();
+      isAutoplayPaused = false;
+    }, 100);
+  }
+});
+
+// Запуск автопрокрутки при инициализации
+prodSlider.autoplay.start();
+
+// Обработчик для проверки состояния слайдера
+prodSlider.on("autoplayStop", () => {
+  if (!isAutoplayPaused) {
+    prodSlider.autoplay.start();
+  }
+});
+new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".clients__thumbs", {
+  slidesPerView: "auto",
+  spaceBetween: 0
+});
+
+/***/ })
+
+}]);
+//# sourceMappingURL=src_js_components_sliders_js.main.js.map

@@ -7,6 +7,10 @@
   @include small-tablet {
     padding: 60px 0;
   }
+  & > .container {
+    position: relative;
+    z-index: 6;
+  }
   &__shapes {
     position: absolute;
     inset: 0;
@@ -181,10 +185,11 @@
       padding-top: 12px;
     }
   }
-  &__items {
+  &__wrap {
     margin-bottom: 100px;
     @include small-tablet {
       margin: 0 calc(-1 * var(--container-offset));
+      margin-bottom: 60px;
     }
   }
   &__label {
@@ -203,6 +208,16 @@
     }
     &::before {
       background-image: url("./../img/star.svg");
+    }
+  }
+
+  &__mob {
+    display: none;
+    @include small-tablet {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 18px;
     }
   }
 }
