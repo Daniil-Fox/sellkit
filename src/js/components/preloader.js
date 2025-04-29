@@ -16,6 +16,7 @@ export default class Preloader {
       styles: 0,
       total: 0,
     };
+    this.isFinished = false;
     this.initialize();
   }
 
@@ -35,7 +36,9 @@ export default class Preloader {
 
     // Запускаем обработчики
     this.trackProgress();
-    this.startFallbackTimer();
+
+    // Устанавливаем максимальное время ожидания (10 секунд)
+    this.startFallbackTimer(10000);
   }
 
   // Подсчет ресурсов на странице
@@ -86,9 +89,14 @@ export default class Preloader {
       }
     });
 
-    // Отслеживаем загрузку скриптов через общий прогресс
+    // Отслеживаем загрузку HTML и ресурсов
+    // Но НЕ закрываем прелоадер автоматически,
+    // ждем явного вызова finishLoading
     window.addEventListener("load", () => {
-      this.finishLoading();
+      // Обновляем прогресс до 90%, остальные 10% - для инициализации matter.js
+      setTimeout(() => {
+        this.updateProgress(90);
+      }, 500);
     });
   }
 
@@ -96,8 +104,8 @@ export default class Preloader {
   incrementProgress() {
     this.loaded++;
     const progressPercentage = Math.min(
-      80 + (this.loaded / this.resources.total) * 20,
-      99
+      60 + (this.loaded / this.resources.total) * 30,
+      90
     );
     this.updateProgress(progressPercentage);
   }
@@ -112,15 +120,25 @@ export default class Preloader {
   }
 
   // Резервный таймер для завершения загрузки
-  startFallbackTimer() {
-    // Через 4 секунды в любом случае завершаем загрузку
+  startFallbackTimer(maxWaitTime) {
+    // Через указанное время в любом случае завершаем загрузку
     setTimeout(() => {
-      this.finishLoading();
-    }, 4000);
+      if (!this.isFinished) {
+        console.log("Preloader: Maximum wait time reached, finishing loading");
+        this.finishLoading();
+      }
+    }, maxWaitTime || 4000);
   }
 
-  // Завершение загрузки
+  // Публичный метод завершения загрузки
+  // Может быть вызван извне для ручного закрытия прелоадера
   finishLoading() {
+    // Если прелоадер уже закрыт, ничего не делаем
+    if (this.isFinished) return;
+
+    // Устанавливаем флаг завершения
+    this.isFinished = true;
+
     const currentTime = Date.now();
     const elapsedTime = currentTime - this.startTime;
 

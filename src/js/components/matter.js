@@ -8,6 +8,9 @@ import {
   MouseConstraint,
   Body,
   Query,
+  Composite,
+  Events,
+  Common,
 } from "matter-js";
 
 // Создаем движок Matter.js
@@ -50,8 +53,8 @@ render.canvas.style.pointerEvents = "auto";
 render.canvas.addEventListener(
   "wheel",
   function (event) {
-    // Не отменяем стандартное поведение прокрутки страницы
-    event.preventDefault = false;
+    // Разрешаем стандартное поведение прокрутки
+    event.stopPropagation();
   },
   { passive: true }
 );
@@ -528,6 +531,10 @@ const observer = new IntersectionObserver(
         setTimeout(() => {
           engine.gravity.y = 0.05;
           blocksHaveFallen = true;
+
+          // Сообщаем о завершении инициализации matter.js
+          // для скрытия прелоадера
+          window.dispatchEvent(new CustomEvent("matterInitialized"));
         }, 200);
       }
     });
@@ -636,3 +643,364 @@ mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
     el.style.zIndex = "";
   });
 });
+
+// Инициализация Matter.js с отправкой события
+export default function initMatter() {
+  const container = document.querySelector(".matter-container");
+
+  // Диспетчеризуем событие инициализации даже если контейнера нет
+  // Это поможет корректно закрыть прелоадер
+  setTimeout(() => {
+    window.dispatchEvent(new CustomEvent("matterInitialized"));
+    console.log("Событие инициализации Matter.js отправлено");
+  }, 500);
+
+  // Если контейнера нет, не продолжаем инициализацию
+  if (!container) {
+    console.log("Matter.js контейнер не найден");
+    return;
+  }
+
+  // Проверяем видимость контейнера перед инициализацией
+  checkContainerVisibility(container, () => {
+    // Используем requestIdleCallback для запуска в свободное время
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(() => startMatter(container), {
+        timeout: 1000,
+      });
+    } else {
+      // Fallback для браузеров без поддержки requestIdleCallback
+      setTimeout(() => startMatter(container), 800);
+    }
+  });
+}
+
+// Функция для проверки видимости контейнера с помощью IntersectionObserver
+function checkContainerVisibility(container, callback) {
+  // Проверяем, виден ли контейнер в viewport
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        callback();
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  observer.observe(container);
+}
+
+// Функция запуска Matter.js
+function startMatter(container) {
+  console.log("Запуск инициализации Matter.js");
+
+  // Создаем движок
+  const engine = Engine.create({
+    enableSleeping: true,
+    gravity: { x: 0, y: 0.5 },
+  });
+
+  // Настраиваем рендерер
+  const render = Render.create({
+    element: container,
+    engine: engine,
+    options: {
+      width: container.clientWidth,
+      height: container.clientHeight,
+      wireframes: false,
+      background: "transparent",
+      pixelRatio: window.devicePixelRatio,
+    },
+  });
+
+  // Создаем объект мыши с учетом pixel ratio для лучшего отслеживания
+  const mouse = Mouse.create(render.canvas);
+  mouse.pixelRatio = window.devicePixelRatio || 1;
+
+  // Создаем констрейнт для мыши с возможностью прокрутки
+  const mouseConstraint = MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+      stiffness: 0.2,
+      render: {
+        visible: false,
+      },
+    },
+    collisionFilter: {
+      mask: 0x0001, // Разрешить взаимодействие только с объектами в этой категории
+    },
+  });
+
+  // Добавляем обработчик прокрутки, чтобы страница скроллилась при прокрутке над canvas
+  render.canvas.addEventListener(
+    "wheel",
+    function (event) {
+      // Не блокируем стандартную прокрутку
+      event.stopPropagation();
+    },
+    { passive: true }
+  );
+
+  // Добавляем обработчик для мобильных устройств
+  render.canvas.addEventListener(
+    "touchmove",
+    function (event) {
+      // Не блокируем стандартное касание и скролл
+      event.stopPropagation();
+    },
+    { passive: true }
+  );
+
+  // Добавляем элементы в мир
+  createElements(engine, container);
+
+  // Обработка изменения размера окна
+  const handleResize = debounce(() => {
+    // Обновляем размеры канваса
+    render.options.width = container.clientWidth;
+    render.options.height = container.clientHeight;
+    render.canvas.width = container.clientWidth;
+    render.canvas.height = container.clientHeight;
+
+    // Перепозиционируем элементы
+    repositionElements(engine, container);
+
+    // Обновляем рендерер
+    Render.setPixelRatio(render, window.devicePixelRatio);
+    Render.lookAt(render, {
+      min: { x: 0, y: 0 },
+      max: { x: container.clientWidth, y: container.clientHeight },
+    });
+  }, 200);
+
+  window.addEventListener("resize", handleResize);
+
+  // Запускаем движок и рендерер
+  Render.run(render);
+  const runner = Runner.create();
+  Runner.run(runner, engine);
+
+  // Добавляем мышь и констрейнт в мир
+  Composite.add(engine.world, mouseConstraint);
+
+  // Добавляем обработчик нажатия мыши для перетаскивания только левой кнопкой
+  Events.on(mouseConstraint, "mousedown", function (event) {
+    if (event.mouse.button !== 0) {
+      // 0 - левая кнопка
+      // Отключаем перетаскивание для других кнопок
+      mouseConstraint.constraint.stiffness = 0;
+    } else {
+      mouseConstraint.constraint.stiffness = 0.2;
+    }
+  });
+
+  // Сброс состояния при отпускании кнопки мыши
+  Events.on(mouseConstraint, "mouseup", function () {
+    mouseConstraint.constraint.stiffness = 0.2;
+  });
+
+  console.log("Matter.js успешно инициализирован");
+}
+
+// Создание элементов в контейнере
+function createElements(engine, container) {
+  // Создаем статические стены вокруг контейнера
+  const wallOptions = {
+    isStatic: true,
+    render: { visible: false },
+  };
+
+  // Верхняя, нижняя, левая и правая стены
+  const walls = [
+    Bodies.rectangle(
+      container.clientWidth / 2,
+      -50,
+      container.clientWidth,
+      100,
+      wallOptions
+    ), // верх
+    Bodies.rectangle(
+      container.clientWidth / 2,
+      container.clientHeight + 50,
+      container.clientWidth,
+      100,
+      wallOptions
+    ), // низ
+    Bodies.rectangle(
+      -50,
+      container.clientHeight / 2,
+      100,
+      container.clientHeight,
+      wallOptions
+    ), // лево
+    Bodies.rectangle(
+      container.clientWidth + 50,
+      container.clientHeight / 2,
+      100,
+      container.clientHeight,
+      wallOptions
+    ), // право
+  ];
+
+  Composite.add(engine.world, walls);
+
+  // Создаем случайные элементы
+  const elements = [];
+  const count = Math.min(
+    15,
+    Math.floor((container.clientWidth * container.clientHeight) / 40000)
+  ); // Адаптивное количество элементов
+
+  for (let i = 0; i < count; i++) {
+    const size = Common.random(30, 60);
+    const x = Common.random(size, container.clientWidth - size);
+    const y = Common.random(size, container.clientHeight - size);
+
+    // Используем разные формы для разнообразия
+    let element;
+    const shapeType = Math.floor(Common.random(0, 3));
+
+    switch (shapeType) {
+      case 0:
+        element = Bodies.circle(x, y, size / 2, {
+          render: {
+            fillStyle: getRandomColor(),
+            opacity: 0.8,
+          },
+          collisionFilter: {
+            category: 0x0001,
+          },
+        });
+        break;
+      case 1:
+        element = Bodies.rectangle(x, y, size, size, {
+          render: {
+            fillStyle: getRandomColor(),
+            opacity: 0.8,
+          },
+          collisionFilter: {
+            category: 0x0001,
+          },
+        });
+        break;
+      case 2:
+        const sides = Math.floor(Common.random(3, 7));
+        element = Bodies.polygon(x, y, sides, size / 2, {
+          render: {
+            fillStyle: getRandomColor(),
+            opacity: 0.8,
+          },
+          collisionFilter: {
+            category: 0x0001,
+          },
+        });
+        break;
+    }
+
+    elements.push(element);
+  }
+
+  // Добавляем элементы в мир
+  Composite.add(engine.world, elements);
+}
+
+// Функция для получения случайного цвета
+function getRandomColor() {
+  const colors = [
+    "#FF6B6B",
+    "#48DBFB",
+    "#1DD1A1",
+    "#FECA57",
+    "#FF9FF3",
+    "#A29BFE",
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Перепозиционирование статических стен при изменении размера
+function repositionElements(engine, container) {
+  // Обновляем позиции стен
+  Composite.allBodies(engine.world).forEach((body) => {
+    if (body.isStatic && body.render.visible === false) {
+      const allBodies = Composite.allBodies(engine.world);
+      const walls = allBodies.filter(
+        (b) => b.isStatic && b.render.visible === false
+      );
+
+      if (walls.length >= 4) {
+        // Верхняя стена
+        Body.setPosition(walls[0], {
+          x: container.clientWidth / 2,
+          y: -50,
+        });
+        Body.setVertices(
+          walls[0],
+          Bodies.rectangle(
+            container.clientWidth / 2,
+            -50,
+            container.clientWidth,
+            100
+          ).vertices
+        );
+
+        // Нижняя стена
+        Body.setPosition(walls[1], {
+          x: container.clientWidth / 2,
+          y: container.clientHeight + 50,
+        });
+        Body.setVertices(
+          walls[1],
+          Bodies.rectangle(
+            container.clientWidth / 2,
+            container.clientHeight + 50,
+            container.clientWidth,
+            100
+          ).vertices
+        );
+
+        // Левая стена
+        Body.setPosition(walls[2], {
+          x: -50,
+          y: container.clientHeight / 2,
+        });
+        Body.setVertices(
+          walls[2],
+          Bodies.rectangle(
+            -50,
+            container.clientHeight / 2,
+            100,
+            container.clientHeight
+          ).vertices
+        );
+
+        // Правая стена
+        Body.setPosition(walls[3], {
+          x: container.clientWidth + 50,
+          y: container.clientHeight / 2,
+        });
+        Body.setVertices(
+          walls[3],
+          Bodies.rectangle(
+            container.clientWidth + 50,
+            container.clientHeight / 2,
+            100,
+            container.clientHeight
+          ).vertices
+        );
+      }
+    }
+  });
+}
+
+// Функция debounce для оптимизации обработки событий resize
+function debounce(func, wait) {
+  let timeout;
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+}

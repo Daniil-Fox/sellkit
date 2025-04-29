@@ -1,76 +1,41 @@
 import "./_components.js";
-import { burger } from "./functions/burger.js";
+import "./functions/burger.js";
 import initLoyalItems from "./components/loyal-items.js";
-import { initHeavyComponents, initVeryHeavyComponents } from "./_components.js";
 import { initPreloader } from "./components/preloader.js";
 
-// Глобальный флаг завершения загрузки компонентов
+// Глобальные переменные для отслеживания состояния загрузки
+let preloader = null;
 let componentsLoaded = false;
 let matterInitialized = false;
 
-// Инициализация прелоадера
-const preloader = initPreloader();
-
-// Создаем обработчик события для отслеживания инициализации matter.js
-const matterInitEvent = new CustomEvent("matterInitialized");
-
-// Отслеживаем завершение инициализации matter.js
-window.addEventListener("matterInitialized", () => {
-  matterInitialized = true;
-
-  // Проверяем, загрузились ли уже все компоненты
-  if (componentsLoaded) {
-    // Завершаем работу прелоадера вручную
-    finishPreloader();
-  }
-});
-
-// Функция для завершения работы прелоадера
+// Функция для завершения прелоадера, когда все компоненты загружены
 function finishPreloader() {
-  // Добавляем небольшую задержку для более плавного перехода
-  setTimeout(() => {
-    if (preloader && typeof preloader.finishLoading === "function") {
-      preloader.finishLoading();
-    }
-  }, 300);
+  if (componentsLoaded && matterInitialized && preloader) {
+    console.log("Все компоненты загружены, закрываем прелоадер");
+    preloader.finishLoading();
+  }
 }
 
-// Приоритетные компоненты загружаются сразу
-document.addEventListener("DOMContentLoaded", () => {
+// Инициализация основных компонентов
+function initMainComponents() {
   // Инициализация компонента для управления loyal-item блоками
   initLoyalItems();
 
-  // Загружаем средние по весу компоненты с небольшой задержкой
-  setTimeout(() => {
-    initHeavyComponents();
-  }, 300);
-});
+  // Инициализация анимации SVG путей
+  initSvgPathAnimations();
 
-// Отложенная загрузка тяжелых компонентов
-window.addEventListener("load", () => {
-  // Запускаем анимации SVG после полной загрузки страницы
-  setTimeout(() => {
-    initSvgAnimations();
-    initMapPathAnimations();
-  }, 500);
+  // Инициализация анимации карты
+  initMapPathAnimations();
 
-  // Загружаем самые тяжелые компоненты в последнюю очередь
-  setTimeout(() => {
-    // Загружаем matter.js и другие тяжелые компоненты
-    initVeryHeavyComponents();
+  // Отмечаем, что основные компоненты загружены
+  componentsLoaded = true;
 
-    // Устанавливаем флаг, что компоненты загружены
-    componentsLoaded = true;
+  // Проверяем, можно ли завершить прелоадер
+  finishPreloader();
+}
 
-    // Если matter.js уже инициализирован, закрываем прелоадер
-    if (matterInitialized) {
-      finishPreloader();
-    }
-  }, 1000);
-});
-
-// Выносим SVG анимации в отдельную функцию
-function initSvgAnimations() {
+// Функция для инициализации анимации SVG путей
+function initSvgPathAnimations() {
   const svgPaths = document.querySelectorAll(".spider path");
 
   if (svgPaths.length > 0) {
@@ -102,7 +67,7 @@ function initSvgAnimations() {
   }
 }
 
-// Выносим анимации путей карты в отдельную функцию
+// Функция для инициализации анимации карты
 function initMapPathAnimations() {
   const mapPath = document.querySelector(".map-path");
 
@@ -129,12 +94,53 @@ function initMapPathAnimations() {
   }
 }
 
-const upBtn = document.querySelector(".footer__link--up");
-if (upBtn) {
-  upBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
+// Загрузка тяжелых компонентов
+function loadHeavyComponents() {
+  // Загружаем Matter.js компонент с задержкой
+  import("./components/matter.js")
+    .then((module) => {
+      // Вызываем инициализацию Matter.js
+      module.default();
+
+      // Слушаем событие завершения инициализации matter
+      window.addEventListener(
+        "matterInitialized",
+        () => {
+          console.log("Событие инициализации Matter.js получено");
+          matterInitialized = true;
+          finishPreloader();
+        },
+        { once: true }
+      );
+    })
+    .catch((error) => {
+      console.error("Ошибка загрузки Matter.js:", error);
+      // Если не удалось загрузить matter, все равно отмечаем его как инициализированный
+      matterInitialized = true;
+      finishPreloader();
     });
-  });
 }
+
+// Инициализация при загрузке DOM
+document.addEventListener("DOMContentLoaded", () => {
+  // Инициализируем прелоадер
+  preloader = initPreloader();
+
+  // Инициализируем основные компоненты
+  initMainComponents();
+
+  // Слушаем событие инициализации matter
+  window.addEventListener(
+    "matterInitialized",
+    () => {
+      matterInitialized = true;
+      finishPreloader();
+    },
+    { once: true }
+  );
+
+  // Загружаем тяжелые компоненты с задержкой
+  requestIdleCallback
+    ? requestIdleCallback(loadHeavyComponents, { timeout: 2000 })
+    : setTimeout(loadHeavyComponents, 1000);
+});
