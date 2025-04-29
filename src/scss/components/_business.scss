@@ -83,7 +83,7 @@
     }
 
     .loyal-item {
-      &:first-child {
+      &:first-of-type {
         grid-column-start: 2;
         @include tablet {
           grid-column-start: 1;

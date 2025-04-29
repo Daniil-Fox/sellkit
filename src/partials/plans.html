@@ -1,28 +1,26 @@
-<section class="plans">
+<section class="plans" itemscope itemtype="https://schema.org/ProductCollection">
+  <meta itemprop="name" content="Тарифные планы SellKit">
+  <meta itemprop="description"
+    content="Стоимость подписки на SellKit - выберите подходящий тариф для вашего ресторанного бизнеса">
+
   <div class="container">
     <div class="plans__header" data-aos="fade-up">
       <div class="plans__left">
         <span class="btn-label plans__label">Пришла пора выбирать</span>
-        <h2 class="title2 plans__title">Стоимость подписки</h2>
+        <h2 class="title2 plans__title" id="plans-title">Стоимость подписки</h2>
         <div class="plans__desc plans__desc--mob">
           <p>
             Запуск, обновления и&nbsp;техническая поддержка бесплатные, нет
             ограничений по&nbsp;заказам или push.
           </p>
         </div>
-        <div class="plans__tabs">
-          <button
-            class="btn-reset plans__tab active"
-            data-plan-tab="monthly"
-            data-mouse-blue
-          >
+        <div class="plans__tabs" role="tablist">
+          <button class="btn-reset plans__tab active" data-plan-tab="monthly" data-mouse-blue role="tab"
+            aria-selected="true" aria-controls="monthly-plans">
             Ежемесячно
           </button>
-          <button
-            class="btn-reset plans__tab"
-            data-plan-tab="yearly"
-            data-mouse-blue
-          >
+          <button class="btn-reset plans__tab" data-plan-tab="yearly" data-mouse-blue role="tab" aria-selected="false"
+            aria-controls="yearly-plans">
             На&nbsp;год&nbsp;(-15%)
           </button>
         </div>
@@ -35,92 +33,120 @@
       </div>
     </div>
 
-    <div class="plans__content" data-plan="monthly">
-      <div class="plans__item plan">
-        <div class="plan__title">Sellkit site</div>
-        <p class="plan__desc">
+    <div class="plans__content" data-plan="monthly" id="monthly-plans" role="tabpanel">
+      <div class="plans__item plan" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="category" content="Программное обеспечение для ресторанов">
+        <div class="plan__title" itemprop="name">Sellkit site</div>
+        <p class="plan__desc" itemprop="description">
           Сайт до&nbsp;5&nbsp;заведений, потом&nbsp;+1680&nbsp;₽&nbsp;/ месяц
           за&nbsp;точку
         </p>
-        <ul class="list-reset plan__list">
-          <li>Cайт, домен</li>
-          <li>Интеграция c POS</li>
-          <li>QR-меню и&nbsp;заказ в&nbsp;стол</li>
-          <li>CRM система</li>
-          <li>Аналитика, сегментация, отчёты</li>
-          <li>Система лояльности</li>
-          <li>Интеграция с&nbsp;эквайрингом</li>
-          <li>Интеграция с&nbsp;СМС-сервисом</li>
-          <li>Бронирование столика</li>
+        <ul class="list-reset plan__list" itemprop="additionalProperty" itemscope
+          itemtype="https://schema.org/PropertyValue">
+          <meta itemprop="name" content="Возможности">
+          <li itemprop="value">Cайт, домен</li>
+          <li itemprop="value">Интеграция c POS</li>
+          <li itemprop="value">QR-меню и&nbsp;заказ в&nbsp;стол</li>
+          <li itemprop="value">CRM система</li>
+          <li itemprop="value">Аналитика, сегментация, отчёты</li>
+          <li itemprop="value">Система лояльности</li>
+          <li itemprop="value">Интеграция с&nbsp;эквайрингом</li>
+          <li itemprop="value">Интеграция с&nbsp;СМС-сервисом</li>
+          <li itemprop="value">Бронирование столика</li>
         </ul>
-        <div class="plan__price">11&nbsp;880&nbsp;<span>₽ / месяц</span></div>
+        <div class="plan__price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="RUB">
+          <meta itemprop="price" content="11880">
+          <span itemprop="priceSpecification">11&nbsp;880&nbsp;<span>₽ / месяц</span></span>
+        </div>
       </div>
 
-      <div class="plans__item plan">
-        <div class="plan__title">Sellkit APP</div>
-        <p class="plan__desc">
+      <div class="plans__item plan" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="category" content="Программное обеспечение для ресторанов">
+        <div class="plan__title" itemprop="name">Sellkit APP</div>
+        <p class="plan__desc" itemprop="description">
           Приложение до&nbsp;5&nbsp;заведений, потом&nbsp;+1680&nbsp;₽&nbsp;/
           месяц за&nbsp;точку
         </p>
-        <ul class="list-reset plan__list">
-          <li>Мобильное приложение</li>
-          <li>Интеграция c POS</li>
-          <li>QR-меню и&nbsp;заказ в&nbsp;стол</li>
-          <li>CRM система</li>
-          <li>Аналитика, сегментация, отчёты</li>
-          <li>Система лояльности</li>
-          <li>Интеграция с&nbsp;эквайрингом</li>
-          <li>Интеграция с&nbsp;СМС-сервисом</li>
-          <li>Бронирование столика</li>
+        <ul class="list-reset plan__list" itemprop="additionalProperty" itemscope
+          itemtype="https://schema.org/PropertyValue">
+          <meta itemprop="name" content="Возможности">
+          <li itemprop="value">Мобильное приложение</li>
+          <li itemprop="value">Интеграция c POS</li>
+          <li itemprop="value">QR-меню и&nbsp;заказ в&nbsp;стол</li>
+          <li itemprop="value">CRM система</li>
+          <li itemprop="value">Аналитика, сегментация, отчёты</li>
+          <li itemprop="value">Система лояльности</li>
+          <li itemprop="value">Интеграция с&nbsp;эквайрингом</li>
+          <li itemprop="value">Интеграция с&nbsp;СМС-сервисом</li>
+          <li itemprop="value">Бронирование столика</li>
         </ul>
-        <div class="plan__price">13&nbsp;080&nbsp;<span>₽ / месяц</span></div>
+        <div class="plan__price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="RUB">
+          <meta itemprop="price" content="13080">
+          <span itemprop="priceSpecification">13&nbsp;080&nbsp;<span>₽ / месяц</span></span>
+        </div>
       </div>
 
-      <div class="plans__item plan plan--dark">
-        <div class="plan__title">Sellkit site, APP</div>
-        <p class="plan__desc">
+      <div class="plans__item plan plan--dark" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="category" content="Программное обеспечение для ресторанов">
+        <div class="plan__title" itemprop="name">Sellkit site, APP</div>
+        <p class="plan__desc" itemprop="description">
           Сайт+приложение до&nbsp;5&nbsp;заведений, потом +1680&nbsp;₽&nbsp;/
           месяц за&nbsp;точку
         </p>
-        <ul class="list-reset plan__list">
-          <li>Мобильное приложение, сайт</li>
-          <li>Интеграция c POS</li>
-          <li>QR-меню и&nbsp;заказ в&nbsp;стол</li>
-          <li>CRM система</li>
-          <li>Аналитика, сегментация, отчёты</li>
-          <li>Система лояльности</li>
-          <li>Интеграция с&nbsp;эквайрингом</li>
-          <li>Интеграция с&nbsp;СМС-сервисом</li>
-          <li>Бронирование столика</li>
+        <ul class="list-reset plan__list" itemprop="additionalProperty" itemscope
+          itemtype="https://schema.org/PropertyValue">
+          <meta itemprop="name" content="Возможности">
+          <li itemprop="value">Мобильное приложение, сайт</li>
+          <li itemprop="value">Интеграция c POS</li>
+          <li itemprop="value">QR-меню и&nbsp;заказ в&nbsp;стол</li>
+          <li itemprop="value">CRM система</li>
+          <li itemprop="value">Аналитика, сегментация, отчёты</li>
+          <li itemprop="value">Система лояльности</li>
+          <li itemprop="value">Интеграция с&nbsp;эквайрингом</li>
+          <li itemprop="value">Интеграция с&nbsp;СМС-сервисом</li>
+          <li itemprop="value">Бронирование столика</li>
         </ul>
-        <div class="plan__price">17&nbsp;880&nbsp;<span>₽ / месяц</span></div>
+        <div class="plan__price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="RUB">
+          <meta itemprop="price" content="17880">
+          <span itemprop="priceSpecification">17&nbsp;880&nbsp;<span>₽ / месяц</span></span>
+        </div>
       </div>
 
-      <div class="plans__item plan plan--blue" data-mouse-blue>
-        <div class="plan__title">Sellkit max</div>
-        <p class="plan__desc">
+      <div class="plans__item plan plan--blue" data-mouse-blue itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="category" content="Программное обеспечение для ресторанов">
+        <div class="plan__title" itemprop="name">Sellkit max</div>
+        <p class="plan__desc" itemprop="description">
           Пакет &laquo;Максимум&raquo; до&nbsp;10&nbsp;заведений, потом&nbsp;
           +2760&nbsp;₽&nbsp;/ месяц за&nbsp;точку
         </p>
-        <ul class="list-reset plan__list">
-          <li>Все, что в&nbsp;Sellkit site + APP</li>
-          <li>Курьерское приложение</li>
-          <li>
+        <ul class="list-reset plan__list" itemprop="additionalProperty" itemscope
+          itemtype="https://schema.org/PropertyValue">
+          <meta itemprop="name" content="Возможности">
+          <li itemprop="value">Все, что в&nbsp;Sellkit site + APP</li>
+          <li itemprop="value">Курьерское приложение</li>
+          <li itemprop="value">
             Персональная доработка механик работы приложения, сайта, лояльности,
             crm, курьерского приложения
           </li>
-          <li>Разработка уникального функционала</li>
-          <li>Новые интеграции</li>
-          <li>Оформление баннеров, сторис</li>
-          <li>Мультибренд</li>
+          <li itemprop="value">Разработка уникального функционала</li>
+          <li itemprop="value">Новые интеграции</li>
+          <li itemprop="value">Оформление баннеров, сторис</li>
+          <li itemprop="value">Мультибренд</li>
         </ul>
-        <div class="plan__price">
-          22&nbsp;680&nbsp;<span>₽&nbsp;/ месяц</span>
+        <div class="plan__price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="RUB">
+          <meta itemprop="price" content="22680">
+          <span itemprop="priceSpecification">
+            22&nbsp;680&nbsp;<span>₽&nbsp;/ месяц</span>
+          </span>
         </div>
       </div>
     </div>
 
-    <div class="plans__content hidden" data-plan="yearly">
+    <div class="plans__content hidden" data-plan="yearly" id="yearly-plans" role="tabpanel">
       <div class="plans__item plan">
         <div class="plan__title">Sellkit site</div>
         <p class="plan__desc">

@@ -1,28 +1,38 @@
-<section class="cta" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+<section class="cta" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up" itemscope
+  itemtype="https://schema.org/ContactPage">
+  <meta itemprop="name" content="Демонстрация SellKit">
+  <meta itemprop="description"
+    content="Заполните форму, чтобы получить демонстрацию возможностей SellKit для автоматизации вашего ресторана">
+
   <div class="container">
     <div class="cta__content" data-mouse-blue>
       <div class="cta__wrapper">
-        <h2 class="title2 title2--white cta__title">
+        <h2 class="title2 title2--white cta__title" id="cta-title" itemprop="headline">
           Давайте покажем, как&nbsp;все&nbsp;работает
         </h2>
-        <form action="#" class="cta__form form">
+        <form action="#" class="cta__form form" itemscope itemtype="https://schema.org/ContactForm">
+          <meta itemprop="name" content="Форма запроса демонстрации SellKit">
           <div class="form__fields">
-            <input type="text" placeholder="Ваше имя" name="Имя" class="form__input" />
-            <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input" />
-            <input type="text" placeholder="Название проекта" name="Название проекта" class="form__input" />
-            <input type="text" placeholder="Город" name="Город" class="form__input" />
+            <input type="text" placeholder="Ваше имя" name="Имя" class="form__input" itemprop="name"
+              aria-label="Введите ваше имя" required />
+            <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input" itemprop="telephone"
+              aria-label="Введите номер телефона" required />
+            <input type="text" placeholder="Название проекта" name="Название проекта" class="form__input"
+              itemprop="subjectOf" aria-label="Введите название проекта" required />
+            <input type="text" placeholder="Город" name="Город" class="form__input" itemprop="addressLocality"
+              aria-label="Введите ваш город" required />
           </div>
-          <button class="btn-reset btn btn--white form__btn">продолжить</button>
+          <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
           <small class="form__agree">
-            Нажимая кнопку “Продолжить”, вы&nbsp;принимаете
-            <a href="#">политику обработки персональных данных</a>
+            Нажимая кнопку "Продолжить", вы&nbsp;принимаете
+            <a href="#" itemprop="termsOfService">политику обработки персональных данных</a>
           </small>
         </form>
       </div>
 
-      <div class="cta__phone cta__phone--1"></div>
-      <div class="cta__phone cta__phone--2"></div>
-      <div class="cta__phone cta__phone--3"></div>
+      <div class="cta__phone cta__phone--1" aria-hidden="true"></div>
+      <div class="cta__phone cta__phone--2" aria-hidden="true"></div>
+      <div class="cta__phone cta__phone--3" aria-hidden="true"></div>
     </div>
   </div>
 </section>

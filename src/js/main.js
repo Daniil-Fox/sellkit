@@ -128,7 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Инициализируем основные компоненты
   initMainComponents();
-
+  document.querySelector(".footer__link--up").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+  });
   // Слушаем событие инициализации matter
   window.addEventListener(
     "matterInitialized",
