@@ -20,6 +20,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     mix-blend-mode: screen;
+    @include small-tablet {
+      display: none;
+    }
   }
   &__header {
     display: flex;

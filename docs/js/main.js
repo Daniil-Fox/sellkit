@@ -99164,7 +99164,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
         htmlElements[index].style.zIndex = "10";
 
         // Снижаем гравитацию при перетаскивании
-        engine.gravity.y = isIOS ? 0.005 : 0.01; // Меньшая гравитация для iOS
+        engine.gravity.y = isIOS ? 0.5 : 1; // Меньшая гравитация для iOS
 
         // Для iOS делаем элемент "неподвижным" при перетаскивании
         if (isIOS) {
