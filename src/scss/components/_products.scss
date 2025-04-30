@@ -21,6 +21,7 @@
     background-repeat: no-repeat;
     mix-blend-mode: screen;
     @include small-tablet {
+      background-image: unset;
       display: none;
     }
   }
