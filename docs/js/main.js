@@ -98553,7 +98553,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Возвращаемся к стандартной реализации AOS с небольшими модификациями
 aos__WEBPACK_IMPORTED_MODULE_0__.init({
-  offset: 100,
+  offset: 60,
   // Настраиваем смещение для точного срабатывания
   delay: 0,
   duration: 800,
