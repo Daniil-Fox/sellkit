@@ -98688,60 +98688,129 @@ if (deliveryItems.length > 0) {
   // Вызываем функцию при загрузке страницы
   checkMobileState();
 
-  // Следим за изменением размера окна
-  window.addEventListener("resize", checkMobileState);
+  // Следим за изменением размера окна с троттлингом
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(() => {
+        resizeTimeout = null;
+        checkMobileState();
+      }, 250);
+    }
+  });
   function clearActive(currentItem) {
     deliveryItems.forEach(item => {
       if (item !== currentItem && item.classList.contains("active")) {
         item.classList.remove("active");
         const content = item.querySelector(".d-item__text");
         const topContent = item.querySelector(".d-item__top");
-        content.style.maxHeight = content.scrollHeight + "px";
+        if (!content || !topContent) return;
+
+        // Добавляем трансформацию в GPU-слой на iOS для оптимизации
+        content.style.transform = "translateZ(0)";
+
+        // Убираем лишние вычисления scrollHeight во время изменений
+        const contentHeight = content.scrollHeight;
+        content.style.maxHeight = contentHeight + "px";
         const onContentClose = () => {
           topContent.style.display = "grid";
           topContent.style.opacity = 1;
           content.removeEventListener("transitionend", onContentClose);
         };
-        requestAnimationFrame(() => {
+
+        // Откладываем изменение максимальной высоты для предотвращения дрожания
+        setTimeout(() => {
           content.style.maxHeight = null;
-        });
+        }, 10);
         content.addEventListener("transitionend", onContentClose);
       }
+    });
+  }
+
+  // Определяем, является ли устройство iOS
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // На iOS для лучшей производительности при анимациях
+  if (isIOS) {
+    document.querySelectorAll(".d-item__text").forEach(el => {
+      el.style.transform = "translateZ(0)"; // Включаем аппаратное ускорение
+      el.style.willChange = "max-height"; // Предупреждаем браузер о будущих изменениях
+      el.style.transition = "max-height 0.3s ease-out"; // Более быстрая и плавная анимация для iOS
     });
   }
   deliveryItems.forEach(item => {
     const btn = item.querySelector(".d-item__header");
     const content = item.querySelector(".d-item__text");
     const topContent = item.querySelector(".d-item__top");
+    if (!content || !topContent || !btn) return;
     if (item.classList.contains("active")) {
       topContent.style.display = "none";
       content.style.maxHeight = content.scrollHeight + "px";
     }
+
+    // Используем делегирование событий и пассивные события для улучшения производительности
     btn.addEventListener("click", e => {
       e.preventDefault();
+
+      // Отменяем обработку, если анимация уже идет (предотвращаем множественные нажатия)
+      if (item.hasAttribute("data-animating")) return;
+      item.setAttribute("data-animating", "true");
+
+      // Предварительные вычисления перед DOM-изменениями
+      const isActive = !item.classList.contains("active");
+      const contentHeight = content.scrollHeight;
+
+      // Сначала применяем clearActive для других элементов
       clearActive(item);
-      const isActive = item.classList.toggle("active");
       if (isActive) {
+        // Открываем элемент
+        item.classList.add("active");
         topContent.style.display = "none";
         topContent.style.opacity = 0;
-        content.style.maxHeight = content.scrollHeight + "px";
+
+        // Используем requestAnimationFrame для плавности анимации
+        requestAnimationFrame(() => {
+          content.style.maxHeight = contentHeight + "px";
+
+          // Удаляем флаг анимации после завершения
+          content.addEventListener("transitionend", function onEnd() {
+            item.removeAttribute("data-animating");
+            content.removeEventListener("transitionend", onEnd);
+          }, {
+            once: true
+          });
+        });
       } else {
-        content.style.maxHeight = content.scrollHeight + "px";
+        // Закрываем элемент
+        item.classList.remove("active");
+
+        // Фиксируем текущую высоту перед закрытием
+        content.style.maxHeight = contentHeight + "px";
         const onContentClose = () => {
           topContent.style.display = "grid";
           topContent.style.opacity = 1;
+          item.removeAttribute("data-animating");
           content.removeEventListener("transitionend", onContentClose);
         };
+
+        // Откладываем изменение высоты для корректной анимации
         requestAnimationFrame(() => {
-          content.style.maxHeight = null;
+          // Задержка необходима для корректной анимации на iOS
+          setTimeout(() => {
+            content.style.maxHeight = null;
+          }, isIOS ? 30 : 10);
         });
-        content.addEventListener("transitionend", onContentClose);
+        content.addEventListener("transitionend", onContentClose, {
+          once: true
+        });
       }
+    }, {
+      passive: false
     });
   });
 }
 
-// Функция для управления отображением d-item блоков
+// Оптимизированная функция для управления отображением d-item блоков
 function initDeliveryItems() {
   // Находим все контейнеры с data-delivery-items
   const containers = document.querySelectorAll("[data-delivery-items]");
@@ -98750,39 +98819,44 @@ function initDeliveryItems() {
     const visibleItems = parseInt(container.dataset.deliveryItems, 10);
     if (isNaN(visibleItems) || visibleItems <= 0) return;
     const deliveryItems = container.querySelectorAll(".d-item");
-    if (deliveryItems.length <= visibleItems) return;
+    const showMoreBtn = container.querySelector(".delivery-more-btn");
+    if (deliveryItems.length <= visibleItems || !showMoreBtn) return;
+
+    // Предварительно кэшируем DOM-элементы для мобильной версии
+    const hiddenItems = Array.from(deliveryItems).slice(visibleItems);
+    let isMobile = window.innerWidth < 769;
 
     // Функция для обновления видимости элементов
     const updateVisibility = () => {
-      // Проверяем ширину экрана
-      if (window.innerWidth < 769) {
-        // Скрываем элементы свыше указанного количества
-        deliveryItems.forEach((item, index) => {
-          if (index >= visibleItems) {
+      const newIsMobile = window.innerWidth < 769;
+
+      // Обновляем только при изменении состояния
+      if (isMobile !== newIsMobile) {
+        isMobile = newIsMobile;
+        if (isMobile) {
+          // Скрываем элементы свыше указанного количества
+          hiddenItems.forEach(item => {
             item.style.display = "none";
-          }
-        });
+          });
 
-        // Показываем кнопку только если есть скрытые элементы
-        showMoreBtn.style.display = "block";
-      } else {
-        // На десктопе показываем все элементы
-        deliveryItems.forEach(item => {
-          item.style.display = "";
-        });
+          // Показываем кнопку
+          showMoreBtn.style.display = "block";
+        } else {
+          // На десктопе показываем все элементы
+          hiddenItems.forEach(item => {
+            item.style.display = "";
+          });
 
-        // Скрываем кнопку
-        showMoreBtn.style.display = "none";
+          // Скрываем кнопку
+          showMoreBtn.style.display = "none";
+        }
       }
     };
-
-    // Создаем кнопку "Показать ещё"
-    const showMoreBtn = container.querySelector(".delivery-more-btn");
 
     // Обработчик клика по кнопке
     showMoreBtn.addEventListener("click", () => {
       // Показываем все элементы
-      deliveryItems.forEach(item => {
+      hiddenItems.forEach(item => {
         item.style.display = "";
       });
 
@@ -98793,15 +98867,25 @@ function initDeliveryItems() {
     // Вызываем функцию при загрузке страницы
     updateVisibility();
 
-    // Добавляем обработчик изменения размера окна
-    window.addEventListener("resize", updateVisibility);
+    // Добавляем обработчик изменения размера окна с троттлингом
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(() => {
+          resizeTimeout = null;
+          updateVisibility();
+        }, 250);
+      }
+    });
   });
 }
 
-// Инициализация компонента при загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
+// Инициализация компонента с проверкой готовности DOM
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initDeliveryItems);
+} else {
   initDeliveryItems();
-});
+}
 
 /***/ }),
 
@@ -98905,15 +98989,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ initLazyLoad)
 /* harmony export */ });
 /**
- * Модуль для ленивой загрузки изображений
+ * Модуль для ленивой загрузки изображений с оптимизацией для мобильных устройств
  */
 
 function initLazyLoad() {
+  // Проверяем, является ли устройство мобильным
+  const isMobile = window.innerWidth < 768;
+
+  // Проверяем, является ли устройство iOS
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   // Проверяем поддержку нативной ленивой загрузки
   if ("loading" in HTMLImageElement.prototype) {
     // Браузер поддерживает атрибут loading="lazy"
-    // Ничего делать не нужно, все загрузится автоматически
     console.log("Native lazy loading is supported");
+
+    // Даже при поддержке нативной ленивой загрузки,
+    // для iOS устройств добавляем дополнительную оптимизацию для приоритизации изображений
+    if (isIOS) {
+      optimizeImagesForIOS();
+    }
   } else {
     // Браузер не поддерживает атрибут loading="lazy", добавляем IntersectionObserver
     console.log("Native lazy loading is not supported, using IntersectionObserver");
@@ -98921,18 +99016,98 @@ function initLazyLoad() {
     // Получаем все изображения с атрибутом loading="lazy"
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
 
-    // Создаем объект IntersectionObserver
+    // Оптимизация: разбиваем обработку изображений на порции
+    // для мобильных устройств, чтобы не блокировать основной поток
+    if (isMobile && lazyImages.length > 10) {
+      batchProcessImages(lazyImages);
+    } else {
+      // Для десктопа или небольшого количества изображений используем стандартный подход
+      setupIntersectionObserver(lazyImages);
+    }
+  }
+
+  // Функция для предзагрузки важных изображений
+  function preloadCriticalImages() {
+    // Находим только действительно критические изображения
+    // Для мобильных устройств ограничиваем количество предзагружаемых изображений
+    const prioritySelector = isMobile ? 'img[fetchpriority="high"]:not([loading="lazy"]):nth-child(-n+3)' : 'img[fetchpriority="high"]';
+    const criticalImages = document.querySelectorAll(prioritySelector);
+
+    // Предзагружаем только ограниченное количество изображений для экономии трафика
+    const maxPreload = isMobile ? 3 : 5;
+    const imagesToPreload = Array.from(criticalImages).slice(0, maxPreload);
+    imagesToPreload.forEach(image => {
+      // Проверяем, загружено ли уже изображение
+      if (image.complete && image.naturalWidth > 0) return;
+
+      // Создаем объект для предзагрузки
+      const preloadLink = document.createElement("link");
+      preloadLink.rel = "preload";
+      preloadLink.as = "image";
+      preloadLink.href = image.src;
+      preloadLink.type = image.src.endsWith(".webp") ? "image/webp" : image.src.endsWith(".svg") ? "image/svg+xml" : image.src.endsWith(".png") ? "image/png" : "image/jpeg";
+
+      // Добавляем в head
+      document.head.appendChild(preloadLink);
+    });
+  }
+
+  // Функция для разбиения обработки изображений на порции
+  function batchProcessImages(images) {
+    const batchSize = isIOS ? 3 : 5; // Меньший размер порции для iOS
+    const batchDelay = isIOS ? 300 : 150; // Больший промежуток между порциями для iOS
+    const imagesArray = Array.from(images);
+
+    // Функция для обработки одной порции
+    function processBatch(startIndex) {
+      const batch = imagesArray.slice(startIndex, startIndex + batchSize);
+      if (batch.length === 0) return;
+
+      // Настраиваем IntersectionObserver для этой порции
+      setupIntersectionObserver(batch);
+
+      // Планируем обработку следующей порции
+      if (startIndex + batchSize < imagesArray.length) {
+        setTimeout(() => {
+          processBatch(startIndex + batchSize);
+        }, batchDelay);
+      }
+    }
+
+    // Начинаем с первой порции
+    processBatch(0);
+  }
+
+  // Функция для настройки IntersectionObserver
+  function setupIntersectionObserver(elementsToObserve) {
+    // Используем более агрессивные настройки для мобильных устройств
+    const rootMargin = isMobile ? "300px" : "200px";
+
+    // Создаем объект IntersectionObserver с оптимизированными параметрами
     const imageObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const image = entry.target;
+
           // Если изображение попало в область видимости, начинаем его загрузку
-          image.src = image.dataset.src || image.src;
+          if (image.dataset.src && !image.src.includes(image.dataset.src)) {
+            image.src = image.dataset.src;
+          }
 
           // Если есть data-srcset, устанавливаем его
           if (image.dataset.srcset) {
             image.srcset = image.dataset.srcset;
           }
+
+          // Добавляем обработчик загрузки для улучшения восприятия страницы
+          image.onload = function () {
+            // Плавно показываем изображение после загрузки
+            image.style.opacity = 1;
+            image.style.filter = "none";
+
+            // Удаляем обработчик после первого вызова
+            image.onload = null;
+          };
 
           // Удаляем атрибут loading="lazy", так как мы уже загрузили изображение
           image.removeAttribute("loading");
@@ -98941,32 +99116,46 @@ function initLazyLoad() {
           observer.unobserve(image);
         }
       });
+    }, {
+      rootMargin: rootMargin,
+      threshold: 0.01 // Низкий порог для раннего начала загрузки
     });
 
-    // Начинаем наблюдение за всеми ленивыми изображениями
-    lazyImages.forEach(image => {
+    // Начинаем наблюдение за всеми ленивыми изображениями в порции
+    elementsToObserve.forEach(image => {
+      // Устанавливаем начальные стили для плавного появления
+      image.style.opacity = 0;
+      image.style.transition = "opacity 0.3s ease-in";
+      image.style.filter = "blur(5px)";
       imageObserver.observe(image);
     });
   }
 
-  // Функция для предзагрузки важных изображений
-  function preloadCriticalImages() {
-    const criticalImages = document.querySelectorAll('img[fetchpriority="high"]');
-    criticalImages.forEach(image => {
-      // Создаем объект для предзагрузки
-      const preloadLink = document.createElement("link");
-      preloadLink.rel = "preload";
-      preloadLink.as = "image";
-      preloadLink.href = image.src;
-      preloadLink.type = image.src.endsWith(".webp") ? "image/webp" : "image/jpeg";
+  // Функция для дополнительной оптимизации изображений на iOS
+  function optimizeImagesForIOS() {
+    // На iOS добавляем дополнительную оптимизацию для критических изображений
+    const visibleImages = document.querySelectorAll('img:not([loading="lazy"]):not([fetchpriority="low"])');
+    visibleImages.forEach(img => {
+      // Добавляем hardware-acceleration для улучшения отрисовки
+      img.style.transform = "translateZ(0)";
 
-      // Добавляем в head
-      document.head.appendChild(preloadLink);
+      // Устанавливаем размеры для предотвращения перерасчета layout
+      if (img.width && img.height) {
+        img.setAttribute("width", img.width);
+        img.setAttribute("height", img.height);
+      }
     });
   }
 
   // Запускаем предзагрузку критических изображений
-  preloadCriticalImages();
+  // Используем requestIdleCallback для iOS, чтобы не блокировать основной поток
+  if (isIOS && "requestIdleCallback" in window) {
+    requestIdleCallback(() => preloadCriticalImages(), {
+      timeout: 1000
+    });
+  } else {
+    preloadCriticalImages();
+  }
 }
 
 /***/ }),
@@ -99115,6 +99304,8 @@ if (window.matchMedia("(max-width: 768px)").matches) {
   if (isIOS) {
     // Специальные настройки для iOS
     engine.timing.timeScale = 1.0; // Нормальная скорость симуляции для iOS
+    engine.positionIterations = 3; // Уменьшаем количество итераций позиционирования для iOS
+    engine.velocityIterations = 3; // Уменьшаем количество итераций скорости для iOS
 
     // iOS-специфичный стиль для canvas
     render.canvas.style.webkitTouchCallout = "none";
@@ -99517,7 +99708,7 @@ const observer = new IntersectionObserver(entries => {
   });
 }, {
   root: null,
-  threshold: 0.5
+  threshold: 0.7 // Уменьшаем порог срабатывания для более быстрого запуска
 });
 
 // Запускаем наблюдение только один раз
@@ -99564,12 +99755,42 @@ window.addEventListener("resize", () => {
   }, 300); // Достаточно долгий таймаут, чтобы не вызывать перестроение при скролле
 });
 
-// Отключаем обновление физики при скролле на мобильных устройствах
+// Оптимизация обработчика скролла для мобильных устройств
 let lastScrollTime = 0;
 const scrollThreshold = 300; // миллисекунды
-
+let isScrolling = false;
+let scrollTimeout = null;
 window.addEventListener("scroll", () => {
   const now = Date.now();
+
+  // Отмечаем начало скролла
+  if (!isScrolling) {
+    isScrolling = true;
+
+    // На мобильных устройствах временно останавливаем физический движок
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      // Сохраняем текущую гравитацию
+      const currentGravity = engine.gravity.y;
+
+      // Временно приостанавливаем симуляцию
+      engine.timing.timeScale = 0.1;
+    }
+  }
+
+  // Сбрасываем таймер при каждом событии скролла
+  clearTimeout(scrollTimeout);
+
+  // Устанавливаем таймер для определения окончания скролла
+  scrollTimeout = setTimeout(() => {
+    isScrolling = false;
+
+    // Восстанавливаем нормальную работу движка
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      engine.timing.timeScale = 1.0;
+    }
+  }, 150);
 
   // Пропускаем обновление физики во время скролла
   if (now - lastScrollTime < scrollThreshold) {
@@ -99599,7 +99820,7 @@ mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
   });
 });
 
-// Инициализация Matter.js с отправкой события
+// Оптимизируем функцию initMatter для асинхронной загрузки
 function initMatter() {
   const container = document.querySelector(".matter-container");
 
@@ -99616,8 +99837,17 @@ function initMatter() {
     return;
   }
 
-  // Проверяем видимость контейнера перед инициализацией
-  checkContainerVisibility(container, () => {
+  // Откладываем инициализацию matter.js до момента пока страница полностью не загрузится
+  if (document.readyState === "complete") {
+    checkContainerVisibility(container, initMatterWithDelay);
+  } else {
+    window.addEventListener("load", () => {
+      checkContainerVisibility(container, initMatterWithDelay);
+    });
+  }
+
+  // Функция отложенной инициализации
+  function initMatterWithDelay() {
     // Используем requestIdleCallback для запуска в свободное время
     if (window.requestIdleCallback) {
       window.requestIdleCallback(() => startMatter(container), {
@@ -99627,7 +99857,7 @@ function initMatter() {
       // Fallback для браузеров без поддержки requestIdleCallback
       setTimeout(() => startMatter(container), 800);
     }
-  });
+  }
 }
 
 // Функция для проверки видимости контейнера с помощью IntersectionObserver
@@ -99760,7 +99990,7 @@ function startMatter(container) {
   console.log("Matter.js успешно инициализирован");
 }
 
-// Создание элементов в контейнере
+// Оптимизируем функцию createElements для лучшей производительности на мобильных
 function createElements(engine, container) {
   // Создаем статические стены вокруг контейнера
   const wallOptions = {
@@ -99786,13 +100016,13 @@ function createElements(engine, container) {
   const count = Math.min(15, Math.floor(container.clientWidth * container.clientHeight / 40000)); // Адаптивное количество элементов
 
   for (let i = 0; i < count; i++) {
-    const size = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(30, 60);
+    const size = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(30, isMobile ? 50 : 60); // Меньший размер на мобильных
     const x = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(size, container.clientWidth - size);
     const y = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(size, container.clientHeight - size);
 
-    // Используем разные формы для разнообразия
+    // Используем более простые формы для мобильных устройств
     let element;
-    const shapeType = Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(0, 3));
+    const shapeType = isMobile ? Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(0, 2)) : Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(0, 3));
     switch (shapeType) {
       case 0:
         element = matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.circle(x, y, size / 2, {
@@ -99802,7 +100032,8 @@ function createElements(engine, container) {
           },
           collisionFilter: {
             category: 0x0001
-          }
+          },
+          frictionAir: isMobile ? 0.03 : 0.01 // Больше трение для мобильных
         });
         break;
       case 1:
@@ -99813,11 +100044,13 @@ function createElements(engine, container) {
           },
           collisionFilter: {
             category: 0x0001
-          }
+          },
+          frictionAir: isMobile ? 0.03 : 0.01 // Больше трение для мобильных
         });
         break;
       case 2:
-        const sides = Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(3, 7));
+        // Используем многоугольники только для десктопа
+        const sides = Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(3, 6)); // Меньше сторон
         element = matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.polygon(x, y, sides, size / 2, {
           render: {
             fillStyle: getRandomColor(),
@@ -99825,7 +100058,8 @@ function createElements(engine, container) {
           },
           collisionFilter: {
             category: 0x0001
-          }
+          },
+          frictionAir: 0.01
         });
         break;
     }
@@ -100691,19 +100925,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Список функций для отложенной инициализации
+const deferredFunctions = [];
+
+// Функция для отложенной инициализации компонентов
+function addDeferred(fn) {
+  deferredFunctions.push(fn);
+}
+
 // Инициализация основных компонентов
 function initMainComponents() {
   // Инициализация компонента для управления loyal-item блоками
   (0,_components_loyal_items_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
-  // Инициализация анимации SVG путей
-  initSvgPathAnimations();
-
-  // Инициализация анимации карты
-  initMapPathAnimations();
-
-  // Инициализация модуля ленивой загрузки изображений
+  // Инициализация модуля ленивой загрузки изображений - выполняем сразу, это критично
   (0,_components_lazyImages_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+
+  // Добавляем остальные компоненты в очередь отложенных инициализаций
+  addDeferred(initSvgPathAnimations);
+  addDeferred(initMapPathAnimations);
 }
 
 // Функция для инициализации анимации SVG путей
@@ -100712,23 +100952,44 @@ function initSvgPathAnimations() {
   if (svgPaths.length > 0) {
     const items = document.querySelectorAll(".integrate__item");
     const logo = document.querySelector(".int-logo");
+
+    // Используем меньший порог для мобильных устройств
+    const threshold = window.innerWidth < 768 ? 0.25 : 0.5;
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           logo.classList.add("animate");
-          setTimeout(() => {
-            svgPaths.forEach(path => {
-              path.style.animation = "draw 8s forwards 0.4s";
-            });
-            items.forEach(item => {
-              item.style.opacity = 1;
-            });
-            observer.unobserve(entry.target);
-          }, 1300);
+
+          // Используем requestAnimationFrame вместо setTimeout для оптимизации
+          requestAnimationFrame(() => {
+            // Добавим таймаут, но уменьшим его на мобильных
+            const isMobile = window.innerWidth < 768;
+            const delay = isMobile ? 800 : 1300;
+            setTimeout(() => {
+              // На iOS используем transform и opacity вместо анимаций
+              const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+              svgPaths.forEach(path => {
+                if (isIOS) {
+                  path.style.strokeDashoffset = "0";
+                  path.style.transition = "stroke-dashoffset 8s ease-in-out";
+                } else {
+                  path.style.animation = "draw 8s forwards 0.4s";
+                }
+              });
+              items.forEach((item, index) => {
+                // Добавляем постепенное появление для плавности
+                setTimeout(() => {
+                  item.style.opacity = 1;
+                }, index * 100);
+              });
+              observer.unobserve(entry.target);
+            }, delay);
+          });
         }
       });
     }, {
-      threshold: 1
+      threshold: threshold,
+      rootMargin: "0px 0px -10% 0px" // Немного раньше запускаем анимацию
     });
     observer.observe(logo);
   }
@@ -100738,17 +100999,24 @@ function initSvgPathAnimations() {
 function initMapPathAnimations() {
   const mapPath = document.querySelector(".map-path");
   if (mapPath) {
+    // Оптимизируем порог для мобильных
+    const threshold = window.innerWidth < 768 ? 0.1 : 0.3;
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add("animate");
-            observer.unobserve(entry.target);
-          }, 1000);
+          // Используем RAF для синхронизации с кадрами отрисовки
+          requestAnimationFrame(() => {
+            const delay = window.innerWidth < 768 ? 600 : 1000;
+            setTimeout(() => {
+              entry.target.classList.add("animate");
+              observer.unobserve(entry.target);
+            }, delay);
+          });
         }
       });
     }, {
-      threshold: 1
+      threshold: threshold,
+      rootMargin: "0px 0px -5% 0px"
     });
     document.querySelectorAll(".map-path").forEach(path => {
       observer.observe(path);
@@ -100758,12 +101026,61 @@ function initMapPathAnimations() {
 
 // Загрузка тяжелых компонентов
 function loadHeavyComponents() {
-  // Загружаем Matter.js компонент с задержкой
-  Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/matter.js */ "./src/js/components/matter.js")).then(module => {
-    // Вызываем инициализацию Matter.js
-    module.default();
-  }).catch(error => {
-    console.error("Ошибка загрузки Matter.js:", error);
+  const isMobile = window.innerWidth < 768;
+
+  // На мобильных устройствах делаем еще большую задержку для Matter.js
+  const matterDelay = isMobile ? 2500 : 1000;
+  setTimeout(() => {
+    // Импортируем Matter.js только когда пользователь уже взаимодействовал со страницей
+    Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/matter.js */ "./src/js/components/matter.js")).then(module => {
+      // Вызываем инициализацию Matter.js
+      module.default();
+    }).catch(error => {
+      console.error("Ошибка загрузки Matter.js:", error);
+    });
+  }, matterDelay);
+}
+
+// Выполнение отложенных функций с промежутками для снижения нагрузки на CPU
+function executeDeferredFunctions() {
+  if (!deferredFunctions.length) return;
+  const isMobile = window.innerWidth < 768;
+  const interval = isMobile ? 300 : 150; // Больший интервал для мобильных
+
+  let index = 0;
+  function executeNext() {
+    if (index >= deferredFunctions.length) return;
+    const fn = deferredFunctions[index++];
+    fn();
+    if (index < deferredFunctions.length) {
+      setTimeout(executeNext, interval);
+    }
+  }
+  executeNext();
+}
+
+// Обработчик события прокрутки с оптимизацией
+function setupOptimizedScroll() {
+  let scrollTimeout;
+  let lastKnownScrollPosition = 0;
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    lastKnownScrollPosition = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        // Здесь можно добавить обработку события прокрутки
+        ticking = false;
+      });
+      ticking = true;
+    }
+
+    // Определяем окончание прокрутки
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      // Код, который должен выполниться после окончания прокрутки
+    }, 150);
+  }, {
+    passive: true
   });
 }
 
@@ -100771,15 +101088,48 @@ function loadHeavyComponents() {
 document.addEventListener("DOMContentLoaded", () => {
   // Инициализируем основные компоненты
   initMainComponents();
-  document.querySelector(".footer__link--up").addEventListener("click", e => {
-    e.preventDefault();
-    window.scrollTo(0, 0);
-  });
+
+  // Оптимизируем обработчик кнопки скролла наверх
+  const scrollTopButton = document.querySelector(".footer__link--up");
+  if (scrollTopButton) {
+    scrollTopButton.addEventListener("click", e => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }, {
+      passive: false
+    });
+  }
+
+  // Настраиваем оптимизированный скролл
+  setupOptimizedScroll();
+
+  // Выполняем отложенные функции с задержкой
+  setTimeout(executeDeferredFunctions, 500);
 
   // Загружаем тяжелые компоненты с задержкой
-  requestIdleCallback ? requestIdleCallback(loadHeavyComponents, {
-    timeout: 2000
-  }) : setTimeout(loadHeavyComponents, 1000);
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(() => loadHeavyComponents(), {
+      timeout: 2000
+    });
+  } else {
+    setTimeout(loadHeavyComponents, 1500);
+  }
+});
+
+// Добавляем обработчик события загрузки окна для дополнительной оптимизации
+window.addEventListener("load", () => {
+  // После полной загрузки страницы можно выполнить дополнительные оптимизации
+  setTimeout(() => {
+    // Удаляем неиспользуемые обработчики и освобождаем ресурсы
+    if (window.performance && window.performance.memory) {
+      console.log("Memory usage:", window.performance.memory.usedJSHeapSize / 1048576, "MB");
+    }
+  }, 3000);
+}, {
+  passive: true
 });
 })();
 

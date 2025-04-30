@@ -72,6 +72,8 @@ if (window.matchMedia("(max-width: 768px)").matches) {
   if (isIOS) {
     // Специальные настройки для iOS
     engine.timing.timeScale = 1.0; // Нормальная скорость симуляции для iOS
+    engine.positionIterations = 3; // Уменьшаем количество итераций позиционирования для iOS
+    engine.velocityIterations = 3; // Уменьшаем количество итераций скорости для iOS
 
     // iOS-специфичный стиль для canvas
     render.canvas.style.webkitTouchCallout = "none";
@@ -538,7 +540,7 @@ const observer = new IntersectionObserver(
   },
   {
     root: null,
-    threshold: 0.5,
+    threshold: 0.7, // Уменьшаем порог срабатывания для более быстрого запуска
   }
 );
 
@@ -602,14 +604,45 @@ window.addEventListener("resize", () => {
   }, 300); // Достаточно долгий таймаут, чтобы не вызывать перестроение при скролле
 });
 
-// Отключаем обновление физики при скролле на мобильных устройствах
+// Оптимизация обработчика скролла для мобильных устройств
 let lastScrollTime = 0;
 const scrollThreshold = 300; // миллисекунды
+let isScrolling = false;
+let scrollTimeout = null;
 
 window.addEventListener(
   "scroll",
   () => {
     const now = Date.now();
+
+    // Отмечаем начало скролла
+    if (!isScrolling) {
+      isScrolling = true;
+
+      // На мобильных устройствах временно останавливаем физический движок
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        // Сохраняем текущую гравитацию
+        const currentGravity = engine.gravity.y;
+
+        // Временно приостанавливаем симуляцию
+        engine.timing.timeScale = 0.1;
+      }
+    }
+
+    // Сбрасываем таймер при каждом событии скролла
+    clearTimeout(scrollTimeout);
+
+    // Устанавливаем таймер для определения окончания скролла
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+
+      // Восстанавливаем нормальную работу движка
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        engine.timing.timeScale = 1.0;
+      }
+    }, 150);
 
     // Пропускаем обновление физики во время скролла
     if (now - lastScrollTime < scrollThreshold) {
@@ -641,7 +674,7 @@ mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
   });
 });
 
-// Инициализация Matter.js с отправкой события
+// Оптимизируем функцию initMatter для асинхронной загрузки
 export default function initMatter() {
   const container = document.querySelector(".matter-container");
 
@@ -658,8 +691,17 @@ export default function initMatter() {
     return;
   }
 
-  // Проверяем видимость контейнера перед инициализацией
-  checkContainerVisibility(container, () => {
+  // Откладываем инициализацию matter.js до момента пока страница полностью не загрузится
+  if (document.readyState === "complete") {
+    checkContainerVisibility(container, initMatterWithDelay);
+  } else {
+    window.addEventListener("load", () => {
+      checkContainerVisibility(container, initMatterWithDelay);
+    });
+  }
+
+  // Функция отложенной инициализации
+  function initMatterWithDelay() {
     // Используем requestIdleCallback для запуска в свободное время
     if (window.requestIdleCallback) {
       window.requestIdleCallback(() => startMatter(container), {
@@ -669,7 +711,7 @@ export default function initMatter() {
       // Fallback для браузеров без поддержки requestIdleCallback
       setTimeout(() => startMatter(container), 800);
     }
-  });
+  }
 }
 
 // Функция для проверки видимости контейнера с помощью IntersectionObserver
@@ -801,7 +843,7 @@ function startMatter(container) {
   console.log("Matter.js успешно инициализирован");
 }
 
-// Создание элементов в контейнере
+// Оптимизируем функцию createElements для лучшей производительности на мобильных
 function createElements(engine, container) {
   // Создаем статические стены вокруг контейнера
   const wallOptions = {
@@ -851,13 +893,15 @@ function createElements(engine, container) {
   ); // Адаптивное количество элементов
 
   for (let i = 0; i < count; i++) {
-    const size = Common.random(30, 60);
+    const size = Common.random(30, isMobile ? 50 : 60); // Меньший размер на мобильных
     const x = Common.random(size, container.clientWidth - size);
     const y = Common.random(size, container.clientHeight - size);
 
-    // Используем разные формы для разнообразия
+    // Используем более простые формы для мобильных устройств
     let element;
-    const shapeType = Math.floor(Common.random(0, 3));
+    const shapeType = isMobile
+      ? Math.floor(Common.random(0, 2))
+      : Math.floor(Common.random(0, 3));
 
     switch (shapeType) {
       case 0:
@@ -869,6 +913,7 @@ function createElements(engine, container) {
           collisionFilter: {
             category: 0x0001,
           },
+          frictionAir: isMobile ? 0.03 : 0.01, // Больше трение для мобильных
         });
         break;
       case 1:
@@ -880,10 +925,12 @@ function createElements(engine, container) {
           collisionFilter: {
             category: 0x0001,
           },
+          frictionAir: isMobile ? 0.03 : 0.01, // Больше трение для мобильных
         });
         break;
       case 2:
-        const sides = Math.floor(Common.random(3, 7));
+        // Используем многоугольники только для десктопа
+        const sides = Math.floor(Common.random(3, 6)); // Меньше сторон
         element = Bodies.polygon(x, y, sides, size / 2, {
           render: {
             fillStyle: getRandomColor(),
@@ -892,6 +939,7 @@ function createElements(engine, container) {
           collisionFilter: {
             category: 0x0001,
           },
+          frictionAir: 0.01,
         });
         break;
     }

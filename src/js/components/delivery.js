@@ -24,8 +24,16 @@ if (deliveryItems.length > 0) {
   // Вызываем функцию при загрузке страницы
   checkMobileState();
 
-  // Следим за изменением размера окна
-  window.addEventListener("resize", checkMobileState);
+  // Следим за изменением размера окна с троттлингом
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(() => {
+        resizeTimeout = null;
+        checkMobileState();
+      }, 250);
+    }
+  });
 
   function clearActive(currentItem) {
     deliveryItems.forEach((item) => {
@@ -33,7 +41,15 @@ if (deliveryItems.length > 0) {
         item.classList.remove("active");
         const content = item.querySelector(".d-item__text");
         const topContent = item.querySelector(".d-item__top");
-        content.style.maxHeight = content.scrollHeight + "px";
+
+        if (!content || !topContent) return;
+
+        // Добавляем трансформацию в GPU-слой на iOS для оптимизации
+        content.style.transform = "translateZ(0)";
+
+        // Убираем лишние вычисления scrollHeight во время изменений
+        const contentHeight = content.scrollHeight;
+        content.style.maxHeight = contentHeight + "px";
 
         const onContentClose = () => {
           topContent.style.display = "grid";
@@ -41,11 +57,26 @@ if (deliveryItems.length > 0) {
           content.removeEventListener("transitionend", onContentClose);
         };
 
-        requestAnimationFrame(() => {
+        // Откладываем изменение максимальной высоты для предотвращения дрожания
+        setTimeout(() => {
           content.style.maxHeight = null;
-        });
+        }, 10);
+
         content.addEventListener("transitionend", onContentClose);
       }
+    });
+  }
+
+  // Определяем, является ли устройство iOS
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // На iOS для лучшей производительности при анимациях
+  if (isIOS) {
+    document.querySelectorAll(".d-item__text").forEach((el) => {
+      el.style.transform = "translateZ(0)"; // Включаем аппаратное ускорение
+      el.style.willChange = "max-height"; // Предупреждаем браузер о будущих изменениях
+      el.style.transition = "max-height 0.3s ease-out"; // Более быстрая и плавная анимация для iOS
     });
   }
 
@@ -54,41 +85,86 @@ if (deliveryItems.length > 0) {
     const content = item.querySelector(".d-item__text");
     const topContent = item.querySelector(".d-item__top");
 
+    if (!content || !topContent || !btn) return;
+
     if (item.classList.contains("active")) {
       topContent.style.display = "none";
       content.style.maxHeight = content.scrollHeight + "px";
     }
 
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
+    // Используем делегирование событий и пассивные события для улучшения производительности
+    btn.addEventListener(
+      "click",
+      (e) => {
+        e.preventDefault();
 
-      clearActive(item);
+        // Отменяем обработку, если анимация уже идет (предотвращаем множественные нажатия)
+        if (item.hasAttribute("data-animating")) return;
+        item.setAttribute("data-animating", "true");
 
-      const isActive = item.classList.toggle("active");
+        // Предварительные вычисления перед DOM-изменениями
+        const isActive = !item.classList.contains("active");
+        const contentHeight = content.scrollHeight;
 
-      if (isActive) {
-        topContent.style.display = "none";
-        topContent.style.opacity = 0;
-        content.style.maxHeight = content.scrollHeight + "px";
-      } else {
-        content.style.maxHeight = content.scrollHeight + "px";
+        // Сначала применяем clearActive для других элементов
+        clearActive(item);
 
-        const onContentClose = () => {
-          topContent.style.display = "grid";
-          topContent.style.opacity = 1;
-          content.removeEventListener("transitionend", onContentClose);
-        };
+        if (isActive) {
+          // Открываем элемент
+          item.classList.add("active");
+          topContent.style.display = "none";
+          topContent.style.opacity = 0;
 
-        requestAnimationFrame(() => {
-          content.style.maxHeight = null;
-        });
-        content.addEventListener("transitionend", onContentClose);
-      }
-    });
+          // Используем requestAnimationFrame для плавности анимации
+          requestAnimationFrame(() => {
+            content.style.maxHeight = contentHeight + "px";
+
+            // Удаляем флаг анимации после завершения
+            content.addEventListener(
+              "transitionend",
+              function onEnd() {
+                item.removeAttribute("data-animating");
+                content.removeEventListener("transitionend", onEnd);
+              },
+              { once: true }
+            );
+          });
+        } else {
+          // Закрываем элемент
+          item.classList.remove("active");
+
+          // Фиксируем текущую высоту перед закрытием
+          content.style.maxHeight = contentHeight + "px";
+
+          const onContentClose = () => {
+            topContent.style.display = "grid";
+            topContent.style.opacity = 1;
+            item.removeAttribute("data-animating");
+            content.removeEventListener("transitionend", onContentClose);
+          };
+
+          // Откладываем изменение высоты для корректной анимации
+          requestAnimationFrame(() => {
+            // Задержка необходима для корректной анимации на iOS
+            setTimeout(
+              () => {
+                content.style.maxHeight = null;
+              },
+              isIOS ? 30 : 10
+            );
+          });
+
+          content.addEventListener("transitionend", onContentClose, {
+            once: true,
+          });
+        }
+      },
+      { passive: false }
+    );
   });
 }
 
-// Функция для управления отображением d-item блоков
+// Оптимизированная функция для управления отображением d-item блоков
 function initDeliveryItems() {
   // Находим все контейнеры с data-delivery-items
   const containers = document.querySelectorAll("[data-delivery-items]");
@@ -101,40 +177,46 @@ function initDeliveryItems() {
     if (isNaN(visibleItems) || visibleItems <= 0) return;
 
     const deliveryItems = container.querySelectorAll(".d-item");
+    const showMoreBtn = container.querySelector(".delivery-more-btn");
 
-    if (deliveryItems.length <= visibleItems) return;
+    if (deliveryItems.length <= visibleItems || !showMoreBtn) return;
+
+    // Предварительно кэшируем DOM-элементы для мобильной версии
+    const hiddenItems = Array.from(deliveryItems).slice(visibleItems);
+    let isMobile = window.innerWidth < 769;
 
     // Функция для обновления видимости элементов
     const updateVisibility = () => {
-      // Проверяем ширину экрана
-      if (window.innerWidth < 769) {
-        // Скрываем элементы свыше указанного количества
-        deliveryItems.forEach((item, index) => {
-          if (index >= visibleItems) {
+      const newIsMobile = window.innerWidth < 769;
+
+      // Обновляем только при изменении состояния
+      if (isMobile !== newIsMobile) {
+        isMobile = newIsMobile;
+
+        if (isMobile) {
+          // Скрываем элементы свыше указанного количества
+          hiddenItems.forEach((item) => {
             item.style.display = "none";
-          }
-        });
+          });
 
-        // Показываем кнопку только если есть скрытые элементы
-        showMoreBtn.style.display = "block";
-      } else {
-        // На десктопе показываем все элементы
-        deliveryItems.forEach((item) => {
-          item.style.display = "";
-        });
+          // Показываем кнопку
+          showMoreBtn.style.display = "block";
+        } else {
+          // На десктопе показываем все элементы
+          hiddenItems.forEach((item) => {
+            item.style.display = "";
+          });
 
-        // Скрываем кнопку
-        showMoreBtn.style.display = "none";
+          // Скрываем кнопку
+          showMoreBtn.style.display = "none";
+        }
       }
     };
-
-    // Создаем кнопку "Показать ещё"
-    const showMoreBtn = container.querySelector(".delivery-more-btn");
 
     // Обработчик клика по кнопке
     showMoreBtn.addEventListener("click", () => {
       // Показываем все элементы
-      deliveryItems.forEach((item) => {
+      hiddenItems.forEach((item) => {
         item.style.display = "";
       });
 
@@ -145,12 +227,22 @@ function initDeliveryItems() {
     // Вызываем функцию при загрузке страницы
     updateVisibility();
 
-    // Добавляем обработчик изменения размера окна
-    window.addEventListener("resize", updateVisibility);
+    // Добавляем обработчик изменения размера окна с троттлингом
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(() => {
+          resizeTimeout = null;
+          updateVisibility();
+        }, 250);
+      }
+    });
   });
 }
 
-// Инициализация компонента при загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
+// Инициализация компонента с проверкой готовности DOM
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initDeliveryItems);
+} else {
   initDeliveryItems();
-});
+}
