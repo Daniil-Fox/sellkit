@@ -10,3 +10,4 @@ import "./components/aos.js";
 import "./components/faq.js";
 import "./components/plans.js";
 import "./components/loyal-items.js";
+import initLazyLoad from "./components/lazyImages.js";

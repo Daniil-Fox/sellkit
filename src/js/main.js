@@ -1,20 +1,7 @@
 import "./_components.js";
 import "./functions/burger.js";
 import initLoyalItems from "./components/loyal-items.js";
-import { initPreloader } from "./components/preloader.js";
-
-// Глобальные переменные для отслеживания состояния загрузки
-let preloader = null;
-let componentsLoaded = false;
-let matterInitialized = false;
-
-// Функция для завершения прелоадера, когда все компоненты загружены
-function finishPreloader() {
-  if (componentsLoaded && matterInitialized && preloader) {
-    console.log("Все компоненты загружены, закрываем прелоадер");
-    preloader.finishLoading();
-  }
-}
+import initLazyLoad from "./components/lazyImages.js";
 
 // Инициализация основных компонентов
 function initMainComponents() {
@@ -27,11 +14,8 @@ function initMainComponents() {
   // Инициализация анимации карты
   initMapPathAnimations();
 
-  // Отмечаем, что основные компоненты загружены
-  componentsLoaded = true;
-
-  // Проверяем, можно ли завершить прелоадер
-  finishPreloader();
+  // Инициализация модуля ленивой загрузки изображений
+  initLazyLoad();
 }
 
 // Функция для инициализации анимации SVG путей
@@ -101,46 +85,21 @@ function loadHeavyComponents() {
     .then((module) => {
       // Вызываем инициализацию Matter.js
       module.default();
-
-      // Слушаем событие завершения инициализации matter
-      window.addEventListener(
-        "matterInitialized",
-        () => {
-          console.log("Событие инициализации Matter.js получено");
-          matterInitialized = true;
-          finishPreloader();
-        },
-        { once: true }
-      );
     })
     .catch((error) => {
       console.error("Ошибка загрузки Matter.js:", error);
-      // Если не удалось загрузить matter, все равно отмечаем его как инициализированный
-      matterInitialized = true;
-      finishPreloader();
     });
 }
 
 // Инициализация при загрузке DOM
 document.addEventListener("DOMContentLoaded", () => {
-  // Инициализируем прелоадер
-  preloader = initPreloader();
-
   // Инициализируем основные компоненты
   initMainComponents();
+
   document.querySelector(".footer__link--up").addEventListener("click", (e) => {
     e.preventDefault();
     window.scrollTo(0, 0);
   });
-  // Слушаем событие инициализации matter
-  window.addEventListener(
-    "matterInitialized",
-    () => {
-      matterInitialized = true;
-      finishPreloader();
-    },
-    { once: true }
-  );
 
   // Загружаем тяжелые компоненты с задержкой
   requestIdleCallback

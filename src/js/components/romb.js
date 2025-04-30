@@ -1,6 +1,4 @@
 import * as THREE from "three";
-import gsap from "gsap";
-import { metalness, roughness } from "three/tsl";
 
 const canvas = document.querySelector("#loyal-canvas");
 
@@ -177,26 +175,62 @@ function createRhombus() {
 function startTransitionTimer() {
   setInterval(() => {
     isWireframe = !isWireframe;
-    const duration = 1000;
 
     if (isWireframe) {
-      rhombus.children.forEach((mesh) => {
-        gsap.to(mesh.material, {
-          opacity: 0,
-          duration: duration / 1000,
-          ease: "power2.inOut",
-        });
-      });
+      fadeOutMaterials();
     } else {
-      rhombus.children.forEach((mesh) => {
-        gsap.to(mesh.material, {
-          opacity: 1,
-          duration: duration / 1000,
-          ease: "power2.inOut",
-        });
-      });
+      fadeInMaterials();
     }
   }, 3000);
+}
+
+// Добавляем новые функции для анимации прозрачности
+let isAnimating = false;
+let animationStartTime = 0;
+const animationDuration = 1000; // миллисекунды
+
+function fadeOutMaterials() {
+  isAnimating = true;
+  animationStartTime = performance.now();
+  requestAnimationFadeOut();
+}
+
+function fadeInMaterials() {
+  isAnimating = true;
+  animationStartTime = performance.now();
+  requestAnimationFadeIn();
+}
+
+function requestAnimationFadeOut() {
+  const currentTime = performance.now();
+  const elapsedTime = currentTime - animationStartTime;
+  const progress = Math.min(elapsedTime / animationDuration, 1);
+
+  rhombus.children.forEach((mesh) => {
+    mesh.material.opacity = 1 - progress;
+  });
+
+  if (progress < 1 && isAnimating) {
+    requestAnimationFrame(requestAnimationFadeOut);
+  } else {
+    isAnimating = false;
+  }
+}
+
+function requestAnimationFadeIn() {
+  const currentTime = performance.now();
+  const elapsedTime = currentTime - animationStartTime;
+  const progress = Math.min(elapsedTime / animationDuration, 1);
+
+  rhombus.children.forEach((mesh) => {
+    mesh.material.opacity = progress;
+  });
+
+  if (progress < 1 && isAnimating) {
+    requestAnimationFrame(requestAnimationFadeIn);
+  } else {
+    isAnimating = false;
+  }
 }
 
 function animate() {

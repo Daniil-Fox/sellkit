@@ -60,7 +60,6 @@
     "aos": "^2.3.4",
     "graph-modal": "^1.0.7",
     "graph-tabs": "^1.0.2",
-    "gsap": "^3.12.7",
     "inputmask": "^5.0.8",
     "just-validate": "^4.3.0",
     "matter-js": "^0.19.0",

@@ -5,7 +5,25 @@
 
 // Класс для управления прелоадером
 export default class Preloader {
-  constructor() {
+  constructor(options = {}) {
+    // Опция для полного отключения прелоадера
+    this.disabled = options.disabled || false;
+
+    // Если прелоадер отключен, сразу прекращаем инициализацию
+    if (this.disabled) {
+      this.isFinished = true;
+
+      // Удаляем прелоадер из DOM, если он существует
+      const preloader = document.querySelector(".preloader");
+      if (preloader && preloader.parentNode) {
+        preloader.parentNode.removeChild(preloader);
+      }
+
+      // Разрешаем скролл сразу
+      document.body.style.overflow = "";
+      return;
+    }
+
     this.preloader = document.querySelector(".preloader");
     this.progressBar = document.querySelector(".preloader__progress-bar");
     this.progressText = document.querySelector(".preloader__text");
@@ -133,8 +151,8 @@ export default class Preloader {
   // Публичный метод завершения загрузки
   // Может быть вызван извне для ручного закрытия прелоадера
   finishLoading() {
-    // Если прелоадер уже закрыт, ничего не делаем
-    if (this.isFinished) return;
+    // Если прелоадер отключен или уже закрыт, ничего не делаем
+    if (this.disabled || this.isFinished) return;
 
     // Устанавливаем флаг завершения
     this.isFinished = true;
@@ -154,7 +172,7 @@ export default class Preloader {
 
   // Завершающие действия
   completeLoading() {
-    if (!this.preloader) return;
+    if (this.disabled || !this.preloader) return;
 
     // Устанавливаем прогресс 100%
     this.updateProgress(100);
@@ -178,6 +196,6 @@ export default class Preloader {
 }
 
 // Инициализация прелоадера при загрузке скрипта
-export function initPreloader() {
-  return new Preloader();
+export function initPreloader(options = {}) {
+  return new Preloader(options);
 }

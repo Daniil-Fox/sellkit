@@ -699,7 +699,7 @@ function startMatter(container) {
   // Создаем движок
   const engine = Engine.create({
     enableSleeping: true,
-    gravity: { x: 0, y: 0.5 },
+    gravity: { x: 0, y: 0.6 },
   });
 
   // Настраиваем рендерер
