@@ -84,7 +84,7 @@
     gap: 44px;
     grid-column: 2 span;
     max-width: 100%;
-    transition: 0.2s ease-in;
+    transition: opacity 0.2s ease-in;
     @media (max-width: 1300px) {
       display: none !important;
     }
@@ -101,7 +101,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-in;
-    will-change: max-height;
+    transform: translateZ(0);
 
     @media (max-width: 1300px) {
       grid-column: 1 span;

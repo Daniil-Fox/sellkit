@@ -26,64 +26,107 @@
     &--1 {
       left: 0;
       top: 50px;
+      @include mobile {
+        transform: translateX(-50%);
+      }
     }
     &--2 {
       top: 300px;
       left: -800px;
       opacity: 0.6;
+      @include mobile {
+        left: unset;
+        right: 0;
+        transform: translateX(50%);
+      }
     }
     &--3 {
       top: 300px;
       right: -800px;
       opacity: 0.6;
+      @include mobile {
+        top: 540px;
+        right: unset;
+        left: 0;
+        transform: translateX(-50%);
+      }
     }
     &--4 {
       width: 540px;
       opacity: 0.6;
       top: 900px;
       right: -40px;
+      @include mobile {
+        right: 0;
+        width: 340px;
+        transform: translateX(50%);
+      }
     }
     &--5 {
       width: 540px;
       opacity: 0.6;
       top: 900px;
       left: -40px;
+      @include mobile {
+        width: 340px;
+        top: 1300px;
+        left: 0;
+        transform: translateX(-50%);
+      }
     }
     &--6 {
       width: 540px;
       opacity: 0.6;
       top: 1300px;
       left: 350px;
+      @include mobile {
+        display: none;
+      }
     }
     &--7 {
       width: 540px;
       opacity: 0.6;
       top: 1300px;
       right: 350px;
+      @include mobile {
+        display: none;
+      }
     }
     &--8 {
       width: 450px;
       background-color: #8d4cf6;
       top: 1500px;
       left: -90px;
+      @include mobile {
+        display: none;
+      }
     }
     &--9 {
       width: 450px;
       background-color: #8d4cf6;
       top: 1500px;
       right: -90px;
+      @include mobile {
+        display: none;
+      }
     }
     &--10 {
       width: 550px;
       background-color: rgba(0, 106, 255, 0.57);
       bottom: 0px;
       right: -100px;
+      @include mobile {
+        display: none;
+      }
     }
     &--11 {
       width: 550px;
       background-color: rgba(0, 106, 255, 0.57);
       bottom: 0px;
       right: -100px;
+      @include mobile {
+        display: none;
+      }
     }
   }
   &__header {
