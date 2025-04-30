@@ -12,7 +12,8 @@ import {
   Events,
   Common,
 } from "matter-js";
-
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 // Создаем движок Matter.js
 const engine = Engine.create();
 engine.gravity.y = 0.0;
@@ -70,7 +71,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 
   if (isIOS) {
     // Специальные настройки для iOS
-    engine.timing.timeScale = 0.8; // Замедляем физику немного для iOS
+    engine.timing.timeScale = 1.0; // Нормальная скорость симуляции для iOS
 
     // iOS-специфичный стиль для canvas
     render.canvas.style.webkitTouchCallout = "none";
@@ -126,7 +127,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
           htmlElements[index].style.zIndex = "10";
 
           // Снижаем гравитацию при перетаскивании
-          engine.gravity.y = isIOS ? 0.5 : 1; // Меньшая гравитация для iOS
+          engine.gravity.y = isIOS ? 0.5 : 0.3; // Повышенная гравитация для iOS
 
           // Для iOS делаем элемент "неподвижным" при перетаскивании
           if (isIOS) {
@@ -180,7 +181,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 
         // Обновляем информацию о скорости для реалистичного броска
         activeElement.velocity = {
-          x: (boundedX - prevPosition.x) * (isIOS ? 5 : 3),
+          x: (boundedX - prevPosition.x) * (isIOS ? 5 : 3), // Увеличенная скорость для iOS
           y: (boundedY - prevPosition.y) * (isIOS ? 5 : 3),
         };
 
@@ -206,11 +207,11 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 
           // Даем небольшую задержку перед возвращением гравитации
           setTimeout(() => {
-            engine.gravity.y = 0.05;
+            engine.gravity.y = 0.7;
           }, 50);
         } else {
           // Возвращаем нормальную гравитацию после отпускания
-          engine.gravity.y = 0.05;
+          engine.gravity.y = 0.7;
         }
 
         // Применяем накопленную скорость как импульс, чтобы сохранить инерцию движения
@@ -384,10 +385,6 @@ function createRoundedRectangle(x, y, width, height, radius) {
     { x: x - width / 2, y: y - height / 2 + radius },
   ];
 
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  const isIOS =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
   // Увеличиваем трение воздуха для более реалистичной физики на мобильных устройствах
   const frictionAir = isMobile ? (isIOS ? 0.03 : 0.05) : 0.01;
 
@@ -529,7 +526,7 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting && !blocksHaveFallen && isInitialized) {
         setTimeout(() => {
-          engine.gravity.y = 0.05;
+          engine.gravity.y = isMobile ? 0.3 : 0.05;
           blocksHaveFallen = true;
 
           // Сообщаем о завершении инициализации matter.js
@@ -699,7 +696,7 @@ function startMatter(container) {
   // Создаем движок
   const engine = Engine.create({
     enableSleeping: true,
-    gravity: { x: 0, y: 0.6 },
+    gravity: { x: 0, y: 0.5 },
   });
 
   // Настраиваем рендерер
