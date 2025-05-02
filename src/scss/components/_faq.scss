@@ -7,6 +7,7 @@
   @include mobile {
     padding: 7px 0;
     padding-bottom: 36px;
+    background-image: unset;
   }
 
   &__container {
@@ -54,6 +55,9 @@
       text-transform: uppercase;
       color: #000e2b;
     }
+    @include mobile {
+      font-size: 15px;
+    }
   }
   &__btn {
     padding: 15px 30px;
@@ -63,6 +67,10 @@
     @include tablet {
       font-size: 20px;
       padding: 12px 30px;
+    }
+    @include mobile {
+      font-size: 18px;
+      padding: 14px 30px 10px;
     }
     svg {
       fill: currentColor;

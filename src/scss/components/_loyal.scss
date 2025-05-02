@@ -38,6 +38,10 @@
         font-size: 18px;
         line-height: 130%;
       }
+      @include mobile {
+        font-size: 15px;
+        max-width: 233px;
+      }
     }
   }
   &__canvas {

@@ -79,6 +79,9 @@
         font-size: 18px;
         max-width: 292px;
       }
+      @include mobile {
+        font-size: 15px;
+      }
     }
   }
   &__btn {

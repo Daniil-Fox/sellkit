@@ -11,10 +11,10 @@ export default function initAOS() {
     console.log("No AOS elements found, skipping initialization");
     return;
   }
-
+  const isMob = window.innerWidth < 768;
   // Возвращаемся к стандартной реализации AOS с небольшими модификациями
   AOS.init({
-    offset: 60, // Настраиваем смещение для точного срабатывания
+    offset: 0, // Настраиваем смещение для точного срабатывания
     delay: 0,
     duration: 800,
     easing: "ease",

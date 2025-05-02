@@ -98576,10 +98576,10 @@ function initAOS() {
     console.log("No AOS elements found, skipping initialization");
     return;
   }
-
+  const isMob = window.innerWidth < 768;
   // Возвращаемся к стандартной реализации AOS с небольшими модификациями
   aos__WEBPACK_IMPORTED_MODULE_0__.init({
-    offset: 60,
+    offset: 0,
     // Настраиваем смещение для точного срабатывания
     delay: 0,
     duration: 800,
@@ -98750,15 +98750,13 @@ function initDelivery() {
       requestAnimationFrame(() => {
         // Закрываем все блоки, кроме первого на мобильных
         deliveryItems.forEach((item, index) => {
-          if (item.classList.contains("active") && index !== 0) {
-            item.classList.remove("active");
-            const content = item.querySelector(".d-item__text");
-            const topContent = item.querySelector(".d-item__top");
-            if (content && topContent) {
-              content.style.maxHeight = null;
-              topContent.style.display = "grid";
-              topContent.style.opacity = 1;
-            }
+          item.classList.remove("active");
+          const content = item.querySelector(".d-item__text");
+          const topContent = item.querySelector(".d-item__top");
+          if (content && topContent) {
+            content.style.maxHeight = null;
+            topContent.style.display = "grid";
+            topContent.style.opacity = 1;
           }
         });
       });

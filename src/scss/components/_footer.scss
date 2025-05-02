@@ -4,6 +4,7 @@
   background-size: 100% auto;
   padding: 24px 0 32px;
   @include mobile {
+    background-image: unset;
   }
   &__container {
     display: flex;

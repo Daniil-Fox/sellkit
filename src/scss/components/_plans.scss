@@ -4,6 +4,9 @@
   background-size: 100% auto;
   padding: 54px 0;
   position: relative;
+  @include mobile {
+    background-image: unset;
+  }
   &--cost {
     padding-top: 100px;
   }
@@ -203,8 +206,8 @@
     @include mobile {
       width: 100%;
       font-size: 26px;
-      padding-top: 17px;
-      padding-bottom: 17px;
+      padding-top: 20px;
+      padding-bottom: 14px;
     }
   }
 }

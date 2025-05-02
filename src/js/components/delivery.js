@@ -55,16 +55,14 @@ export default function initDelivery() {
       requestAnimationFrame(() => {
         // Закрываем все блоки, кроме первого на мобильных
         deliveryItems.forEach((item, index) => {
-          if (item.classList.contains("active") && index !== 0) {
-            item.classList.remove("active");
-            const content = item.querySelector(".d-item__text");
-            const topContent = item.querySelector(".d-item__top");
+          item.classList.remove("active");
+          const content = item.querySelector(".d-item__text");
+          const topContent = item.querySelector(".d-item__top");
 
-            if (content && topContent) {
-              content.style.maxHeight = null;
-              topContent.style.display = "grid";
-              topContent.style.opacity = 1;
-            }
+          if (content && topContent) {
+            content.style.maxHeight = null;
+            topContent.style.display = "grid";
+            topContent.style.opacity = 1;
           }
         });
       });
