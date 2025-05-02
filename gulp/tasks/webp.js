@@ -7,10 +7,12 @@ export const webpImages = () => {
     })
     .pipe(
       webp({
-        quality: 80,
+        quality: 70,
         lossless: false,
-        alphaQuality: 90,
+        alphaQuality: 80,
         method: 6,
+        nearLossless: 60,
+        sharpness: 0,
       })
     )
     .pipe(app.gulp.dest(app.paths.buildImgFolder));

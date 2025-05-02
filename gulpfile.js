@@ -11,10 +11,13 @@ import { scriptsBackend } from "./gulp/tasks/scripts-backend.js";
 import { resources } from "./gulp/tasks/resources.js";
 import { images } from "./gulp/tasks/images.js";
 import { webpImages } from "./gulp/tasks/webp.js";
+import { avifImages } from "./gulp/tasks/avif.js";
 import { htmlInclude } from "./gulp/tasks/html-include.js";
 import { cacheTask } from "./gulp/tasks/cache.js";
 import { rewrite } from "./gulp/tasks/rewrite.js";
 import { htmlMinify } from "./gulp/tasks/html-minify.js";
+import { criticalCSS } from "./gulp/tasks/critical.js";
+import { generateHeaders } from "./gulp/tasks/headers.js";
 import { zipFiles } from "./gulp/tasks/zip.js";
 
 global.app = {
@@ -30,6 +33,8 @@ const watcher = () => {
     },
     notify: false,
     port: 3000,
+    https: app.isProd ? true : false,
+    http2: app.isProd ? true : false,
   });
 
   gulp.watch(app.paths.srcScss, styles);
@@ -39,6 +44,7 @@ const watcher = () => {
   gulp.watch(`${app.paths.resourcesFolder}/**`, resources);
   gulp.watch(`${app.paths.srcImgFolder}/**/**.{jpg,jpeg,png,svg}`, images);
   gulp.watch(`${app.paths.srcImgFolder}/**/**.{jpg,jpeg,png}`, webpImages);
+  gulp.watch(`${app.paths.srcImgFolder}/**/**.{jpg,jpeg,png}`, avifImages);
   gulp.watch(app.paths.srcSvg, svgSprites);
 };
 
@@ -72,7 +78,9 @@ const build = gulp.series(
   images,
   webpImages,
   svgSprites,
-  htmlMinify
+  htmlMinify,
+  criticalCSS,
+  generateHeaders
 );
 const cache = gulp.series(cacheTask, rewrite);
 const zip = zipFiles;
