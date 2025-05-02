@@ -98491,6 +98491,16 @@ class WebGLRenderer {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initAOS: () => (/* reexport safe */ _components_aos_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   initDelivery: () => (/* reexport safe */ _components_delivery_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   initHeader: () => (/* reexport safe */ _components_header_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   initLazyLoad: () => (/* reexport safe */ _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
+/* harmony export */   initLoyalItems: () => (/* reexport safe */ _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   initProducts: () => (/* reexport safe */ _components_products_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   initRomb: () => (/* reexport safe */ _components_romb_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   initSliders: () => (/* reexport safe */ _components_sliders_js__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */ });
 /* harmony import */ var _components_products_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/products.js */ "./src/js/components/products.js");
 /* harmony import */ var _components_mouse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mouse.js */ "./src/js/components/mouse.js");
 /* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
@@ -98516,6 +98526,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+// Экспортируем все функции инициализации
 
 
 /***/ }),
@@ -98548,66 +98561,81 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initAOS)
+/* harmony export */ });
 /* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js");
 
+function initAOS() {
+  console.log("Initializing AOS...");
 
-// Возвращаемся к стандартной реализации AOS с небольшими модификациями
-aos__WEBPACK_IMPORTED_MODULE_0__.init({
-  offset: 60,
-  // Настраиваем смещение для точного срабатывания
-  delay: 0,
-  duration: 800,
-  easing: "ease",
-  once: true,
-  // Анимация будет срабатывать только один раз
-  mirror: false,
-  anchorPlacement: "top-center" // Привязка к центру вьюпорта
-});
+  // Проверяем наличие элементов с AOS
+  const aosElements = document.querySelectorAll("[data-aos]");
+  console.log("Found AOS elements:", aosElements.length);
+  if (!aosElements.length) {
+    console.log("No AOS elements found, skipping initialization");
+    return;
+  }
 
-// Добавляем дополнительную проверку загрузки AOS
-document.addEventListener("DOMContentLoaded", function () {
-  // Проверяем, что AOS успешно инициализирован
-  setTimeout(() => {
-    const aosElements = document.querySelectorAll("[data-aos]");
-    console.log("AOS elements found:", aosElements.length);
+  // Возвращаемся к стандартной реализации AOS с небольшими модификациями
+  aos__WEBPACK_IMPORTED_MODULE_0__.init({
+    offset: 60,
+    // Настраиваем смещение для точного срабатывания
+    delay: 0,
+    duration: 800,
+    easing: "ease",
+    once: true,
+    // Анимация будет срабатывать только один раз
+    mirror: false,
+    anchorPlacement: "top-center" // Привязка к центру вьюпорта
+  });
+  console.log("AOS initialized with config");
 
-    // Если AOS не инициализировался должным образом, запускаем обновление
-    if (!document.querySelector(".aos-init")) {
-      console.log("AOS not initialized properly, refreshing...");
-      aos__WEBPACK_IMPORTED_MODULE_0__.refreshHard();
-    }
+  // Добавляем дополнительную проверку загрузки AOS
+  document.addEventListener("DOMContentLoaded", function () {
+    // Проверяем, что AOS успешно инициализирован
+    setTimeout(() => {
+      const aosElements = document.querySelectorAll("[data-aos]");
+      console.log("AOS elements found:", aosElements.length);
 
-    // Проверяем стили элементов
-    aosElements.forEach(element => {
-      if (!element.classList.contains("aos-init")) {
-        element.classList.add("aos-init");
+      // Если AOS не инициализировался должным образом, запускаем обновление
+      if (!document.querySelector(".aos-init")) {
+        console.log("AOS not initialized properly, refreshing...");
+        aos__WEBPACK_IMPORTED_MODULE_0__.refreshHard();
       }
-    });
-  }, 300);
-});
 
-// Обработчик события прокрутки для ручного обновления видимости
-window.addEventListener("scroll", function () {
-  aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
-}, {
-  passive: true
-});
+      // Проверяем стили элементов
+      aosElements.forEach(element => {
+        if (!element.classList.contains("aos-init")) {
+          element.classList.add("aos-init");
+        }
+      });
+    }, 300);
+  });
 
-// При загрузке всех ресурсов
-window.addEventListener("load", function () {
-  setTimeout(() => {
-    console.log("Window loaded, refreshing AOS");
+  // Обработчик события прокрутки для ручного обновления видимости
+  window.addEventListener("scroll", function () {
     aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
-  }, 100);
-});
+  }, {
+    passive: true
+  });
 
-// При изменении размера окна
-window.addEventListener("resize", function () {
-  setTimeout(() => {
-    console.log("Window resized, refreshing AOS");
-    aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
-  }, 100);
-});
+  // При загрузке всех ресурсов
+  window.addEventListener("load", function () {
+    setTimeout(() => {
+      console.log("Window loaded, refreshing AOS");
+      aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
+    }, 100);
+  });
+
+  // При изменении размера окна
+  window.addEventListener("resize", function () {
+    setTimeout(() => {
+      console.log("Window resized, refreshing AOS");
+      aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
+    }, 100);
+  });
+}
 
 /***/ }),
 
@@ -98621,37 +98649,39 @@ window.addEventListener("resize", function () {
 __webpack_require__.r(__webpack_exports__);
 document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll(".clients__tab");
-  const cards = document.querySelectorAll(".clients__card");
-  const clientsItems = document.querySelector(".clients__items");
-  const maxVisibleCards = parseInt(clientsItems.getAttribute("data-visible-cards")) || Infinity;
-  function filterCards(category) {
-    let visibleCards = 0;
+  if (tabs.length > 0) {
+    const cards = document.querySelectorAll(".clients__card");
+    const clientsItems = document.querySelector(".clients__items");
+    const maxVisibleCards = parseInt(clientsItems.getAttribute("data-visible-cards")) || Infinity;
+    function filterCards(category) {
+      let visibleCards = 0;
 
-    // Сначала добавляем класс hidden всем карточкам
-    cards.forEach(card => {
-      card.classList.add("hidden");
-    });
-    cards.forEach(card => {
-      const cardCategories = card.getAttribute("data-client-card").split(",").map(c => c.trim());
-      const shouldShow = category === "all" || cardCategories.includes(category);
-      if (shouldShow && visibleCards < maxVisibleCards) {
-        card.classList.remove("hidden");
-        visibleCards++;
-      } else {
+      // Сначала добавляем класс hidden всем карточкам
+      cards.forEach(card => {
         card.classList.add("hidden");
-      }
+      });
+      cards.forEach(card => {
+        const cardCategories = card.getAttribute("data-client-card").split(",").map(c => c.trim());
+        const shouldShow = category === "all" || cardCategories.includes(category);
+        if (shouldShow && visibleCards < maxVisibleCards) {
+          card.classList.remove("hidden");
+          visibleCards++;
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+      clientsItems.setAttribute("data-visible-cards", visibleCards);
+    }
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const category = tab.getAttribute("data-client");
+        filterCards(category);
+      });
     });
-    clientsItems.setAttribute("data-visible-cards", visibleCards);
+    filterCards("all");
   }
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      const category = tab.getAttribute("data-client");
-      filterCards(category);
-    });
-  });
-  filterCards("all");
 });
 
 /***/ }),
@@ -98664,19 +98694,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const deliveryItems = document.querySelectorAll(".d-item");
-if (deliveryItems.length > 0) {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initDelivery)
+/* harmony export */ });
+function initDelivery() {
+  const deliveryItems = document.querySelectorAll(".d-item");
+  const deliverySection = document.querySelector(".delivery");
+  if (!deliveryItems.length || !deliverySection) {
+    return;
+  }
+
   // Определяем тип устройства заранее
   const isMobile = window.innerWidth < 850;
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   // Принудительно активируем аппаратное ускорение для всего блока delivery
-  const deliverySection = document.querySelector(".delivery");
-  if (deliverySection) {
-    deliverySection.style.transform = "translateZ(0)";
-    deliverySection.style.backfaceVisibility = "hidden";
-    deliverySection.style.perspective = "1000px";
-  }
+  deliverySection.style.transform = "translateZ(0)";
+  deliverySection.style.backfaceVisibility = "hidden";
+  deliverySection.style.perspective = "1000px";
 
   // Оптимизация для фоновых элементов
   const backgroundShapes = document.querySelectorAll(".delivery__star");
@@ -98990,49 +99025,53 @@ if (faqItems.length > 0) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initHeader)
+/* harmony export */ });
 /* harmony import */ var _functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions/throttle.js */ "./src/js/functions/throttle.js");
 
-document.addEventListener("DOMContentLoaded", () => {
+function initHeader() {
   const sections = Array.from(document.querySelectorAll("[data-header]"));
-  if (sections.length > 0) {
-    const header = document.querySelector("header"); // Ваш элемент хедера
-    const offset = 0; // Смещение для проверки, можно настроить при необходимости
-
-    // Функция получения текущей секции, соприкасающейся с верхом viewport
-    function updateHeaderClass() {
-      const scrollY = window.scrollY || window.pageYOffset;
-
-      // Находим все секции, у которых верхняя граница <= верха viewport + offset
-      // И из них берем ту, у которой значение верхней границы ближе всех к верху
-      let currentSection = null;
-      let minDistance = Infinity;
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top - offset);
-        if (rect.top <= offset && distance < minDistance) {
-          minDistance = distance;
-          currentSection = section;
-        }
-      });
-      if (currentSection) {
-        // Получаем значение data-header для текущей активной секции
-        const headerClass = currentSection.getAttribute("data-header");
-
-        // Сбрасываем все классы, которые отвечают за цвет (можно указать конкретный префикс)
-        header.className = header.className.split(" ").filter(c => !c.startsWith("header-color-")).join(" ");
-
-        // Добавляем класс, соответствующий секции
-        header.classList.add(`header-color-${headerClass}`);
-      }
-    }
-    let throttledUpdate = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(updateHeaderClass);
-    window.addEventListener("scroll", throttledUpdate);
-    window.addEventListener("resize", throttledUpdate);
-
-    // Запускаем один раз при загрузке страницы
-    updateHeaderClass();
+  const header = document.querySelector("header");
+  if (!sections.length || !header) {
+    return;
   }
-});
+  const offset = 0; // Смещение для проверки, можно настроить при необходимости
+
+  // Функция получения текущей секции, соприкасающейся с верхом viewport
+  function updateHeaderClass() {
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Находим все секции, у которых верхняя граница <= верха viewport + offset
+    // И из них берем ту, у которой значение верхней границы ближе всех к верху
+    let currentSection = null;
+    let minDistance = Infinity;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const distance = Math.abs(rect.top - offset);
+      if (rect.top <= offset && distance < minDistance) {
+        minDistance = distance;
+        currentSection = section;
+      }
+    });
+    if (currentSection) {
+      // Получаем значение data-header для текущей активной секции
+      const headerClass = currentSection.getAttribute("data-header");
+
+      // Сбрасываем все классы, которые отвечают за цвет (можно указать конкретный префикс)
+      header.className = header.className.split(" ").filter(c => !c.startsWith("header-color-")).join(" ");
+
+      // Добавляем класс, соответствующий секции
+      header.classList.add(`header-color-${headerClass}`);
+    }
+  }
+  let throttledUpdate = (0,_functions_throttle_js__WEBPACK_IMPORTED_MODULE_0__.throttle)(updateHeaderClass);
+  window.addEventListener("scroll", throttledUpdate);
+  window.addEventListener("resize", throttledUpdate);
+
+  // Запускаем один раз при загрузке страницы
+  document.addEventListener("DOMContentLoaded", updateHeaderClass);
+}
 
 /***/ }),
 
@@ -99301,670 +99340,50 @@ function initLoyalItems() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ initMatter)
+/* harmony export */   initMatter: () => (/* binding */ initMatter)
 /* harmony export */ });
 /* harmony import */ var matter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! matter-js */ "./node_modules/matter-js/build/matter.js");
 
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-// Создаем движок Matter.js
-const engine = matter_js__WEBPACK_IMPORTED_MODULE_0__.Engine.create();
-engine.gravity.y = 0.0;
-
-// Получаем контейнер, в котором будет работать Matter.js
-const container = document.querySelector(".lb__canvas");
-
-// Создаем рендерер Matter.js
-const render = matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.create({
-  element: document.querySelector("#canvas-container"),
-  engine: engine,
-  options: {
-    width: container.offsetWidth,
-    height: container.offsetHeight,
-    wireframes: false,
-    background: "transparent"
-  }
-});
-
-// Создаем объект мыши и настраиваем его для лучшего отслеживания на разных устройствах
-const mouse = matter_js__WEBPACK_IMPORTED_MODULE_0__.Mouse.create(render.canvas);
-mouse.pixelRatio = window.devicePixelRatio || 1;
-
-// Создаем ограничение для мыши с особыми настройками, которые разрешают скроллинг страницы
-const mouseConstraint = matter_js__WEBPACK_IMPORTED_MODULE_0__.MouseConstraint.create(engine, {
-  mouse: mouse,
-  constraint: {
-    stiffness: 0.2,
-    render: {
-      visible: false
-    }
-  }
-});
-
-// Важно: разрешить прокрутку страницы, когда курсор находится над canvas
-// Решение проблемы с блокировкой скроллинга на desktop
-render.canvas.style.pointerEvents = "auto";
-
-// Обработчик события колесика мыши для разрешения скроллинга
-render.canvas.addEventListener("wheel", function (event) {
-  // Разрешаем стандартное поведение прокрутки
-  event.stopPropagation();
-}, {
-  passive: true
-});
-
-// Полностью отключаем обработку касаний для canvas на мобильных устройствах
-// Это разрешит скроллинг и не будет мешать взаимодействию с элементами
-if (window.matchMedia("(max-width: 768px)").matches) {
-  render.canvas.style.touchAction = "auto";
-
-  // Определение, является ли устройство iOS
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  if (isIOS) {
-    // Специальные настройки для iOS
-    engine.timing.timeScale = 1.0; // Нормальная скорость симуляции для iOS
-    engine.positionIterations = 3; // Уменьшаем количество итераций позиционирования для iOS
-    engine.velocityIterations = 3; // Уменьшаем количество итераций скорости для iOS
-
-    // iOS-специфичный стиль для canvas
-    render.canvas.style.webkitTouchCallout = "none";
-    render.canvas.style.webkitUserSelect = "none";
-    render.canvas.style.webkitTapHighlightColor = "rgba(0,0,0,0)";
-  }
-
-  // Отключаем перехват событий касания для физического движка
-  mouseConstraint.mouse.element.removeEventListener("touchmove", mouseConstraint.mouse.mousemove);
-  mouseConstraint.mouse.element.removeEventListener("touchstart", mouseConstraint.mouse.mousedown);
-  mouseConstraint.mouse.element.removeEventListener("touchend", mouseConstraint.mouse.mouseup);
-
-  // Прямая обработка событий для перемещения элементов вместо использования MouseConstraint
-  let activeElement = null;
-  let offsetX = 0;
-  let offsetY = 0;
-  let startBodyPos = null;
-  container.addEventListener("touchstart", function (event) {
-    if (event.touches.length > 0) {
-      const touchX = event.touches[0].clientX;
-      const touchY = event.touches[0].clientY;
-      const canvasRect = render.canvas.getBoundingClientRect();
-      const mousePosition = {
-        x: touchX - canvasRect.left,
-        y: touchY - canvasRect.top
-      };
-
-      // Проверяем, коснулся ли пользователь какого-либо элемента
-      const body = matter_js__WEBPACK_IMPORTED_MODULE_0__.Query.point(bodies, mousePosition)[0];
-      if (body) {
-        const index = bodies.indexOf(body);
-        activeElement = {
-          body,
-          index,
-          element: htmlElements[index]
-        };
-        startBodyPos = {
-          x: body.position.x,
-          y: body.position.y
-        };
-
-        // Расчет смещения для более точного перемещения
-        offsetX = mousePosition.x - body.position.x;
-        offsetY = mousePosition.y - body.position.y;
-
-        // Визуальная обратная связь
-        htmlElements[index].style.cursor = "grabbing";
-        htmlElements[index].style.zIndex = "10";
-
-        // Снижаем гравитацию при перетаскивании
-        engine.gravity.y = isIOS ? 0.5 : 0.3; // Повышенная гравитация для iOS
-
-        // Для iOS делаем элемент "неподвижным" при перетаскивании
-        if (isIOS) {
-          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setStatic(body, true);
-        }
-
-        // Останавливаем скроллинг только если касание на элементе
-        event.preventDefault();
-      }
-    }
-  }, {
-    passive: false
-  });
-  container.addEventListener("touchmove", function (event) {
-    // Если у нас активный элемент, перемещаем его
-    if (activeElement && event.touches.length > 0) {
-      const touchX = event.touches[0].clientX;
-      const touchY = event.touches[0].clientY;
-      const canvasRect = render.canvas.getBoundingClientRect();
-
-      // Вычисляем новые координаты с учетом границ контейнера
-      const newX = touchX - canvasRect.left - offsetX;
-      const newY = touchY - canvasRect.top - offsetY;
-
-      // Проверяем границы, чтобы элемент не вышел за пределы контейнера
-      const padding = isIOS ? 20 : 10; // Больший отступ для iOS
-      const width = activeElement.element.offsetWidth / 2;
-      const height = activeElement.element.offsetHeight / 2;
-
-      // Ограничиваем позицию внутри границ
-      const boundedX = Math.max(width + padding, Math.min(render.options.width - width - padding, newX));
-      const boundedY = Math.max(height + padding, Math.min(render.options.height - height - padding, newY));
-
-      // Сохраняем предыдущую позицию для расчета скорости
-      const prevPosition = {
-        x: activeElement.body.position.x,
-        y: activeElement.body.position.y
-      };
-
-      // Перемещаем тело к новой позиции с проверкой границ
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(activeElement.body, {
-        x: boundedX,
-        y: boundedY
-      });
-
-      // Обновляем информацию о скорости для реалистичного броска
-      activeElement.velocity = {
-        x: (boundedX - prevPosition.x) * (isIOS ? 5 : 3),
-        // Увеличенная скорость для iOS
-        y: (boundedY - prevPosition.y) * (isIOS ? 5 : 3)
-      };
-
-      // Если элемент перемещается более чем на 10px, предотвращаем скроллинг
-      if (Math.abs(activeElement.body.position.x - startBodyPos.x) > 10 || Math.abs(activeElement.body.position.y - startBodyPos.y) > 10) {
-        event.preventDefault();
-      }
-    }
-  }, {
-    passive: false
-  });
-  container.addEventListener("touchend", function () {
-    if (activeElement) {
-      // Для iOS возвращаем динамику элементу
-      if (isIOS) {
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setStatic(activeElement.body, false);
-
-        // Даем небольшую задержку перед возвращением гравитации
-        setTimeout(() => {
-          engine.gravity.y = 0.7;
-        }, 50);
-      } else {
-        // Возвращаем нормальную гравитацию после отпускания
-        engine.gravity.y = 0.7;
-      }
-
-      // Применяем накопленную скорость как импульс, чтобы сохранить инерцию движения
-      if (activeElement.velocity) {
-        // Ограничиваем максимальную скорость, чтобы избежать слишком сильных бросков
-        const maxSpeed = isIOS ? 15 : 10;
-        const vx = Math.min(Math.max(-maxSpeed, activeElement.velocity.x), maxSpeed);
-        const vy = Math.min(Math.max(-maxSpeed, activeElement.velocity.y), maxSpeed);
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVelocity(activeElement.body, {
-          x: vx,
-          y: vy
-        });
-      }
-      activeElement.element.style.cursor = "grab";
-      activeElement.element.style.zIndex = "";
-
-      // Добавляем небольшой случайный боковой импульс для более естественного движения
-      const randomX = Math.random() * 0.002 - 0.001;
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.applyForce(activeElement.body, activeElement.body.position, {
-        x: randomX * activeElement.body.mass,
-        y: -0.0005 * activeElement.body.mass
-      });
-      activeElement = null;
-    }
-  }, {
-    passive: true
-  });
-
-  // Специальная обработка для iOS, чтобы предотвратить нежелательные касания
-  if (isIOS) {
-    document.addEventListener("gesturestart", function (e) {
-      e.preventDefault();
-    }, {
-      passive: false
-    });
-
-    // Дополнительное предотвращение масштабирования на iOS
-    document.addEventListener("touchmove", function (e) {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-      }
-    }, {
-      passive: false
-    });
-  }
-} else {
-  // Решение проблемы с блокировкой скроллинга на мобильных устройствах для десктопа
-  render.canvas.addEventListener("touchmove", function (event) {
-    // Не блокируем стандартное поведение прокрутки страницы
-  }, {
-    passive: true
-  });
-
-  // Добавляем обработчик для контейнера
-  container.addEventListener("touchstart", function (event) {
-    // Пропускаем события скроллинга до обработки Matter.js
-  }, {
-    passive: true
-  });
-  container.addEventListener("touchmove", function (event) {
-    // Пропускаем события скроллинга до обработки Matter.js
-  }, {
-    passive: true
-  });
-}
-matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
-render.mouse = mouse;
-
-// Элементы, которые будут отображаться в canvas
-const elements = [{
-  text: "сео-настройки",
-  color: "#f86790",
-  fontColor: "#ffffff"
-}, {
-  text: "Экспресс-полигоны",
-  color: "#81ffd2",
-  fontColor: "#001840"
-}, {
-  text: "QR-меню",
-  color: "#46caee",
-  fontColor: "#ffffff"
-}, {
-  text: "телеграм бот",
-  color: "#b0fcff",
-  fontColor: "#001840"
-}, {
-  text: "PUSH-рассылки",
-  color: "#ffddd2",
-  fontColor: "#001840"
-}, {
-  text: "Бронирование столика",
-  color: "#fff6a9",
-  fontColor: "#001840"
-}, {
-  text: "модификаторы",
-  color: "#3828ce",
-  fontColor: "#ffffff"
-}, {
-  text: "Сегментация",
-  color: "#ffc98b",
-  fontColor: "#001840"
-}, {
-  text: "отчёты",
-  color: "#f3c7f5",
-  fontColor: "#001840"
-}, {
-  text: "Приложение для курьеров",
-  color: "#d0e3ff",
-  fontColor: "#001840"
-}, {
-  text: "Промокоды",
-  color: "#001840",
-  fontColor: "#ffffff"
-}, {
-  text: "Авторасчет доставки",
-  color: "#c2f6a6",
-  fontColor: "#001840"
-}, {
-  text: "Предзаказ",
-  color: "#b2a9ff",
-  fontColor: "#ffffff"
-}, {
-  text: "Оценки и отзывы",
-  color: "#f68310",
-  fontColor: "#ffffff"
-}, {
-  text: "Сайт и приложение",
-  color: "#ff7370",
-  fontColor: "#ffffff"
-}];
-const bodies = [];
-const htmlElements = [];
-
-// Функция для создания скругленного прямоугольника
-function createRoundedRectangle(x, y, width, height, radius) {
-  const vertices = [{
-    x: x - width / 2 + radius,
-    y: y - height / 2
-  }, {
-    x: x + width / 2 - radius,
-    y: y - height / 2
-  }, {
-    x: x + width / 2,
-    y: y - height / 2 + radius
-  }, {
-    x: x + width / 2,
-    y: y + height / 2 - radius
-  }, {
-    x: x + width / 2 - radius,
-    y: y + height / 2
-  }, {
-    x: x - width / 2 + radius,
-    y: y + height / 2
-  }, {
-    x: x - width / 2,
-    y: y + height / 2 - radius
-  }, {
-    x: x - width / 2,
-    y: y - height / 2 + radius
-  }];
-
-  // Увеличиваем трение воздуха для более реалистичной физики на мобильных устройствах
-  const frictionAir = isMobile ? isIOS ? 0.03 : 0.05 : 0.01;
-  return matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.fromVertices(x, y, vertices, {
-    restitution: 0.3,
-    // Увеличиваем упругость для лучших отскоков
-    friction: 0.1,
-    // Небольшое трение с другими телами
-    frictionAir: frictionAir,
-    // Трение с воздухом - разное для разных устройств
-    density: 0.001,
-    // Меньшая плотность для более легких элементов
-    render: {
-      visible: false
-    }
-  });
-}
-
-// Создание элементов и тел
-elements.forEach(element => {
-  const htmlEl = document.createElement("div");
-  htmlEl.className = "floating-element";
-  htmlEl.textContent = element.text;
-  htmlEl.style.backgroundColor = element.color;
-  htmlEl.style.fontSize = element.fontSize;
-  htmlEl.style.color = element.fontColor;
-  htmlEl.contentEditable = "true";
-  htmlEl.style.cursor = "grab";
-  container.appendChild(htmlEl);
-  htmlElements.push(htmlEl);
-
-  // Создаем тело с начальной позицией
-  const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, Math.max(100, container.offsetHeight * 0.2), htmlEl.offsetWidth, htmlEl.offsetHeight, window.matchMedia("(max-width: 1024px)").matches ? 25 : 50);
-
-  // Проверяем, чтобы тело было ниже потолка
-  if (body.position.y < 20) {
-    matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
-      x: body.position.x,
-      y: 100
-    });
-  }
-  bodies.push(body);
-});
-
-// Добавление стенок
-function createWalls() {
-  // Определение, является ли устройство iOS
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-  // Создаем более толстые и упругие стенки для мобильных устройств
-  const wallThickness = window.matchMedia("(max-width: 768px)").matches ? 50 : 20;
-  const wallOptions = {
-    isStatic: true,
-    restitution: isIOS ? 0.4 : 0.2,
-    // Большая упругость для iOS
-    friction: isIOS ? 0.05 : 0.1,
-    // Меньшее трение для iOS
-    render: {
-      visible: false // Стенки невидимы
-    }
-  };
-  const walls = [
-  // Верхняя стенка
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, -wallThickness / 2, container.offsetWidth, wallThickness, wallOptions),
-  // Нижняя стенка
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + wallThickness / 2, container.offsetWidth, wallThickness, wallOptions),
-  // Левая стенка
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions),
-  // Правая стенка
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth + wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions)];
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, walls);
-}
-
-// Добавляем стенки при инициализации
-createWalls();
-matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, bodies);
-
-// Запускаем физику и рендеринг
-matter_js__WEBPACK_IMPORTED_MODULE_0__.Runner.run(engine);
-matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.run(render);
-
-// Флаг для отслеживания, был ли контейнер уже инициализирован
-let isInitialized = true;
-
-// Флаг для предотвращения повторной перегенерации блоков во время скролла
-let isResizing = false;
-let resizeTimeout = null;
-
-// Обновление позиций HTML элементов в соответствии с физическими телами
-function updateElements() {
-  bodies.forEach((body, index) => {
-    const element = htmlElements[index];
-    if (element && body) {
-      const angle = body.angle * (180 / Math.PI);
-      element.style.transform = `translate(${body.position.x - element.offsetWidth / 2}px, ${body.position.y - element.offsetHeight / 2}px) rotate(${angle}deg)`;
-    }
-  });
-  requestAnimationFrame(updateElements);
-}
-updateElements();
-
-// Отслеживание видимости контейнера для запуска гравитации
-let blocksHaveFallen = false;
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !blocksHaveFallen && isInitialized) {
-      setTimeout(() => {
-        engine.gravity.y = isMobile ? 0.3 : 0.05;
-        blocksHaveFallen = true;
-
-        // Сообщаем о завершении инициализации matter.js
-        // для скрытия прелоадера
-        window.dispatchEvent(new CustomEvent("matterInitialized"));
-      }, 200);
-    }
-  });
-}, {
-  root: null,
-  threshold: 0.7 // Уменьшаем порог срабатывания для более быстрого запуска
-});
-
-// Запускаем наблюдение только один раз
-observer.observe(container);
-
-// Обработчик изменения размера окна с дебаунсом для предотвращения частых перегенераций
-window.addEventListener("resize", () => {
-  // Если уже идет процесс ресайза, не запускаем новый
-  if (isResizing) return;
-  isResizing = true;
-
-  // Очищаем предыдущий таймаут, если он был
-  if (resizeTimeout) {
-    clearTimeout(resizeTimeout);
-  }
-
-  // Ставим таймаут для предотвращения множественных вызовов при скролле
-  resizeTimeout = setTimeout(() => {
-    // Обновляем размеры только если размер контейнера действительно изменился
-    const newWidth = container.offsetWidth;
-    const newHeight = container.offsetHeight;
-
-    // Проверяем, действительно ли изменились размеры
-    if (render.options.width !== newWidth || render.options.height !== newHeight) {
-      render.options.width = newWidth;
-      render.options.height = newHeight;
-
-      // Обновляем размер canvas
-      render.canvas.width = newWidth;
-      render.canvas.height = newHeight;
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.World.clear(engine.world);
-      createWalls();
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
-      bodies.forEach((body, index) => {
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.scale(body, htmlElements[index].offsetWidth / Math.max(1, body.bounds.max.x - body.bounds.min.x), htmlElements[index].offsetHeight / Math.max(1, body.bounds.max.y - body.bounds.min.y));
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
-          x: Math.random() * (newWidth - htmlElements[index].offsetWidth) + htmlElements[index].offsetWidth / 2,
-          y: Math.max(100, Math.random() * newHeight * 0.3)
-        });
-      });
-      matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, bodies);
-    }
-    isResizing = false;
-  }, 300); // Достаточно долгий таймаут, чтобы не вызывать перестроение при скролле
-});
-
-// Оптимизация обработчика скролла для мобильных устройств
-let lastScrollTime = 0;
-const scrollThreshold = 300; // миллисекунды
-let isScrolling = false;
-let scrollTimeout = null;
-window.addEventListener("scroll", () => {
-  const now = Date.now();
-
-  // Отмечаем начало скролла
-  if (!isScrolling) {
-    isScrolling = true;
-
-    // На мобильных устройствах временно останавливаем физический движок
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) {
-      // Сохраняем текущую гравитацию
-      const currentGravity = engine.gravity.y;
-
-      // Временно приостанавливаем симуляцию
-      engine.timing.timeScale = 0.1;
-    }
-  }
-
-  // Сбрасываем таймер при каждом событии скролла
-  clearTimeout(scrollTimeout);
-
-  // Устанавливаем таймер для определения окончания скролла
-  scrollTimeout = setTimeout(() => {
-    isScrolling = false;
-
-    // Восстанавливаем нормальную работу движка
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) {
-      engine.timing.timeScale = 1.0;
-    }
-  }, 150);
-
-  // Пропускаем обновление физики во время скролла
-  if (now - lastScrollTime < scrollThreshold) {
-    // При скролле не обновляем физику, только обновляем время последнего скролла
-    lastScrollTime = now;
-    return;
-  }
-  lastScrollTime = now;
-}, {
-  passive: true
-});
-
-// Обработчики событий мыши для визуальной обратной связи
-mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
-  const mousePosition = mouseConstraint.mouse.position;
-  const body = matter_js__WEBPACK_IMPORTED_MODULE_0__.Query.point(bodies, mousePosition)[0];
-  if (body) {
-    const index = bodies.indexOf(body);
-    htmlElements[index].style.cursor = "grabbing";
-    htmlElements[index].style.zIndex = "10";
-  }
-});
-mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
-  htmlElements.forEach(el => {
-    el.style.cursor = "grab";
-    el.style.zIndex = "";
-  });
-});
 
 // Оптимизируем функцию initMatter для асинхронной загрузки
 function initMatter() {
-  const container = document.querySelector(".matter-container");
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  // Диспетчеризуем событие инициализации даже если контейнера нет
-  // Это поможет корректно закрыть прелоадер
-  setTimeout(() => {
-    window.dispatchEvent(new CustomEvent("matterInitialized"));
-    console.log("Событие инициализации Matter.js отправлено");
-  }, 500);
-
-  // Если контейнера нет, не продолжаем инициализацию
+  // Получаем контейнер, в котором будет работать Matter.js
+  const container = document.querySelector(".lb__canvas");
   if (!container) {
     console.log("Matter.js контейнер не найден");
+    // Диспетчеризуем событие инициализации даже если контейнера нет
+    // Это поможет корректно закрыть прелоадер
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("matterInitialized"));
+      console.log("Событие инициализации Matter.js отправлено");
+    }, 500);
     return;
   }
 
-  // Откладываем инициализацию matter.js до момента пока страница полностью не загрузится
-  if (document.readyState === "complete") {
-    checkContainerVisibility(container, initMatterWithDelay);
-  } else {
-    window.addEventListener("load", () => {
-      checkContainerVisibility(container, initMatterWithDelay);
-    });
-  }
+  // Создаем движок Matter.js
+  const engine = matter_js__WEBPACK_IMPORTED_MODULE_0__.Engine.create();
+  engine.gravity.y = 0.0;
 
-  // Функция отложенной инициализации
-  function initMatterWithDelay() {
-    // Используем requestIdleCallback для запуска в свободное время
-    if (window.requestIdleCallback) {
-      window.requestIdleCallback(() => startMatter(container), {
-        timeout: 1000
-      });
-    } else {
-      // Fallback для браузеров без поддержки requestIdleCallback
-      setTimeout(() => startMatter(container), 800);
-    }
-  }
-}
-
-// Функция для проверки видимости контейнера с помощью IntersectionObserver
-function checkContainerVisibility(container, callback) {
-  // Проверяем, виден ли контейнер в viewport
-  const observer = new IntersectionObserver(entries => {
-    const [entry] = entries;
-    if (entry.isIntersecting) {
-      observer.disconnect();
-      callback();
-    }
-  }, {
-    threshold: 0.1
-  });
-  observer.observe(container);
-}
-
-// Функция запуска Matter.js
-function startMatter(container) {
-  console.log("Запуск инициализации Matter.js");
-
-  // Создаем движок
-  const engine = matter_js__WEBPACK_IMPORTED_MODULE_0__.Engine.create({
-    enableSleeping: true,
-    gravity: {
-      x: 0,
-      y: 0.5
-    }
-  });
-
-  // Настраиваем рендерер
+  // Создаем рендерер Matter.js
   const render = matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.create({
-    element: container,
+    element: document.querySelector("#canvas-container"),
     engine: engine,
     options: {
-      width: container.clientWidth,
-      height: container.clientHeight,
+      width: container.offsetWidth,
+      height: container.offsetHeight,
       wireframes: false,
-      background: "transparent",
-      pixelRatio: window.devicePixelRatio
+      background: "transparent"
     }
   });
 
-  // Создаем объект мыши с учетом pixel ratio для лучшего отслеживания
+  // Создаем объект мыши и настраиваем его для лучшего отслеживания на разных устройствах
   const mouse = matter_js__WEBPACK_IMPORTED_MODULE_0__.Mouse.create(render.canvas);
-  mouse.pixelRatio = window.devicePixelRatio || 1;
+  mouse.pixelRatio = Math.min(window.devicePixelRatio || 2);
 
-  // Создаем констрейнт для мыши с возможностью прокрутки
+  // Создаем ограничение для мыши с особыми настройками, которые разрешают скроллинг страницы
   const mouseConstraint = matter_js__WEBPACK_IMPORTED_MODULE_0__.MouseConstraint.create(engine, {
     mouse: mouse,
     constraint: {
@@ -99972,219 +99391,597 @@ function startMatter(container) {
       render: {
         visible: false
       }
-    },
-    collisionFilter: {
-      mask: 0x0001 // Разрешить взаимодействие только с объектами в этой категории
     }
   });
 
-  // Добавляем обработчик прокрутки, чтобы страница скроллилась при прокрутке над canvas
+  // Важно: разрешить прокрутку страницы, когда курсор находится над canvas
+  // Решение проблемы с блокировкой скроллинга на desktop
+  render.canvas.style.pointerEvents = "auto";
+
+  // Обработчик события колесика мыши для разрешения скроллинга
   render.canvas.addEventListener("wheel", function (event) {
-    // Не блокируем стандартную прокрутку
+    // Разрешаем стандартное поведение прокрутки
     event.stopPropagation();
   }, {
     passive: true
   });
 
-  // Добавляем обработчик для мобильных устройств
-  render.canvas.addEventListener("touchmove", function (event) {
-    // Не блокируем стандартное касание и скролл
-    event.stopPropagation();
+  // Полностью отключаем обработку касаний для canvas на мобильных устройствах
+  // Это разрешит скроллинг и не будет мешать взаимодействию с элементами
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    render.canvas.style.touchAction = "auto";
+
+    // Определение, является ли устройство iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+      // Специальные настройки для iOS
+      engine.timing.timeScale = 1.0; // Нормальная скорость симуляции для iOS
+      engine.positionIterations = 3; // Уменьшаем количество итераций позиционирования для iOS
+      engine.velocityIterations = 3; // Уменьшаем количество итераций скорости для iOS
+
+      // iOS-специфичный стиль для canvas
+      render.canvas.style.webkitTouchCallout = "none";
+      render.canvas.style.webkitUserSelect = "none";
+      render.canvas.style.webkitTapHighlightColor = "rgba(0,0,0,0)";
+    }
+
+    // Отключаем перехват событий касания для физического движка
+    mouseConstraint.mouse.element.removeEventListener("touchmove", mouseConstraint.mouse.mousemove);
+    mouseConstraint.mouse.element.removeEventListener("touchstart", mouseConstraint.mouse.mousedown);
+    mouseConstraint.mouse.element.removeEventListener("touchend", mouseConstraint.mouse.mouseup);
+
+    // Прямая обработка событий для перемещения элементов вместо использования MouseConstraint
+    let activeElement = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    let startBodyPos = null;
+    container.addEventListener("touchstart", function (event) {
+      if (event.touches.length > 0) {
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        const canvasRect = render.canvas.getBoundingClientRect();
+        const mousePosition = {
+          x: touchX - canvasRect.left,
+          y: touchY - canvasRect.top
+        };
+
+        // Проверяем, коснулся ли пользователь какого-либо элемента
+        const body = matter_js__WEBPACK_IMPORTED_MODULE_0__.Query.point(bodies, mousePosition)[0];
+        if (body) {
+          const index = bodies.indexOf(body);
+          activeElement = {
+            body,
+            index,
+            element: htmlElements[index]
+          };
+          startBodyPos = {
+            x: body.position.x,
+            y: body.position.y
+          };
+
+          // Расчет смещения для более точного перемещения
+          offsetX = mousePosition.x - body.position.x;
+          offsetY = mousePosition.y - body.position.y;
+
+          // Визуальная обратная связь
+          htmlElements[index].style.cursor = "grabbing";
+          htmlElements[index].style.zIndex = "10";
+
+          // Снижаем гравитацию при перетаскивании
+          engine.gravity.y = isIOS ? 0.5 : 0.3; // Повышенная гравитация для iOS
+
+          // Для iOS делаем элемент "неподвижным" при перетаскивании
+          if (isIOS) {
+            matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setStatic(body, true);
+          }
+
+          // Останавливаем скроллинг только если касание на элементе
+          event.preventDefault();
+        }
+      }
+    }, {
+      passive: false
+    });
+    container.addEventListener("touchmove", function (event) {
+      // Если у нас активный элемент, перемещаем его
+      if (activeElement && event.touches.length > 0) {
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        const canvasRect = render.canvas.getBoundingClientRect();
+
+        // Вычисляем новые координаты с учетом границ контейнера
+        const newX = touchX - canvasRect.left - offsetX;
+        const newY = touchY - canvasRect.top - offsetY;
+
+        // Проверяем границы, чтобы элемент не вышел за пределы контейнера
+        const padding = isIOS ? 20 : 10; // Больший отступ для iOS
+        const width = activeElement.element.offsetWidth / 2;
+        const height = activeElement.element.offsetHeight / 2;
+
+        // Ограничиваем позицию внутри границ
+        const boundedX = Math.max(width + padding, Math.min(render.options.width - width - padding, newX));
+        const boundedY = Math.max(height + padding, Math.min(render.options.height - height - padding, newY));
+
+        // Сохраняем предыдущую позицию для расчета скорости
+        const prevPosition = {
+          x: activeElement.body.position.x,
+          y: activeElement.body.position.y
+        };
+
+        // Перемещаем тело к новой позиции с проверкой границ
+        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(activeElement.body, {
+          x: boundedX,
+          y: boundedY
+        });
+
+        // Обновляем информацию о скорости для реалистичного броска
+        activeElement.velocity = {
+          x: (boundedX - prevPosition.x) * (isIOS ? 5 : 3),
+          // Увеличенная скорость для iOS
+          y: (boundedY - prevPosition.y) * (isIOS ? 5 : 3)
+        };
+
+        // Если элемент перемещается более чем на 10px, предотвращаем скроллинг
+        if (Math.abs(activeElement.body.position.x - startBodyPos.x) > 10 || Math.abs(activeElement.body.position.y - startBodyPos.y) > 10) {
+          event.preventDefault();
+        }
+      }
+    }, {
+      passive: false
+    });
+    container.addEventListener("touchend", function () {
+      if (activeElement) {
+        // Для iOS возвращаем динамику элементу
+        if (isIOS) {
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setStatic(activeElement.body, false);
+
+          // Даем небольшую задержку перед возвращением гравитации
+          setTimeout(() => {
+            engine.gravity.y = 0.7;
+          }, 50);
+        } else {
+          // Возвращаем нормальную гравитацию после отпускания
+          engine.gravity.y = 0.7;
+        }
+
+        // Применяем накопленную скорость как импульс, чтобы сохранить инерцию движения
+        if (activeElement.velocity) {
+          // Ограничиваем максимальную скорость, чтобы избежать слишком сильных бросков
+          const maxSpeed = isIOS ? 15 : 10;
+          const vx = Math.min(Math.max(-maxSpeed, activeElement.velocity.x), maxSpeed);
+          const vy = Math.min(Math.max(-maxSpeed, activeElement.velocity.y), maxSpeed);
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVelocity(activeElement.body, {
+            x: vx,
+            y: vy
+          });
+        }
+        activeElement.element.style.cursor = "grab";
+        activeElement.element.style.zIndex = "";
+
+        // Добавляем небольшой случайный боковой импульс для более естественного движения
+        const randomX = Math.random() * 0.002 - 0.001;
+        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.applyForce(activeElement.body, activeElement.body.position, {
+          x: randomX * activeElement.body.mass,
+          y: -0.0005 * activeElement.body.mass
+        });
+        activeElement = null;
+      }
+    }, {
+      passive: true
+    });
+
+    // Специальная обработка для iOS, чтобы предотвратить нежелательные касания
+    if (isIOS) {
+      document.addEventListener("gesturestart", function (e) {
+        e.preventDefault();
+      }, {
+        passive: false
+      });
+
+      // Дополнительное предотвращение масштабирования на iOS
+      document.addEventListener("touchmove", function (e) {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, {
+        passive: false
+      });
+    }
+  } else {
+    // Решение проблемы с блокировкой скроллинга на мобильных устройствах для десктопа
+    render.canvas.addEventListener("touchmove", function (event) {
+      // Не блокируем стандартное поведение прокрутки страницы
+    }, {
+      passive: true
+    });
+
+    // Добавляем обработчик для контейнера
+    container.addEventListener("touchstart", function (event) {
+      // Пропускаем события скроллинга до обработки Matter.js
+    }, {
+      passive: true
+    });
+    container.addEventListener("touchmove", function (event) {
+      // Пропускаем события скроллинга до обработки Matter.js
+    }, {
+      passive: true
+    });
+  }
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
+  render.mouse = mouse;
+
+  // Элементы, которые будут отображаться в canvas
+  const elements = [{
+    text: "сео-настройки",
+    color: "#f86790",
+    fontColor: "#ffffff"
   }, {
-    passive: true
-  });
+    text: "Экспресс-полигоны",
+    color: "#81ffd2",
+    fontColor: "#001840"
+  }, {
+    text: "QR-меню",
+    color: "#46caee",
+    fontColor: "#ffffff"
+  }, {
+    text: "телеграм бот",
+    color: "#b0fcff",
+    fontColor: "#001840"
+  }, {
+    text: "PUSH-рассылки",
+    color: "#ffddd2",
+    fontColor: "#001840"
+  }, {
+    text: "Бронирование столика",
+    color: "#fff6a9",
+    fontColor: "#001840"
+  }, {
+    text: "модификаторы",
+    color: "#3828ce",
+    fontColor: "#ffffff"
+  }, {
+    text: "Сегментация",
+    color: "#ffc98b",
+    fontColor: "#001840"
+  }, {
+    text: "отчёты",
+    color: "#f3c7f5",
+    fontColor: "#001840"
+  }, {
+    text: "Приложение для курьеров",
+    color: "#d0e3ff",
+    fontColor: "#001840"
+  }, {
+    text: "Промокоды",
+    color: "#001840",
+    fontColor: "#ffffff"
+  }, {
+    text: "Авторасчет доставки",
+    color: "#c2f6a6",
+    fontColor: "#001840"
+  }, {
+    text: "Предзаказ",
+    color: "#b2a9ff",
+    fontColor: "#ffffff"
+  }, {
+    text: "Оценки и отзывы",
+    color: "#f68310",
+    fontColor: "#ffffff"
+  }, {
+    text: "Сайт и приложение",
+    color: "#ff7370",
+    fontColor: "#ffffff"
+  }];
+  const bodies = [];
+  const htmlElements = [];
 
-  // Добавляем элементы в мир
-  createElements(engine, container);
+  // Вспомогательные функции
+  function createRoundedRectangle(x, y, width, height, radius) {
+    const vertices = [{
+      x: x - width / 2 + radius,
+      y: y - height / 2
+    }, {
+      x: x + width / 2 - radius,
+      y: y - height / 2
+    }, {
+      x: x + width / 2,
+      y: y - height / 2 + radius
+    }, {
+      x: x + width / 2,
+      y: y + height / 2 - radius
+    }, {
+      x: x + width / 2 - radius,
+      y: y + height / 2
+    }, {
+      x: x - width / 2 + radius,
+      y: y + height / 2
+    }, {
+      x: x - width / 2,
+      y: y + height / 2 - radius
+    }, {
+      x: x - width / 2,
+      y: y - height / 2 + radius
+    }];
 
-  // Обработка изменения размера окна
-  const handleResize = debounce(() => {
-    // Обновляем размеры канваса
-    render.options.width = container.clientWidth;
-    render.options.height = container.clientHeight;
-    render.canvas.width = container.clientWidth;
-    render.canvas.height = container.clientHeight;
-
-    // Перепозиционируем элементы
-    repositionElements(engine, container);
-
-    // Обновляем рендерер
-    matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.setPixelRatio(render, window.devicePixelRatio);
-    matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.lookAt(render, {
-      min: {
-        x: 0,
-        y: 0
-      },
-      max: {
-        x: container.clientWidth,
-        y: container.clientHeight
+    // Увеличиваем трение воздуха для более реалистичной физики на мобильных устройствах
+    const frictionAir = isMobile ? isIOS ? 0.03 : 0.05 : 0.01;
+    return matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.fromVertices(x, y, vertices, {
+      restitution: 0.3,
+      // Увеличиваем упругость для лучших отскоков
+      friction: 0.1,
+      // Небольшое трение с другими телами
+      frictionAir: frictionAir,
+      // Трение с воздухом - разное для разных устройств
+      density: 0.001,
+      // Меньшая плотность для более легких элементов
+      render: {
+        visible: false
       }
     });
-  }, 200);
-  window.addEventListener("resize", handleResize);
+  }
+  function createWalls() {
+    // Определение, является ли устройство iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  // Запускаем движок и рендерер
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.run(render);
-  const runner = matter_js__WEBPACK_IMPORTED_MODULE_0__.Runner.create();
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Runner.run(runner, engine);
+    // Создаем более толстые и упругие стенки для мобильных устройств
+    const wallThickness = window.matchMedia("(max-width: 768px)").matches ? 50 : 20;
+    const wallOptions = {
+      isStatic: true,
+      restitution: isIOS ? 0.4 : 0.2,
+      // Большая упругость для iOS
+      friction: isIOS ? 0.05 : 0.1,
+      // Меньшее трение для iOS
+      render: {
+        visible: false // Стенки невидимы
+      }
+    };
+    const walls = [
+    // Верхняя стенка
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, -wallThickness / 2, container.offsetWidth, wallThickness, wallOptions),
+    // Нижняя стенка
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth / 2, container.offsetHeight + wallThickness / 2, container.offsetWidth, wallThickness, wallOptions),
+    // Левая стенка
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions),
+    // Правая стенка
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.offsetWidth + wallThickness / 2, container.offsetHeight / 2, wallThickness, container.offsetHeight, wallOptions)];
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, walls);
+  }
+  function updateElements() {
+    bodies.forEach((body, index) => {
+      const element = htmlElements[index];
+      if (element && body) {
+        const angle = body.angle * (180 / Math.PI);
+        element.style.transform = `translate(${body.position.x - element.offsetWidth / 2}px, ${body.position.y - element.offsetHeight / 2}px) rotate(${angle}deg)`;
+      }
+    });
+    requestAnimationFrame(updateElements);
+  }
+  function getRandomColor() {
+    const colors = ["#FF6B6B", "#48DBFB", "#1DD1A1", "#FECA57", "#FF9FF3", "#A29BFE"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+  function repositionElements(engine, container) {
+    // Обновляем позиции стен
+    matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.allBodies(engine.world).forEach(body => {
+      if (body.isStatic && body.render.visible === false) {
+        const allBodies = matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.allBodies(engine.world);
+        const walls = allBodies.filter(b => b.isStatic && b.render.visible === false);
+        if (walls.length >= 4) {
+          // Верхняя стена
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[0], {
+            x: container.clientWidth / 2,
+            y: -50
+          });
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[0], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, -50, container.clientWidth, 100).vertices);
 
-  // Добавляем мышь и констрейнт в мир
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.add(engine.world, mouseConstraint);
+          // Нижняя стена
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[1], {
+            x: container.clientWidth / 2,
+            y: container.clientHeight + 50
+          });
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[1], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, container.clientHeight + 50, container.clientWidth, 100).vertices);
 
-  // Добавляем обработчик нажатия мыши для перетаскивания только левой кнопкой
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Events.on(mouseConstraint, "mousedown", function (event) {
-    if (event.mouse.button !== 0) {
-      // 0 - левая кнопка
-      // Отключаем перетаскивание для других кнопок
-      mouseConstraint.constraint.stiffness = 0;
-    } else {
-      mouseConstraint.constraint.stiffness = 0.2;
-    }
-  });
+          // Левая стена
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[2], {
+            x: -50,
+            y: container.clientHeight / 2
+          });
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[2], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-50, container.clientHeight / 2, 100, container.clientHeight).vertices);
 
-  // Сброс состояния при отпускании кнопки мыши
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Events.on(mouseConstraint, "mouseup", function () {
-    mouseConstraint.constraint.stiffness = 0.2;
-  });
-  console.log("Matter.js успешно инициализирован");
-}
-
-// Оптимизируем функцию createElements для лучшей производительности на мобильных
-function createElements(engine, container) {
-  // Создаем статические стены вокруг контейнера
-  const wallOptions = {
-    isStatic: true,
-    render: {
-      visible: false
-    }
-  };
-
-  // Верхняя, нижняя, левая и правая стены
-  const walls = [matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, -50, container.clientWidth, 100, wallOptions),
-  // верх
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, container.clientHeight + 50, container.clientWidth, 100, wallOptions),
-  // низ
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-50, container.clientHeight / 2, 100, container.clientHeight, wallOptions),
-  // лево
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth + 50, container.clientHeight / 2, 100, container.clientHeight, wallOptions) // право
-  ];
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.add(engine.world, walls);
-
-  // Создаем случайные элементы
-  const elements = [];
-  const count = Math.min(15, Math.floor(container.clientWidth * container.clientHeight / 40000)); // Адаптивное количество элементов
-
-  for (let i = 0; i < count; i++) {
-    const size = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(30, isMobile ? 50 : 60); // Меньший размер на мобильных
-    const x = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(size, container.clientWidth - size);
-    const y = matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(size, container.clientHeight - size);
-
-    // Используем более простые формы для мобильных устройств
-    let element;
-    const shapeType = isMobile ? Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(0, 2)) : Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(0, 3));
-    switch (shapeType) {
-      case 0:
-        element = matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.circle(x, y, size / 2, {
-          render: {
-            fillStyle: getRandomColor(),
-            opacity: 0.8
-          },
-          collisionFilter: {
-            category: 0x0001
-          },
-          frictionAir: isMobile ? 0.03 : 0.01 // Больше трение для мобильных
-        });
-        break;
-      case 1:
-        element = matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(x, y, size, size, {
-          render: {
-            fillStyle: getRandomColor(),
-            opacity: 0.8
-          },
-          collisionFilter: {
-            category: 0x0001
-          },
-          frictionAir: isMobile ? 0.03 : 0.01 // Больше трение для мобильных
-        });
-        break;
-      case 2:
-        // Используем многоугольники только для десктопа
-        const sides = Math.floor(matter_js__WEBPACK_IMPORTED_MODULE_0__.Common.random(3, 6)); // Меньше сторон
-        element = matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.polygon(x, y, sides, size / 2, {
-          render: {
-            fillStyle: getRandomColor(),
-            opacity: 0.8
-          },
-          collisionFilter: {
-            category: 0x0001
-          },
-          frictionAir: 0.01
-        });
-        break;
-    }
-    elements.push(element);
+          // Правая стена
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[3], {
+            x: container.clientWidth + 50,
+            y: container.clientHeight / 2
+          });
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[3], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth + 50, container.clientHeight / 2, 100, container.clientHeight).vertices);
+        }
+      }
+    });
+  }
+  function debounce(func, wait) {
+    let timeout;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
   }
 
-  // Добавляем элементы в мир
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.add(engine.world, elements);
-}
+  // Создание элементов и тел
+  elements.forEach(element => {
+    const htmlEl = document.createElement("div");
+    htmlEl.className = "floating-element";
+    htmlEl.textContent = element.text;
+    htmlEl.style.backgroundColor = element.color;
+    htmlEl.style.fontSize = element.fontSize;
+    htmlEl.style.color = element.fontColor;
+    htmlEl.contentEditable = "true";
+    htmlEl.style.cursor = "grab";
+    container.appendChild(htmlEl);
+    htmlElements.push(htmlEl);
 
-// Функция для получения случайного цвета
-function getRandomColor() {
-  const colors = ["#FF6B6B", "#48DBFB", "#1DD1A1", "#FECA57", "#FF9FF3", "#A29BFE"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+    // Создаем тело с начальной позицией
+    const body = createRoundedRectangle(Math.random() * (container.offsetWidth - 200) + 100, Math.max(100, container.offsetHeight * 0.2), htmlEl.offsetWidth, htmlEl.offsetHeight, window.matchMedia("(max-width: 1024px)").matches ? 25 : 50);
 
-// Перепозиционирование статических стен при изменении размера
-function repositionElements(engine, container) {
-  // Обновляем позиции стен
-  matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.allBodies(engine.world).forEach(body => {
-    if (body.isStatic && body.render.visible === false) {
-      const allBodies = matter_js__WEBPACK_IMPORTED_MODULE_0__.Composite.allBodies(engine.world);
-      const walls = allBodies.filter(b => b.isStatic && b.render.visible === false);
-      if (walls.length >= 4) {
-        // Верхняя стена
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[0], {
-          x: container.clientWidth / 2,
-          y: -50
+    // Проверяем, чтобы тело было ниже потолка
+    if (body.position.y < 20) {
+      matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
+        x: body.position.x,
+        y: 100
+      });
+    }
+    bodies.push(body);
+  });
+
+  // Добавляем стенки при инициализации
+  createWalls();
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, bodies);
+
+  // Запускаем физику и рендеринг
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.Runner.run(engine);
+  matter_js__WEBPACK_IMPORTED_MODULE_0__.Render.run(render);
+
+  // Флаг для отслеживания, был ли контейнер уже инициализирован
+  let isInitialized = true;
+
+  // Флаг для предотвращения повторной перегенерации блоков во время скролла
+  let isResizing = false;
+  let resizeTimeout = null;
+  updateElements();
+
+  // Отслеживание видимости контейнера для запуска гравитации
+  let blocksHaveFallen = false;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !blocksHaveFallen && isInitialized) {
+        setTimeout(() => {
+          engine.gravity.y = isMobile ? 0.3 : 0.05;
+          blocksHaveFallen = true;
+
+          // Сообщаем о завершении инициализации matter.js
+          // для скрытия прелоадера
+          window.dispatchEvent(new CustomEvent("matterInitialized"));
+        }, 200);
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.7 // Уменьшаем порог срабатывания для более быстрого запуска
+  });
+
+  // Запускаем наблюдение только один раз
+  observer.observe(container);
+
+  // Обработчик изменения размера окна с дебаунсом для предотвращения частых перегенераций
+  window.addEventListener("resize", () => {
+    // Если уже идет процесс ресайза, не запускаем новый
+    if (isResizing) return;
+    isResizing = true;
+
+    // Очищаем предыдущий таймаут, если он был
+    if (resizeTimeout) {
+      clearTimeout(resizeTimeout);
+    }
+
+    // Ставим таймаут для предотвращения множественных вызовов при скролле
+    resizeTimeout = setTimeout(() => {
+      // Обновляем размеры только если размер контейнера действительно изменился
+      const newWidth = container.offsetWidth;
+      const newHeight = container.offsetHeight;
+
+      // Проверяем, действительно ли изменились размеры
+      if (render.options.width !== newWidth || render.options.height !== newHeight) {
+        render.options.width = newWidth;
+        render.options.height = newHeight;
+
+        // Обновляем размер canvas
+        render.canvas.width = newWidth;
+        render.canvas.height = newHeight;
+        matter_js__WEBPACK_IMPORTED_MODULE_0__.World.clear(engine.world);
+        createWalls();
+        matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, mouseConstraint);
+        bodies.forEach((body, index) => {
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.scale(body, htmlElements[index].offsetWidth / Math.max(1, body.bounds.max.x - body.bounds.min.x), htmlElements[index].offsetHeight / Math.max(1, body.bounds.max.y - body.bounds.min.y));
+          matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(body, {
+            x: Math.random() * (newWidth - htmlElements[index].offsetWidth) + htmlElements[index].offsetWidth / 2,
+            y: Math.max(100, Math.random() * newHeight * 0.3)
+          });
         });
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[0], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, -50, container.clientWidth, 100).vertices);
+        matter_js__WEBPACK_IMPORTED_MODULE_0__.World.add(engine.world, bodies);
+      }
+      isResizing = false;
+    }, 300); // Достаточно долгий таймаут, чтобы не вызывать перестроение при скролле
+  });
 
-        // Нижняя стена
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[1], {
-          x: container.clientWidth / 2,
-          y: container.clientHeight + 50
-        });
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[1], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth / 2, container.clientHeight + 50, container.clientWidth, 100).vertices);
+  // Оптимизация обработчика скролла для мобильных устройств
+  let lastScrollTime = 0;
+  const scrollThreshold = 300; // миллисекунды
+  let isScrolling = false;
+  let scrollTimeout = null;
+  window.addEventListener("scroll", () => {
+    const now = Date.now();
 
-        // Левая стена
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[2], {
-          x: -50,
-          y: container.clientHeight / 2
-        });
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[2], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(-50, container.clientHeight / 2, 100, container.clientHeight).vertices);
+    // Отмечаем начало скролла
+    if (!isScrolling) {
+      isScrolling = true;
 
-        // Правая стена
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setPosition(walls[3], {
-          x: container.clientWidth + 50,
-          y: container.clientHeight / 2
-        });
-        matter_js__WEBPACK_IMPORTED_MODULE_0__.Body.setVertices(walls[3], matter_js__WEBPACK_IMPORTED_MODULE_0__.Bodies.rectangle(container.clientWidth + 50, container.clientHeight / 2, 100, container.clientHeight).vertices);
+      // На мобильных устройствах временно останавливаем физический движок
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        // Сохраняем текущую гравитацию
+        const currentGravity = engine.gravity.y;
+
+        // Временно приостанавливаем симуляцию
+        engine.timing.timeScale = 0.1;
       }
     }
+
+    // Сбрасываем таймер при каждом событии скролла
+    clearTimeout(scrollTimeout);
+
+    // Устанавливаем таймер для определения окончания скролла
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+
+      // Восстанавливаем нормальную работу движка
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        engine.timing.timeScale = 1.0;
+      }
+    }, 150);
+
+    // Пропускаем обновление физики во время скролла
+    if (now - lastScrollTime < scrollThreshold) {
+      // При скролле не обновляем физику, только обновляем время последнего скролла
+      lastScrollTime = now;
+      return;
+    }
+    lastScrollTime = now;
+  }, {
+    passive: true
+  });
+
+  // Обработчики событий мыши для визуальной обратной связи
+  mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
+    const mousePosition = mouseConstraint.mouse.position;
+    const body = matter_js__WEBPACK_IMPORTED_MODULE_0__.Query.point(bodies, mousePosition)[0];
+    if (body) {
+      const index = bodies.indexOf(body);
+      htmlElements[index].style.cursor = "grabbing";
+      htmlElements[index].style.zIndex = "10";
+    }
+  });
+  mouseConstraint.mouse.element.addEventListener("mouseup", function (event) {
+    htmlElements.forEach(el => {
+      el.style.cursor = "grab";
+      el.style.zIndex = "";
+    });
   });
 }
 
-// Функция debounce для оптимизации обработки событий resize
-function debounce(func, wait) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(context, args), wait);
-  };
-}
+// Экспортируем функцию initMatter
+
 
 /***/ }),
 
@@ -100318,144 +100115,152 @@ if (planTabs.length > 0) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const prodItems = document.querySelectorAll(".prod-item");
-function clearActive() {
-  const el = document.querySelector(".prod-item.active");
-  if (el) {
-    const video = el.querySelector("video");
-    video?.pause();
-    const itemTitle = el.querySelector(".prod-item__title");
-    el.classList.remove("active");
-    itemTitle.textContent = itemTitle.dataset.fullText;
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initProducts)
+/* harmony export */ });
+function initProducts() {
+  const prodItems = document.querySelectorAll(".prod-item");
+  if (!prodItems.length) {
+    return;
   }
-}
+  function clearActive() {
+    const el = document.querySelector(".prod-item.active");
+    if (el) {
+      const video = el.querySelector("video");
+      video?.pause();
+      const itemTitle = el.querySelector(".prod-item__title");
+      el.classList.remove("active");
+      itemTitle.textContent = itemTitle.dataset.fullText;
+    }
+  }
 
-// Оптимизированная функция для управления активным состоянием
-function handleScreenSize() {
-  // Сбрасываем активное состояние только если есть активный элемент
-  clearActive();
+  // Оптимизированная функция для управления активным состоянием
+  function handleScreenSize() {
+    // Сбрасываем активное состояние только если есть активный элемент
+    clearActive();
 
-  // Если ширина экрана больше 850px, активируем элемент с индексом 3
-  if (window.innerWidth >= 850 && prodItems.length > 3) {
-    const targetItem = prodItems[3];
-    const itemTitle = targetItem.querySelector(".prod-item__title");
-    const video = targetItem.querySelector("video");
-    const fullText = itemTitle.dataset.fullText;
+    // Если ширина экрана больше 850px, активируем элемент с индексом 3
+    if (window.innerWidth >= 850 && prodItems.length > 3) {
+      const targetItem = prodItems[3];
+      const itemTitle = targetItem.querySelector(".prod-item__title");
+      const video = targetItem.querySelector("video");
+      const fullText = itemTitle.dataset.fullText;
 
-    // Добавляем класс без задержки
-    targetItem.classList.add("active");
+      // Добавляем класс без задержки
+      targetItem.classList.add("active");
 
-    // Оптимизированная загрузка видео
+      // Оптимизированная загрузка видео
+      if (video) {
+        video.setAttribute("preload", "metadata");
+        // Используем requestAnimationFrame для более плавного воспроизведения
+        requestAnimationFrame(() => {
+          // Воспроизводим видео только когда метаданные загружены
+          if (video.readyState >= 2) {
+            video.play();
+          } else {
+            video.addEventListener("loadeddata", () => {
+              video.play();
+            }, {
+              once: true
+            });
+          }
+        });
+      }
+
+      // Оптимизированный эффект печатания текста
+      itemTitle.textContent = "";
+      let index = 0;
+      let typingDelay = 35; // Уменьшаем задержку для более быстрого печатания
+
+      const typeEffect = () => {
+        if (index < fullText.length) {
+          // Добавляем по 2 символа за раз для ускорения
+          const charsToAdd = Math.min(2, fullText.length - index);
+          itemTitle.textContent += fullText.substring(index, index + charsToAdd);
+          index += charsToAdd;
+          setTimeout(typeEffect, typingDelay);
+        }
+      };
+
+      // Используем requestAnimationFrame для более плавного старта анимации
+      requestAnimationFrame(typeEffect);
+    }
+  }
+
+  // Оптимизируем загрузку видео для всех элементов
+  prodItems.forEach(item => {
+    const itemTitle = item.querySelector(".prod-item__title");
+    const video = item.querySelector("video");
+
+    // Сохраняем текст для позднего использования
+    itemTitle.dataset.fullText = itemTitle.textContent;
+
+    // Оптимизируем загрузку видео
     if (video) {
-      video.setAttribute("preload", "metadata");
-      // Используем requestAnimationFrame для более плавного воспроизведения
-      requestAnimationFrame(() => {
-        // Воспроизводим видео только когда метаданные загружены
+      video.setAttribute("preload", "none"); // Отключаем предзагрузку
+      video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
+      video.muted = true; // Гарантируем, что видео будет без звука
+    }
+    item.addEventListener("click", e => {
+      e.preventDefault();
+      clearActive();
+      const fullText = itemTitle.dataset.fullText;
+      itemTitle.textContent = "";
+      item.classList.add("active");
+
+      // Оптимизированное воспроизведение видео
+      if (video) {
         if (video.readyState >= 2) {
           video.play();
         } else {
+          video.load(); // Загружаем видео при необходимости
           video.addEventListener("loadeddata", () => {
             video.play();
           }, {
             once: true
           });
         }
-      });
-    }
-
-    // Оптимизированный эффект печатания текста
-    itemTitle.textContent = "";
-    let index = 0;
-    let typingDelay = 35; // Уменьшаем задержку для более быстрого печатания
-
-    const typeEffect = () => {
-      if (index < fullText.length) {
-        // Добавляем по 2 символа за раз для ускорения
-        const charsToAdd = Math.min(2, fullText.length - index);
-        itemTitle.textContent += fullText.substring(index, index + charsToAdd);
-        index += charsToAdd;
-        setTimeout(typeEffect, typingDelay);
       }
-    };
 
-    // Используем requestAnimationFrame для более плавного старта анимации
-    requestAnimationFrame(typeEffect);
-  }
-}
+      // Оптимизированный эффект печатания
+      let index = 0;
+      let typingDelay = 35; // Уменьшенная задержка
 
-// Оптимизируем загрузку видео для всех элементов
-prodItems.forEach(item => {
-  const itemTitle = item.querySelector(".prod-item__title");
-  const video = item.querySelector("video");
+      const typeEffect = () => {
+        if (index < fullText.length) {
+          const charsToAdd = Math.min(2, fullText.length - index);
+          itemTitle.textContent += fullText.substring(index, index + charsToAdd);
+          index += charsToAdd;
+          setTimeout(typeEffect, typingDelay);
+        }
+      };
 
-  // Сохраняем текст для позднего использования
-  itemTitle.dataset.fullText = itemTitle.textContent;
-
-  // Оптимизируем загрузку видео
-  if (video) {
-    video.setAttribute("preload", "none"); // Отключаем предзагрузку
-    video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
-    video.muted = true; // Гарантируем, что видео будет без звука
-  }
-  item.addEventListener("click", e => {
-    e.preventDefault();
-    clearActive();
-    const fullText = itemTitle.dataset.fullText;
-    itemTitle.textContent = "";
-    item.classList.add("active");
-
-    // Оптимизированное воспроизведение видео
-    if (video) {
-      if (video.readyState >= 2) {
-        video.play();
-      } else {
-        video.load(); // Загружаем видео при необходимости
-        video.addEventListener("loadeddata", () => {
-          video.play();
-        }, {
-          once: true
-        });
-      }
-    }
-
-    // Оптимизированный эффект печатания
-    let index = 0;
-    let typingDelay = 35; // Уменьшенная задержка
-
-    const typeEffect = () => {
-      if (index < fullText.length) {
-        const charsToAdd = Math.min(2, fullText.length - index);
-        itemTitle.textContent += fullText.substring(index, index + charsToAdd);
-        index += charsToAdd;
-        setTimeout(typeEffect, typingDelay);
-      }
-    };
-
-    // Небольшая задержка перед началом эффекта
-    setTimeout(typeEffect, 100);
+      // Небольшая задержка перед началом эффекта
+      setTimeout(typeEffect, 100);
+    });
   });
-});
 
-// Используем requestIdleCallback для неблокирующей инициализации если доступно
-if ("requestIdleCallback" in window) {
-  requestIdleCallback(() => {
-    handleScreenSize();
-  }, {
-    timeout: 500
+  // Используем requestIdleCallback для неблокирующей инициализации если доступно
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(() => {
+      handleScreenSize();
+    }, {
+      timeout: 500
+    });
+  } else {
+    // Fallback для браузеров, не поддерживающих requestIdleCallback
+    setTimeout(handleScreenSize, 400);
+  }
+
+  // Оптимизированный обработчик изменения размера с дебаунсингом
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    // Отменяем предыдущий таймаут при новом изменении размера
+    clearTimeout(resizeTimeout);
+    // Создаем новый таймаут
+    resizeTimeout = setTimeout(handleScreenSize, 200);
   });
-} else {
-  // Fallback для браузеров, не поддерживающих requestIdleCallback
-  setTimeout(handleScreenSize, 400);
 }
-
-// Оптимизированный обработчик изменения размера с дебаунсингом
-let resizeTimeout;
-window.addEventListener("resize", () => {
-  // Отменяем предыдущий таймаут при новом изменении размера
-  clearTimeout(resizeTimeout);
-  // Создаем новый таймаут
-  resizeTimeout = setTimeout(handleScreenSize, 200);
-});
 
 /***/ }),
 
@@ -100467,189 +100272,192 @@ window.addEventListener("resize", () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initRomb)
+/* harmony export */ });
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.core.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 
-const canvas = document.querySelector("#loyal-canvas");
-let scene, camera, renderer, rhombus, wireframeRhombus;
-let isDragging = false,
-  previousMouseX = 0,
-  rotationSpeed = 0.006;
-let isWireframe = true;
-const colors = [0xf1f1f1, 0xececec, 0xe9e9e9, 0xf1f1f1, 0xececec, 0xe9e9e9];
-function init() {
-  scene = new three__WEBPACK_IMPORTED_MODULE_0__.Scene();
-  camera = new three__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-  renderer = new three__WEBPACK_IMPORTED_MODULE_1__.WebGLRenderer({
-    antialias: true,
-    alpha: true,
-    canvas: canvas
-  });
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  renderer.setClearColor(0x000000, 0);
-  renderer.sortObjects = true;
-  // document.body.appendChild(renderer.domElement);
-
-  camera.position.z = 2.9;
-  createRhombus();
-  setupEventListeners();
-  startTransitionTimer();
-  animate();
-}
-function createRhombus() {
-  const numPoints = 12;
-  const radius = 1.3;
-  const middlePoints = [];
-  for (let i = 0; i < numPoints; i++) {
-    const angle = i / numPoints * Math.PI * 2;
-    const x = Math.cos(angle) * radius;
-    const z = Math.sin(angle) * radius;
-    middlePoints.push(new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(x, 0, z));
+function initRomb() {
+  const canvas = document.querySelector("#loyal-canvas");
+  if (!canvas) {
+    return;
   }
-  rhombus = new three__WEBPACK_IMPORTED_MODULE_0__.Group();
-  const topVertex = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 2.0, 0);
-  const bottomVertex = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, -2.0, 0);
-  const wireframeGeometryVertices = [];
-  for (let i = 0; i < numPoints; i++) {
-    wireframeGeometryVertices.push(topVertex.x, topVertex.y, topVertex.z);
-    wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
-  }
-  for (let i = 0; i < numPoints; i++) {
-    wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
-    wireframeGeometryVertices.push(middlePoints[(i + 1) % numPoints].x, middlePoints[(i + 1) % numPoints].y, middlePoints[(i + 1) % numPoints].z);
-  }
-  for (let i = 0; i < numPoints; i++) {
-    wireframeGeometryVertices.push(bottomVertex.x, bottomVertex.y, bottomVertex.z);
-    wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
-  }
-  const wireframeGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
-  wireframeGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(wireframeGeometryVertices, 3));
-  const wireframeMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.LineBasicMaterial({
-    color: 0xcccccc,
-    transparent: true,
-    opacity: 1,
-    depthTest: false // This ensures wireframe is always visible
-  });
-  wireframeRhombus = new three__WEBPACK_IMPORTED_MODULE_0__.LineSegments(wireframeGeometry, wireframeMaterial);
-  for (let i = 0; i < numPoints; i++) {
-    const currentPoint = middlePoints[i];
-    const nextPoint = middlePoints[(i + 1) % numPoints];
-    const topFaceGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
-    const topVertices = new Float32Array([topVertex.x, topVertex.y, topVertex.z, nextPoint.x, nextPoint.y, nextPoint.z, currentPoint.x, currentPoint.y, currentPoint.z]);
-    topFaceGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(topVertices, 3));
-    topFaceGeometry.computeVertexNormals();
-    const bottomFaceGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
-    const bottomVertices = new Float32Array([bottomVertex.x, bottomVertex.y, bottomVertex.z, currentPoint.x, currentPoint.y, currentPoint.z, nextPoint.x, nextPoint.y, nextPoint.z]);
-    bottomFaceGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(bottomVertices, 3));
-    bottomFaceGeometry.computeVertexNormals();
-    const colorIndex = i % colors.length;
-    const materialProps = {
-      color: colors[colorIndex],
-      transparent: true,
-      opacity: 0,
-      side: three__WEBPACK_IMPORTED_MODULE_0__.FrontSide,
-      depthWrite: true,
-      depthTest: true
-    };
-    const topMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial(materialProps);
-    const bottomMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial(materialProps);
-    const topMesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(topFaceGeometry, topMaterial);
-    const bottomMesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(bottomFaceGeometry, bottomMaterial);
-    rhombus.add(topMesh);
-    rhombus.add(bottomMesh);
-  }
-  scene.add(rhombus);
-  scene.add(wireframeRhombus);
-}
-function startTransitionTimer() {
-  setInterval(() => {
-    isWireframe = !isWireframe;
-    if (isWireframe) {
-      fadeOutMaterials();
-    } else {
-      fadeInMaterials();
-    }
-  }, 3000);
-}
-
-// Добавляем новые функции для анимации прозрачности
-let isAnimating = false;
-let animationStartTime = 0;
-const animationDuration = 1000; // миллисекунды
-
-function fadeOutMaterials() {
-  isAnimating = true;
-  animationStartTime = performance.now();
-  requestAnimationFadeOut();
-}
-function fadeInMaterials() {
-  isAnimating = true;
-  animationStartTime = performance.now();
-  requestAnimationFadeIn();
-}
-function requestAnimationFadeOut() {
-  const currentTime = performance.now();
-  const elapsedTime = currentTime - animationStartTime;
-  const progress = Math.min(elapsedTime / animationDuration, 1);
-  rhombus.children.forEach(mesh => {
-    mesh.material.opacity = 1 - progress;
-  });
-  if (progress < 1 && isAnimating) {
-    requestAnimationFrame(requestAnimationFadeOut);
-  } else {
-    isAnimating = false;
-  }
-}
-function requestAnimationFadeIn() {
-  const currentTime = performance.now();
-  const elapsedTime = currentTime - animationStartTime;
-  const progress = Math.min(elapsedTime / animationDuration, 1);
-  rhombus.children.forEach(mesh => {
-    mesh.material.opacity = progress;
-  });
-  if (progress < 1 && isAnimating) {
-    requestAnimationFrame(requestAnimationFadeIn);
-  } else {
-    isAnimating = false;
-  }
-}
-function animate() {
-  requestAnimationFrame(animate);
-  if (!isDragging) {
-    wireframeRhombus.rotation.y += rotationSpeed;
-    rhombus.rotation.y += rotationSpeed;
-  }
-  renderer.render(scene, camera);
-}
-function onMouseDown(event) {
-  isDragging = true;
-  previousMouseX = event.clientX;
-}
-function onMouseUp() {
-  isDragging = false;
-}
-function onMouseMove(event) {
-  if (isDragging) {
-    const deltaX = event.clientX - previousMouseX;
-    previousMouseX = event.clientX;
-    const rotation = deltaX * 0.003;
-    wireframeRhombus.rotation.y -= rotation;
-    rhombus.rotation.y -= rotation;
-  }
-}
-function setupEventListeners() {
-  renderer.domElement.addEventListener("mousedown", onMouseDown);
-  renderer.domElement.addEventListener("mouseup", onMouseUp);
-  renderer.domElement.addEventListener("mousemove", onMouseMove);
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
-  window.addEventListener("resize", () => {
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-    camera.updateProjectionMatrix();
+  let scene, camera, renderer, rhombus, wireframeRhombus;
+  let isDragging = false,
+    previousMouseX = 0,
+    rotationSpeed = 0.006;
+  let isWireframe = true;
+  const colors = [0xf1f1f1, 0xececec, 0xe9e9e9, 0xf1f1f1, 0xececec, 0xe9e9e9];
+  function init() {
+    scene = new three__WEBPACK_IMPORTED_MODULE_0__.Scene();
+    camera = new three__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    renderer = new three__WEBPACK_IMPORTED_MODULE_1__.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      canvas: canvas
+    });
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
-  });
+    renderer.setClearColor(0x000000, 0);
+    renderer.sortObjects = true;
+    // document.body.appendChild(renderer.domElement);
+
+    camera.position.z = 2.9;
+    createRhombus();
+    setupEventListeners();
+    startTransitionTimer();
+    animate();
+  }
+  function createRhombus() {
+    const numPoints = 12;
+    const radius = 1.3;
+    const middlePoints = [];
+    for (let i = 0; i < numPoints; i++) {
+      const angle = i / numPoints * Math.PI * 2;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      middlePoints.push(new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(x, 0, z));
+    }
+    rhombus = new three__WEBPACK_IMPORTED_MODULE_0__.Group();
+    const topVertex = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 2.0, 0);
+    const bottomVertex = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, -2.0, 0);
+    const wireframeGeometryVertices = [];
+    for (let i = 0; i < numPoints; i++) {
+      wireframeGeometryVertices.push(topVertex.x, topVertex.y, topVertex.z);
+      wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
+    }
+    for (let i = 0; i < numPoints; i++) {
+      wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
+      wireframeGeometryVertices.push(middlePoints[(i + 1) % numPoints].x, middlePoints[(i + 1) % numPoints].y, middlePoints[(i + 1) % numPoints].z);
+    }
+    for (let i = 0; i < numPoints; i++) {
+      wireframeGeometryVertices.push(bottomVertex.x, bottomVertex.y, bottomVertex.z);
+      wireframeGeometryVertices.push(middlePoints[i].x, middlePoints[i].y, middlePoints[i].z);
+    }
+    const wireframeGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
+    wireframeGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute(wireframeGeometryVertices, 3));
+    const wireframeMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.LineBasicMaterial({
+      color: 0xcccccc,
+      transparent: true,
+      opacity: 1,
+      depthTest: false // This ensures wireframe is always visible
+    });
+    wireframeRhombus = new three__WEBPACK_IMPORTED_MODULE_0__.LineSegments(wireframeGeometry, wireframeMaterial);
+    for (let i = 0; i < numPoints; i++) {
+      const currentPoint = middlePoints[i];
+      const nextPoint = middlePoints[(i + 1) % numPoints];
+      const topFaceGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
+      const topVertices = new Float32Array([topVertex.x, topVertex.y, topVertex.z, nextPoint.x, nextPoint.y, nextPoint.z, currentPoint.x, currentPoint.y, currentPoint.z]);
+      topFaceGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(topVertices, 3));
+      topFaceGeometry.computeVertexNormals();
+      const bottomFaceGeometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
+      const bottomVertices = new Float32Array([bottomVertex.x, bottomVertex.y, bottomVertex.z, currentPoint.x, currentPoint.y, currentPoint.z, nextPoint.x, nextPoint.y, nextPoint.z]);
+      bottomFaceGeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__.BufferAttribute(bottomVertices, 3));
+      bottomFaceGeometry.computeVertexNormals();
+      const colorIndex = i % colors.length;
+      const materialProps = {
+        color: colors[colorIndex],
+        transparent: true,
+        opacity: 0,
+        side: three__WEBPACK_IMPORTED_MODULE_0__.FrontSide,
+        depthWrite: true,
+        depthTest: true
+      };
+      const topMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial(materialProps);
+      const bottomMaterial = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial(materialProps);
+      const topMesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(topFaceGeometry, topMaterial);
+      const bottomMesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(bottomFaceGeometry, bottomMaterial);
+      rhombus.add(topMesh);
+      rhombus.add(bottomMesh);
+    }
+    scene.add(rhombus);
+    scene.add(wireframeRhombus);
+  }
+  function startTransitionTimer() {
+    setInterval(() => {
+      isWireframe = !isWireframe;
+      if (isWireframe) {
+        fadeOutMaterials();
+      } else {
+        fadeInMaterials();
+      }
+    }, 3000);
+  }
+
+  // Добавляем новые функции для анимации прозрачности
+  let isAnimating = false;
+  let animationStartTime = 0;
+  const animationDuration = 1000; // миллисекунды
+
+  function fadeOutMaterials() {
+    isAnimating = true;
+    animationStartTime = performance.now();
+    requestAnimationFadeOut();
+  }
+  function fadeInMaterials() {
+    isAnimating = true;
+    animationStartTime = performance.now();
+    requestAnimationFadeIn();
+  }
+  function requestAnimationFadeOut() {
+    const currentTime = performance.now();
+    const elapsedTime = currentTime - animationStartTime;
+    const progress = Math.min(elapsedTime / animationDuration, 1);
+    rhombus.children.forEach(mesh => {
+      mesh.material.opacity = 1 - progress;
+    });
+    if (progress < 1 && isAnimating) {
+      requestAnimationFrame(requestAnimationFadeOut);
+    } else {
+      isAnimating = false;
+    }
+  }
+  function requestAnimationFadeIn() {
+    const currentTime = performance.now();
+    const elapsedTime = currentTime - animationStartTime;
+    const progress = Math.min(elapsedTime / animationDuration, 1);
+    rhombus.children.forEach(mesh => {
+      mesh.material.opacity = progress;
+    });
+    if (progress < 1 && isAnimating) {
+      requestAnimationFrame(requestAnimationFadeIn);
+    } else {
+      isAnimating = false;
+    }
+  }
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!isDragging) {
+      wireframeRhombus.rotation.y += rotationSpeed;
+      rhombus.rotation.y += rotationSpeed;
+    }
+    renderer.render(scene, camera);
+  }
+  function onMouseDown(event) {
+    isDragging = true;
+    previousMouseX = event.clientX;
+  }
+  function onMouseUp() {
+    isDragging = false;
+  }
+  function onMouseMove(event) {
+    if (isDragging) {
+      const deltaX = event.clientX - previousMouseX;
+      previousMouseX = event.clientX;
+      const rotation = deltaX * 0.003;
+      wireframeRhombus.rotation.y -= rotation;
+      rhombus.rotation.y -= rotation;
+    }
+  }
+  function setupEventListeners() {
+    canvas.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mousemove", onMouseMove);
+  }
+
+  // Инициализация
+  init();
 }
-init();
 
 /***/ }),
 
@@ -100661,90 +100469,104 @@ init();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ initSliders)
+/* harmony export */ });
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
 /* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
 
 
 swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay]);
-const prodSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-slider", {
-  slidesPerView: "auto",
-  spaceBetween: 13,
-  loop: true,
-  loopedSlides: 8,
-  // Указываем количество слайдов для правильной работы loop
-  speed: 4000,
-  allowTouchMove: true,
-  grabCursor: true,
-  freeMode: {
-    enabled: true,
-    momentum: false
-  },
-  // Настройки автопрокрутки
-  autoplay: {
-    delay: 1,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: false,
-    stopOnLastSlide: false
-  },
-  // Настройки для корректной работыループа
-  watchSlidesProgress: true,
-  observer: true,
-  observeParents: true
-});
-let isAutoplayPaused = false;
-let autoplayResume;
+function initSliders() {
+  // Инициализация prod-slider
+  const prodSliderElement = document.querySelector(".prod-slider");
+  if (prodSliderElement) {
+    const prodSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-slider", {
+      slidesPerView: "auto",
+      spaceBetween: 13,
+      loop: true,
+      loopedSlides: 8,
+      // Указываем количество слайдов для правильной работы loop
+      speed: 4000,
+      allowTouchMove: true,
+      grabCursor: true,
+      freeMode: {
+        enabled: true,
+        momentum: false
+      },
+      // Настройки автопрокрутки
+      autoplay: {
+        delay: 1,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+        stopOnLastSlide: false
+      },
+      // Настройки для корректной работыループа
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true
+    });
+    let isAutoplayPaused = false;
+    let autoplayResume;
 
-// Обработчик наведения мыши
-prodSlider.el.addEventListener("mouseenter", () => {
-  if (!isAutoplayPaused) {
-    prodSlider.autoplay.stop();
-    isAutoplayPaused = true;
-    clearTimeout(autoplayResume);
-  }
-});
+    // Обработчик наведения мыши
+    prodSlider.el.addEventListener("mouseenter", () => {
+      if (!isAutoplayPaused) {
+        prodSlider.autoplay.stop();
+        isAutoplayPaused = true;
+        clearTimeout(autoplayResume);
+      }
+    });
 
-// Обработчик ухода мыши
-prodSlider.el.addEventListener("mouseleave", () => {
-  if (isAutoplayPaused) {
-    autoplayResume = setTimeout(() => {
-      prodSlider.autoplay.start();
-      isAutoplayPaused = false;
-    }, 100);
-  }
-});
+    // Обработчик ухода мыши
+    prodSlider.el.addEventListener("mouseleave", () => {
+      if (isAutoplayPaused) {
+        autoplayResume = setTimeout(() => {
+          prodSlider.autoplay.start();
+          isAutoplayPaused = false;
+        }, 100);
+      }
+    });
 
-// Обработчик начала касания
-prodSlider.el.addEventListener("touchstart", () => {
-  if (!isAutoplayPaused) {
-    prodSlider.autoplay.stop();
-    isAutoplayPaused = true;
-    clearTimeout(autoplayResume);
-  }
-});
+    // Обработчик начала касания
+    prodSlider.el.addEventListener("touchstart", () => {
+      if (!isAutoplayPaused) {
+        prodSlider.autoplay.stop();
+        isAutoplayPaused = true;
+        clearTimeout(autoplayResume);
+      }
+    });
 
-// Обработчик окончания касания
-prodSlider.el.addEventListener("touchend", () => {
-  if (isAutoplayPaused) {
-    autoplayResume = setTimeout(() => {
-      prodSlider.autoplay.start();
-      isAutoplayPaused = false;
-    }, 100);
-  }
-});
+    // Обработчик окончания касания
+    prodSlider.el.addEventListener("touchend", () => {
+      if (isAutoplayPaused) {
+        autoplayResume = setTimeout(() => {
+          prodSlider.autoplay.start();
+          isAutoplayPaused = false;
+        }, 100);
+      }
+    });
 
-// Запуск автопрокрутки при инициализации
-prodSlider.autoplay.start();
-
-// Обработчик для проверки состояния слайдера
-prodSlider.on("autoplayStop", () => {
-  if (!isAutoplayPaused) {
+    // Запуск автопрокрутки при инициализации
     prodSlider.autoplay.start();
+
+    // Обработчик для проверки состояния слайдера
+    prodSlider.on("autoplayStop", () => {
+      if (!isAutoplayPaused) {
+        prodSlider.autoplay.start();
+      }
+    });
   }
-});
-new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".clients__thumbs", {
-  slidesPerView: "auto",
-  spaceBetween: 0
-});
+
+  // Инициализация clients__thumbs
+  const clientsThumbsElement = document.querySelector(".clients__thumbs");
+  if (clientsThumbsElement) {
+    new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".clients__thumbs", {
+      slidesPerView: "auto",
+      spaceBetween: 0
+    });
+  }
+}
 
 /***/ }),
 
@@ -100977,10 +100799,6 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_components.js */ "./src/js/_components.js");
 /* harmony import */ var _functions_burger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions/burger.js */ "./src/js/functions/burger.js");
-/* harmony import */ var _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/loyal-items.js */ "./src/js/components/loyal-items.js");
-/* harmony import */ var _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/lazyImages.js */ "./src/js/components/lazyImages.js");
-
-
 
 
 
@@ -100995,10 +100813,28 @@ function addDeferred(fn) {
 // Инициализация основных компонентов
 function initMainComponents() {
   // Инициализация компонента для управления loyal-item блоками
-  (0,_components_loyal_items_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initLoyalItems)();
 
   // Инициализация модуля ленивой загрузки изображений - выполняем сразу, это критично
-  (0,_components_lazyImages_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initLazyLoad)();
+
+  // Инициализация AOS
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initAOS)();
+
+  // Инициализация слайдеров
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initSliders)();
+
+  // Инициализация шапки
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initHeader)();
+
+  // Инициализация блока доставки
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initDelivery)();
+
+  // Инициализация 3D ромба
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initRomb)();
+
+  // Инициализация продуктов
+  (0,_components_js__WEBPACK_IMPORTED_MODULE_0__.initProducts)();
 
   // Добавляем остальные компоненты в очередь отложенных инициализаций
   addDeferred(initSvgPathAnimations);
@@ -101092,8 +100928,12 @@ function loadHeavyComponents() {
   setTimeout(() => {
     // Импортируем Matter.js только когда пользователь уже взаимодействовал со страницей
     Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/matter.js */ "./src/js/components/matter.js")).then(module => {
-      // Вызываем инициализацию Matter.js
-      module.default();
+      // Инициализируем Matter.js с помощью функции initMatter
+      if (typeof module.initMatter === "function") {
+        module.initMatter();
+      } else {
+        console.warn("Функция initMatter не найдена в модуле matter.js");
+      }
     }).catch(error => {
       console.error("Ошибка загрузки Matter.js:", error);
     });
@@ -101145,8 +100985,17 @@ function setupOptimizedScroll() {
 
 // Инициализация при загрузке DOM
 document.addEventListener("DOMContentLoaded", () => {
-  // Инициализируем основные компоненты
+  // Инициализация основных компонентов
   initMainComponents();
+
+  // Запуск отложенных функций
+  executeDeferredFunctions();
+
+  // Настройка оптимизированной прокрутки
+  setupOptimizedScroll();
+
+  // Загрузка тяжелых компонентов
+  loadHeavyComponents();
 
   // Оптимизируем обработчик кнопки скролла наверх
   const scrollTopButton = document.querySelector(".footer__link--up");
@@ -101160,21 +101009,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, {
       passive: false
     });
-  }
-
-  // Настраиваем оптимизированный скролл
-  setupOptimizedScroll();
-
-  // Выполняем отложенные функции с задержкой
-  setTimeout(executeDeferredFunctions, 500);
-
-  // Загружаем тяжелые компоненты с задержкой
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(() => loadHeavyComponents(), {
-      timeout: 2000
-    });
-  } else {
-    setTimeout(loadHeavyComponents, 1500);
   }
 });
 

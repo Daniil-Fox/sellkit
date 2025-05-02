@@ -4,6 +4,9 @@
   background-size: 100% auto;
   padding: 54px 0;
   position: relative;
+  &--cost {
+    padding-top: 100px;
+  }
   &::after {
     content: "";
     position: absolute;

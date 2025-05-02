@@ -79,6 +79,13 @@
   }
   &__cover {
     height: 750px;
+
+    &--app {
+      margin-bottom: 100px;
+      @include small-tablet {
+        margin-bottom: 60px;
+      }
+    }
     @include tablet {
       height: 600px;
     }

@@ -4,6 +4,10 @@
   padding-bottom: 97px;
   background-color: #000e2b;
   position: relative;
+
+  &--app {
+    padding-bottom: 108px;
+  }
   @include small-tablet {
     padding: 60px 0;
   }

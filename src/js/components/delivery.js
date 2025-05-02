@@ -1,18 +1,20 @@
-const deliveryItems = document.querySelectorAll(".d-item");
+export default function initDelivery() {
+  const deliveryItems = document.querySelectorAll(".d-item");
+  const deliverySection = document.querySelector(".delivery");
 
-if (deliveryItems.length > 0) {
+  if (!deliveryItems.length || !deliverySection) {
+    return;
+  }
+
   // Определяем тип устройства заранее
   const isMobile = window.innerWidth < 850;
   const isIOS =
     /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   // Принудительно активируем аппаратное ускорение для всего блока delivery
-  const deliverySection = document.querySelector(".delivery");
-  if (deliverySection) {
-    deliverySection.style.transform = "translateZ(0)";
-    deliverySection.style.backfaceVisibility = "hidden";
-    deliverySection.style.perspective = "1000px";
-  }
+  deliverySection.style.transform = "translateZ(0)";
+  deliverySection.style.backfaceVisibility = "hidden";
+  deliverySection.style.perspective = "1000px";
 
   // Оптимизация для фоновых элементов
   const backgroundShapes = document.querySelectorAll(".delivery__star");

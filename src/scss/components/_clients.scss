@@ -57,6 +57,9 @@
         display: block;
         margin-top: 6px;
         color: rgba(0, 14, 43, 0.4);
+        &:first-child {
+          color: #000e2b;
+        }
       }
     }
   }
@@ -65,6 +68,19 @@
     justify-content: center;
     @media (max-width: 900px) {
       justify-content: flex-start;
+    }
+
+    &--left {
+      justify-content: flex-start;
+
+      .clients__tab {
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
   }
   &__tab {

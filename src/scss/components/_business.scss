@@ -1,6 +1,10 @@
 .business {
   background-color: #006aff;
   overflow: hidden;
+
+  &--analitic {
+    margin-bottom: 100px;
+  }
   &__header {
     padding: 35px 0;
     min-height: 720px;

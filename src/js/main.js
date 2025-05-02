@@ -1,7 +1,14 @@
-import "./_components.js";
+import {
+  initProducts,
+  initSliders,
+  initHeader,
+  initDelivery,
+  initRomb,
+  initAOS,
+  initLoyalItems,
+  initLazyLoad,
+} from "./_components.js";
 import "./functions/burger.js";
-import initLoyalItems from "./components/loyal-items.js";
-import initLazyLoad from "./components/lazyImages.js";
 
 // Список функций для отложенной инициализации
 const deferredFunctions = [];
@@ -18,6 +25,24 @@ function initMainComponents() {
 
   // Инициализация модуля ленивой загрузки изображений - выполняем сразу, это критично
   initLazyLoad();
+
+  // Инициализация AOS
+  initAOS();
+
+  // Инициализация слайдеров
+  initSliders();
+
+  // Инициализация шапки
+  initHeader();
+
+  // Инициализация блока доставки
+  initDelivery();
+
+  // Инициализация 3D ромба
+  initRomb();
+
+  // Инициализация продуктов
+  initProducts();
 
   // Добавляем остальные компоненты в очередь отложенных инициализаций
   addDeferred(initSvgPathAnimations);
@@ -131,8 +156,12 @@ function loadHeavyComponents() {
     // Импортируем Matter.js только когда пользователь уже взаимодействовал со страницей
     import(/* webpackChunkName: "matter" */ "./components/matter.js")
       .then((module) => {
-        // Вызываем инициализацию Matter.js
-        module.default();
+        // Инициализируем Matter.js с помощью функции initMatter
+        if (typeof module.initMatter === "function") {
+          module.initMatter();
+        } else {
+          console.warn("Функция initMatter не найдена в модуле matter.js");
+        }
       })
       .catch((error) => {
         console.error("Ошибка загрузки Matter.js:", error);
@@ -195,8 +224,17 @@ function setupOptimizedScroll() {
 
 // Инициализация при загрузке DOM
 document.addEventListener("DOMContentLoaded", () => {
-  // Инициализируем основные компоненты
+  // Инициализация основных компонентов
   initMainComponents();
+
+  // Запуск отложенных функций
+  executeDeferredFunctions();
+
+  // Настройка оптимизированной прокрутки
+  setupOptimizedScroll();
+
+  // Загрузка тяжелых компонентов
+  loadHeavyComponents();
 
   // Оптимизируем обработчик кнопки скролла наверх
   const scrollTopButton = document.querySelector(".footer__link--up");
@@ -209,19 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       { passive: false }
     );
-  }
-
-  // Настраиваем оптимизированный скролл
-  setupOptimizedScroll();
-
-  // Выполняем отложенные функции с задержкой
-  setTimeout(executeDeferredFunctions, 500);
-
-  // Загружаем тяжелые компоненты с задержкой
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(() => loadHeavyComponents(), { timeout: 2000 });
-  } else {
-    setTimeout(loadHeavyComponents, 1500);
   }
 });
 

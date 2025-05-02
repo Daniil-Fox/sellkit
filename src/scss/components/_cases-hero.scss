@@ -1,0 +1,22 @@
+.cases-hero {
+  padding-top: 92px;
+  padding-bottom: 69px;
+  background-image: url("./../img/cubes2.webp");
+  background-size: 100% auto;
+
+  &__label {
+    margin-bottom: 5px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-right: 17px;
+    gap: 10px;
+  }
+  &__title {
+    margin-bottom: 7px;
+  }
+  .clients__desc {
+    max-width: 500px;
+    margin: 0;
+    margin-bottom: 31px;
+  }
+}
