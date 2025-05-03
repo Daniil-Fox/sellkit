@@ -13,14 +13,22 @@
         <form action="#" class="cta__form form" itemscope itemtype="https://schema.org/ContactForm">
           <meta itemprop="name" content="Форма запроса демонстрации SellKit">
           <div class="form__fields">
-            <input type="text" placeholder="Ваше имя" name="Имя" class="form__input" itemprop="name"
-              aria-label="Введите ваше имя" required />
-            <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input" itemprop="telephone"
-              aria-label="Введите номер телефона" required />
-            <input type="text" placeholder="Название проекта" name="Название проекта" class="form__input"
-              itemprop="subjectOf" aria-label="Введите название проекта" required />
-            <input type="text" placeholder="Город" name="Город" class="form__input" itemprop="addressLocality"
-              aria-label="Введите ваш город" required />
+            <div class="form__field">
+              <input type="text" placeholder="Ваше имя" name="Имя" class="form__input input-name" itemprop="name"
+                aria-label="Введите ваше имя" required />
+            </div>
+            <div class="form__field">
+              <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input input-tel"
+                itemprop="telephone" aria-label="Введите номер телефона" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Название проекта" name="Название проекта"
+                class="form__input input-project" itemprop="subjectOf" aria-label="Введите название проекта" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Город" name="Город" class="form__input input-city"
+                itemprop="addressLocality" aria-label="Введите ваш город" required />
+            </div>
           </div>
           <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
           <small class="form__agree">

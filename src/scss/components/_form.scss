@@ -22,9 +22,7 @@
       opacity: 0.7;
       transition: opacity 0.2s ease-in;
     }
-    &:not(:last-child) {
-      margin-bottom: 10.5px;
-    }
+
     @include hover {
       &::placeholder {
         opacity: 1;
@@ -35,6 +33,11 @@
       &::placeholder {
         opacity: 1;
       }
+    }
+  }
+  &__field {
+    &:not(:last-child) {
+      margin-bottom: 10.5px;
     }
   }
   &__fields {

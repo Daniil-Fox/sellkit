@@ -10,6 +10,7 @@ import initRomb from "./components/romb.js";
 import initAOS from "./components/aos.js";
 import "./components/faq.js";
 import "./components/plans.js";
+import "./components/validation.js";
 import initLoyalItems from "./components/loyal-items.js";
 import initLazyLoad from "./components/lazyImages.js";
 import initDeferredLoading from "./components/deferred-loading.js";
