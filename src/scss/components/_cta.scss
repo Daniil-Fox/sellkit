@@ -71,7 +71,7 @@
       width: 18.8%;
       height: 94.81865%;
 
-      transform: rotate(13.51deg);
+      transform: rotate(0) translateX(-100%);
 
       background-image: url("./../img/phones/01.webp");
       background-size: contain;
@@ -83,7 +83,7 @@
       bottom: -19%;
       width: 15.1%;
       height: 77.02936%;
-      transform: rotate(-15.92deg);
+      transform: rotate(5deg) translateY(100%);
       background-image: url("./../img/phones/02.webp");
       background-size: contain;
       background-repeat: no-repeat;
@@ -95,7 +95,7 @@
       bottom: -9.7%;
       width: 20.08%;
       height: 102.42%;
-      transform: rotate(-6.83deg);
+      transform: rotate(0deg) translateY(100%);
       background-image: url("./../img/phones/03.webp");
       background-size: contain;
       background-repeat: no-repeat;
@@ -123,5 +123,55 @@
     @include small-tablet {
       max-width: 100%;
     }
+  }
+}
+
+.cta.aos-animate {
+  .cta__phone {
+    &--1 {
+      animation: showLeft 1s ease-in-out 0.4s forwards;
+    }
+    &--2 {
+      animation: showBottom 1s ease-in-out 0.5s forwards;
+    }
+    &--3 {
+      animation: show 1s ease-in-out 1s forwards,
+        shake 0.8s ease-out 2s forwards;
+    }
+  }
+}
+
+@keyframes show {
+  to {
+    transform: rotate(-6deg) translateY(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-6deg);
+  }
+
+  30% {
+    transform: rotate(0deg) translate(10px, 0);
+  }
+
+  60% {
+    transform: rotate(-6deg) translate(-10px, 0);
+  }
+
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
+@keyframes showLeft {
+  to {
+    transform: rotate(13.51deg) translateX(0%);
+  }
+}
+@keyframes showBottom {
+  to {
+    transform: rotate(-15.92deg) translateY(0%);
   }
 }

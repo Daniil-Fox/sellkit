@@ -95,6 +95,7 @@
     background-color: #f1f5f9;
     border-radius: 100px;
     margin: 0 4.15px;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in;
     @media (max-width: 900px) {
       margin: 0 4px;
 
@@ -109,7 +110,14 @@
       background-color: #006aff;
       color: #fff;
     }
-
+    @include hover {
+      background-color: #2d84fd;
+      color: #fff;
+    }
+    &:focus {
+      background-color: #2d84fd;
+      color: #fff;
+    }
     @include small-tablet {
       padding: 8px 20px;
     }

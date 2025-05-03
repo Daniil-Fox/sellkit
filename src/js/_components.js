@@ -1,5 +1,6 @@
 import initProducts from "./components/products.js";
 import "./components/mouse.js";
+import "./components/modal.js";
 import initSliders from "./components/sliders.js";
 import "./components/matter.js";
 import "./components/cards.js";

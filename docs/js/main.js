@@ -98492,30 +98492,32 @@ class WebGLRenderer {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   initAOS: () => (/* reexport safe */ _components_aos_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   initDeferredLoading: () => (/* reexport safe */ _components_deferred_loading_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
-/* harmony export */   initDelivery: () => (/* reexport safe */ _components_delivery_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   initHeader: () => (/* reexport safe */ _components_header_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   initLazyLoad: () => (/* reexport safe */ _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
-/* harmony export */   initLoyalItems: () => (/* reexport safe */ _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   initAOS: () => (/* reexport safe */ _components_aos_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   initDeferredLoading: () => (/* reexport safe */ _components_deferred_loading_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
+/* harmony export */   initDelivery: () => (/* reexport safe */ _components_delivery_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   initHeader: () => (/* reexport safe */ _components_header_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   initLazyLoad: () => (/* reexport safe */ _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
+/* harmony export */   initLoyalItems: () => (/* reexport safe */ _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
 /* harmony export */   initProducts: () => (/* reexport safe */ _components_products_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   initRomb: () => (/* reexport safe */ _components_romb_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   initSliders: () => (/* reexport safe */ _components_sliders_js__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   initRomb: () => (/* reexport safe */ _components_romb_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   initSliders: () => (/* reexport safe */ _components_sliders_js__WEBPACK_IMPORTED_MODULE_3__["default"])
 /* harmony export */ });
 /* harmony import */ var _components_products_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/products.js */ "./src/js/components/products.js");
 /* harmony import */ var _components_mouse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mouse.js */ "./src/js/components/mouse.js");
-/* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
-/* harmony import */ var _components_matter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/matter.js */ "./src/js/components/matter.js");
-/* harmony import */ var _components_cards_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/cards.js */ "./src/js/components/cards.js");
-/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/js/components/header.js");
-/* harmony import */ var _components_delivery_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/delivery.js */ "./src/js/components/delivery.js");
-/* harmony import */ var _components_romb_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/romb.js */ "./src/js/components/romb.js");
-/* harmony import */ var _components_aos_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/aos.js */ "./src/js/components/aos.js");
-/* harmony import */ var _components_faq_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/faq.js */ "./src/js/components/faq.js");
-/* harmony import */ var _components_plans_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/plans.js */ "./src/js/components/plans.js");
-/* harmony import */ var _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/loyal-items.js */ "./src/js/components/loyal-items.js");
-/* harmony import */ var _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/lazyImages.js */ "./src/js/components/lazyImages.js");
-/* harmony import */ var _components_deferred_loading_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/deferred-loading.js */ "./src/js/components/deferred-loading.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/modal.js */ "./src/js/components/modal.js");
+/* harmony import */ var _components_sliders_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sliders.js */ "./src/js/components/sliders.js");
+/* harmony import */ var _components_matter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/matter.js */ "./src/js/components/matter.js");
+/* harmony import */ var _components_cards_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/cards.js */ "./src/js/components/cards.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/header.js */ "./src/js/components/header.js");
+/* harmony import */ var _components_delivery_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/delivery.js */ "./src/js/components/delivery.js");
+/* harmony import */ var _components_romb_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/romb.js */ "./src/js/components/romb.js");
+/* harmony import */ var _components_aos_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/aos.js */ "./src/js/components/aos.js");
+/* harmony import */ var _components_faq_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/faq.js */ "./src/js/components/faq.js");
+/* harmony import */ var _components_plans_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/plans.js */ "./src/js/components/plans.js");
+/* harmony import */ var _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/loyal-items.js */ "./src/js/components/loyal-items.js");
+/* harmony import */ var _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/lazyImages.js */ "./src/js/components/lazyImages.js");
+/* harmony import */ var _components_deferred_loading_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/deferred-loading.js */ "./src/js/components/deferred-loading.js");
+
 
 
 
@@ -100188,6 +100190,41 @@ function initMatter() {
 
 // Экспортируем функцию initMatter
 
+
+/***/ }),
+
+/***/ "./src/js/components/modal.js":
+/*!************************************!*\
+  !*** ./src/js/components/modal.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const modalButtons = document.querySelectorAll(".modal-btn");
+if (modalButtons.length > 0) {
+  const modal = document.querySelector(".modal");
+  const modalBody = document.querySelector(".modal__body");
+  const modalClose = document.querySelector(".modal__close");
+  modalButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      e.preventDefault();
+      modal.classList.add("active");
+    });
+  });
+  modalClose.addEventListener("click", e => {
+    e.preventDefault();
+    modal.classList.remove("active");
+  });
+  modalBody.addEventListener("click", e => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  modal.addEventListener("click", e => {
+    e.preventDefault();
+    modal.classList.remove("active");
+  });
+}
 
 /***/ }),
 
