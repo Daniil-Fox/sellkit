@@ -11,6 +11,7 @@ import "./components/faq.js";
 import "./components/plans.js";
 import initLoyalItems from "./components/loyal-items.js";
 import initLazyLoad from "./components/lazyImages.js";
+import initDeferredLoading from "./components/deferred-loading.js";
 
 // Экспортируем все функции инициализации
 export {
@@ -22,4 +23,5 @@ export {
   initAOS,
   initLoyalItems,
   initLazyLoad,
+  initDeferredLoading,
 };

@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="theme-color" content="#111111" />
+
+  <!-- Предварительные подключения для ускорения загрузки ресурсов -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://www.google-analytics.com" />
+  <link rel="preconnect" href="https://mc.yandex.ru" />
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
   <title>SellKit — комплексное решение для ресторанного бизнеса</title>
   <meta name="description"
@@ -26,15 +32,52 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://sellkit.ru/" />
 
+  <!-- Критические шрифты - только самые необходимые для первого отображения -->
   <link rel="preload" href="fonts/BebasNeueCyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/BebasNeueRegular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/BebasNeueBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Некритичные шрифты - загрузятся с низким приоритетом -->
+  <link rel="preload" href="fonts/BebasNeueRegular.woff2" as="font" type="font/woff2" crossorigin media="print"
+    onload="this.media='all'" />
+  <link rel="preload" href="fonts/BebasNeueBold.woff2" as="font" type="font/woff2" crossorigin media="print"
+    onload="this.media='all'" />
+  <link rel="preload" href="fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin media="print"
+    onload="this.media='all'" />
+  <link rel="preload" href="fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin media="print"
+    onload="this.media='all'" />
+
+  <!-- Предзагрузка критического изображения для первого экрана -->
   <link rel="preload" as="image" href="./img/hero-mob.webp" imagesrcset="./img/hero-mob.webp"
     media="(max-width: 768px)">
+
+  <!-- Добавление font-display: swap для всех шрифтов -->
+  <style>
+    @font-face {
+      font-family: 'BebasNeueCyrillic';
+      font-display: swap;
+      src: url('fonts/BebasNeueCyrillic.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-display: swap;
+      src: url('fonts/Inter-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-display: swap;
+      src: url('fonts/Inter-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+    }
+  </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -59,6 +102,7 @@
   }
   </script>
 
+  <!-- Критические стили и скрипты -->
   <link rel="stylesheet" href="css/vendor.css" />
   <link rel="stylesheet" href="css/main.css" />
   <script defer src="js/main.js"></script>
@@ -190,7 +234,7 @@
             <a href="./courier.html">Курьерское приложение</a>
           </li>
           <li>
-            <a href="./plans.html">Тарифы</a>
+            <a href="./cost.html">Тарифы</a>
           </li>
         </ul>
       </nav>
@@ -653,14 +697,14 @@
     itemtype="https://schema.org/Service">
     <div class="container">
       <div class="loyal__header">
-        <div data-aos-anchor-placement="bottom-bottom" data-aos="fade-right">
+        <div data-aos-anchor-placement="top-bottom" data-aos="fade-right">
           <canvas class="loyal__canvas" id="loyal-canvas" aria-hidden="true"></canvas>
         </div>
         <div class="loyal__heading">
-          <span class="loyal__btn btn-label btn-reset" data-aos-anchor-placement="bottom-bottom" data-aos="fade-down">
+          <span class="loyal__btn btn-label btn-reset" data-aos-anchor-placement="top-bottom" data-aos="fade-down">
             Причины, по которым выбирают нас
           </span>
-          <h2 class="loyal__title title2" id="loyal-heading-title" data-aos-anchor-placement="bottom-bottom"
+          <h2 class="loyal__title title2" id="loyal-heading-title" data-aos-anchor-placement="top-bottom"
             data-aos="fade-down" itemprop="name">
             повышение возвращаемости и лояльности гостей
             <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">с помощью собственного сайта
@@ -672,11 +716,11 @@
         <meta itemprop="itemListOrder" content="Unordered">
         <meta itemprop="numberOfItems" content="5">
 
-        <div class="loyal__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
+        <div class="loyal__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
           data-aos-delay="0" role="listitem" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="1">
-          <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="300">
+          <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
+            data-aos-delay="100">
             <div class="loyal-item__fig" aria-hidden="true">01</div>
             <p class="loyal-item__title" itemprop="name">кастомизация и доработки</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -689,12 +733,12 @@
           </div>
         </div>
 
-        <div class="loyal__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
-          data-aos-delay="600" role="listitem" itemprop="itemListElement" itemscope
+        <div class="loyal__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
+          data-aos-delay="200" role="listitem" itemprop="itemListElement" itemscope
           itemtype="https://schema.org/Service">
           <meta itemprop="position" content="2">
-          <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="900">
+          <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
+            data-aos-delay="300">
             <div class="loyal-item__fig" aria-hidden="true">02</div>
             <p class="loyal-item__title" itemprop="name">большой функционал</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -706,12 +750,12 @@
           </div>
         </div>
 
-        <div class="loyal__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
-          data-aos-delay="1200" role="listitem" itemprop="itemListElement" itemscope
+        <div class="loyal__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
+          data-aos-delay="400" role="listitem" itemprop="itemListElement" itemscope
           itemtype="https://schema.org/Service">
           <meta itemprop="position" content="3">
-          <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="1500">
+          <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
+            data-aos-delay="500">
             <div class="loyal-item__fig" aria-hidden="true">03</div>
             <p class="loyal-item__title" itemprop="name">эффективный маркетинг</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -724,12 +768,12 @@
           </div>
         </div>
 
-        <div class="loyal__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
-          data-aos-delay="1800" role="listitem" itemprop="itemListElement" itemscope
+        <div class="loyal__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
+          data-aos-delay="600" role="listitem" itemprop="itemListElement" itemscope
           itemtype="https://schema.org/Service">
           <meta itemprop="position" content="4">
-          <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="2100">
+          <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
+            data-aos-delay="700">
             <div class="loyal-item__fig" aria-hidden="true">04</div>
             <p class="loyal-item__title" itemprop="name">удобный курьерский софт</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -742,12 +786,12 @@
           </div>
         </div>
 
-        <div class="loyal__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
-          data-aos-delay="2400" role="listitem" itemprop="itemListElement" itemscope
+        <div class="loyal__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
+          data-aos-delay="800" role="listitem" itemprop="itemListElement" itemscope
           itemtype="https://schema.org/Service">
           <meta itemprop="position" content="5">
-          <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="2700">
+          <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
+            data-aos-delay="900">
             <div class="loyal-item__fig" aria-hidden="true">05</div>
             <p class="loyal-item__title" itemprop="name">постоянные обновления</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -777,7 +821,7 @@
   </section>
   <section class="clients" id="cases" role="region" aria-labelledby="clients-title">
     <div class="container">
-      <div class="clients__header centered" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+      <div class="clients__header centered" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
         <span class="clients__label btn-label btn-reset"> Наши клиенты </span>
         <h2 class="title2 clients__title" id="clients-title">
           мы обслуживаем более 500 ресторанов и сетей
@@ -827,8 +871,8 @@
         </div>
         <div class="clients__items" data-visible-cards="4" role="tabpanel" id="all-clients">
           <div class="clients__card card" data-client-card="rest">
-            <div class="card__wrap" data-aos-anchor-placement="bottom-bottom" data-aos="flip-left"
-              data-aos-duration="600" data-aos-easing="linear" data-aos-delay="0">
+            <div class="card__wrap" data-aos-anchor-placement="top-bottom" data-aos="flip-left" data-aos-duration="600"
+              data-aos-easing="linear" data-aos-delay="0">
               <div class="card__labels">
                 <div class="card__label">РЕСТОРАН</div>
               </div>
@@ -847,8 +891,8 @@
             </div>
           </div>
           <div class="clients__card card" data-client-card="mult, rest">
-            <div class="card__wrap" data-aos-anchor-placement="bottom-bottom" data-aos="flip-left"
-              data-aos-duration="600" data-aos-easing="linear" data-aos-delay="100">
+            <div class="card__wrap" data-aos-anchor-placement="top-bottom" data-aos="flip-left" data-aos-duration="600"
+              data-aos-easing="linear" data-aos-delay="100">
               <div class="card__labels">
                 <div class="card__label">мультибренд</div>
                 <div class="card__label">РЕСТОРАН</div>
@@ -869,8 +913,8 @@
             </div>
           </div>
           <div class="clients__card card" data-client-card="pizza">
-            <div class="card__wrap" data-aos-anchor-placement="bottom-bottom" data-aos="flip-left"
-              data-aos-duration="600" data-aos-easing="linear" data-aos-delay="200">
+            <div class="card__wrap" data-aos-anchor-placement="top-bottom" data-aos="flip-left" data-aos-duration="600"
+              data-aos-easing="linear" data-aos-delay="200">
               <div class="card__labels">
                 <div class="card__label">Пицца</div>
               </div>
@@ -890,8 +934,8 @@
             </div>
           </div>
           <div class="clients__card card" data-client-card="asia">
-            <div class="card__wrap" data-aos-anchor-placement="bottom-bottom" data-aos="flip-left"
-              data-aos-duration="600" data-aos-easing="linear" data-aos-delay="300">
+            <div class="card__wrap" data-aos-anchor-placement="top-bottom" data-aos="flip-left" data-aos-duration="600"
+              data-aos-easing="linear" data-aos-delay="300">
               <div class="card__labels">
                 <div class="card__label">азиатская кухня</div>
               </div>
@@ -1244,7 +1288,7 @@
           <div class="clients__ava">15< </div>
           </div>
           <div class="centered">
-            <a href="#" class="btn btn-reset clients__btn">показать ещё</a>
+            <a href="./cases.html" class="btn btn-reset clients__btn">показать ещё</a>
           </div>
         </div>
       </div>
@@ -1267,7 +1311,7 @@
     <div class="delivery__star delivery__star--8"></div>
   </div>
   <div class="container">
-    <div class="delivery__header" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+    <div class="delivery__header" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
       <div class="delivery__left">
         <span class="delivery__label btn-label btn-reset">
           Подробнее о возможностях
@@ -1295,7 +1339,7 @@
     </div>
     <div class="delivery__wrap" data-delivery-items="3">
       <div class="delivery__items">
-        <div class="delivery-item d-item active" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item active" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[01]</span>
             <span class="d-item__title">бонусные баллы</span>
@@ -1385,7 +1429,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[02]</span>
             <span class="d-item__title">гибкие Зоны доставки</span>
@@ -1465,7 +1509,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[03]</span>
             <span class="d-item__title">управление акциями</span>
@@ -1568,7 +1612,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[04]</span>
             <span class="d-item__title">добавки к блюдам</span>
@@ -1649,7 +1693,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[05]</span>
             <span class="d-item__title">доработки функций</span>
@@ -1733,7 +1777,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[06]</span>
             <span class="d-item__title">PUSH-уведомления</span>
@@ -1827,7 +1871,7 @@
             </svg>
           </span>
         </div>
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[07]</span>
             <span class="d-item__title">брендированный дизайн</span>
@@ -1892,7 +1936,7 @@
           </span>
         </div>
 
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[08]</span>
             <span class="d-item__title">Сбор отзывов и оценок</span>
@@ -1987,7 +2031,7 @@
           </span>
         </div>
 
-        <div class="delivery-item d-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up">
+        <div class="delivery-item d-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
           <button class="btn-reset d-item__header">
             <span>[09]</span>
             <span class="d-item__title">мультибренд</span>
@@ -2309,7 +2353,7 @@
         <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="0"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="1">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="300">
+          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="100">
             <div class="loyal-item__fig">01</div>
             <p class="loyal-item__title" itemprop="name">Отчёты и аналитика</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -2321,10 +2365,10 @@
           </div>
         </div>
 
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="600"
+        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="200"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="2">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="900">
+          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="300">
             <div class="loyal-item__fig">02</div>
             <p class="loyal-item__title" itemprop="name">Сегментация</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -2336,10 +2380,10 @@
           </div>
         </div>
 
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="1200"
+        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="400"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="3">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="1500">
+          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="500">
             <div class="loyal-item__fig">03</div>
             <p class="loyal-item__title" itemprop="name">PUSH-уведомления</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -2350,10 +2394,10 @@
           </div>
         </div>
 
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="1800"
+        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="600"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="4">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="2100">
+          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="700">
             <div class="loyal-item__fig">04</div>
             <p class="loyal-item__title" itemprop="name">конструктор акций</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -2365,10 +2409,10 @@
           </div>
         </div>
 
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="2400"
+        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="800"
           itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
           <meta itemprop="position" content="5">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="2700">
+          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="900">
             <div class="loyal-item__fig">05</div>
             <p class="loyal-item__title" itemprop="name">ABC-АНАЛИЗ</p>
             <p class="loyal-item__desc" itemprop="description">
@@ -2493,7 +2537,7 @@
         <meta itemprop="itemListOrder" content="Unordered">
         <meta itemprop="numberOfItems" content="4">
 
-        <div class="courier__header" data-aos-anchor-placement="bottom-bottom" data-aos="fade-down">
+        <div class="courier__header" data-aos-anchor-placement="top-bottom" data-aos="fade-down">
           <span class="courier__label btn-label btn-reset">
             Курьерский софт
           </span>
@@ -2503,10 +2547,10 @@
           </h2>
         </div>
         <div class="courier__items">
-          <div class="courier__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
+          <div class="courier__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
             data-aos-delay="0" itemprop="itemListElement" itemscope itemtype="https://schema.org/ItemList">
             <meta itemprop="position" content="1">
-            <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+            <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
               data-aos-delay="300">
               <div class="loyal-item__fig">01</div>
               <p class="loyal-item__title" itemprop="name">СМЕНЫ И ЗАКАЗЫ ЧЕРЕЗ IIKO</p>
@@ -2519,10 +2563,10 @@
             </div>
           </div>
 
-          <div class="courier__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
+          <div class="courier__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
             data-aos-delay="600" itemprop="itemListElement" itemscope itemtype="https://schema.org/ItemList">
             <meta itemprop="position" content="2">
-            <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+            <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
               data-aos-delay="900">
               <div class="loyal-item__fig">02</div>
               <p class="loyal-item__title" itemprop="name">ОТСЛЕЖИВАНИЕ КУРЬЕРА</p>
@@ -2534,10 +2578,10 @@
             </div>
           </div>
 
-          <div class="courier__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
+          <div class="courier__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
             data-aos-delay="1200" itemprop="itemListElement" itemscope itemtype="https://schema.org/ItemList">
             <meta itemprop="position" content="3">
-            <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+            <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
               data-aos-delay="1500">
               <div class="loyal-item__fig">03</div>
               <p class="loyal-item__title" itemprop="name">партнёрские курьеры</p>
@@ -2549,10 +2593,10 @@
             </div>
           </div>
 
-          <div class="courier__item loyal-item" data-aos-anchor-placement="bottom-bottom" data-aos="draw-plus"
+          <div class="courier__item loyal-item" data-aos-anchor-placement="top-bottom" data-aos="draw-plus"
             data-aos-delay="1800" itemprop="itemListElement" itemscope itemtype="https://schema.org/ItemList">
             <meta itemprop="position" content="4">
-            <div class="loyal-item__content" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+            <div class="loyal-item__content" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
               data-aos-delay="2100">
               <div class="loyal-item__fig">04</div>
               <p class="loyal-item__title" itemprop="name">Оптимизация логистики</p>
@@ -2818,7 +2862,7 @@
 </section> <section class="faq">
   <div class="container">
     <div class="faq__container">
-      <div class="faq__left" data-aos-anchor-placement="bottom-bottom" data-aos="fade-right">
+      <div class="faq__left" data-aos-anchor-placement="top-bottom" data-aos="fade-right">
         <div>
           <p class="faq__desc">
             Если останутся вопросы, ответ на которые найти не удалось — напишите нам в Telegram
@@ -2836,8 +2880,8 @@
         </a>
       </div>
       <div class="faq__content">
-        <span class="faq__label btn-label" data-aos-anchor-placement="bottom-bottom" data-aos="fade-down">FAQ</span>
-        <h2 class="title2 faq__title" data-aos-anchor-placement="bottom-bottom" data-aos="fade-down">
+        <span class="faq__label btn-label" data-aos-anchor-placement="top-bottom" data-aos="fade-down">FAQ</span>
+        <h2 class="title2 faq__title" data-aos-anchor-placement="top-bottom" data-aos="fade-down">
           Отвечаем на часто задаваемые вопросы
         </h2>
         <div class="faq__mob">
@@ -2853,8 +2897,7 @@
           </a>
         </div>
         <div class="faq__items">
-          <div class="faq__item faq-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
-            data-aos-delay="0">
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up" data-aos-delay="0">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
                 Чем SellKit лучше агрегаторов?
@@ -2885,7 +2928,7 @@
               </div>
             </div>
           </div>
-          <div class="faq__item faq-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
             data-aos-delay="300">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
@@ -2911,7 +2954,7 @@
               </div>
             </div>
           </div>
-          <div class="faq__item faq-item active" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+          <div class="faq__item faq-item active" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
             data-aos-delay="600">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
@@ -2941,7 +2984,7 @@
               </div>
             </div>
           </div>
-          <div class="faq__item faq-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
             data-aos-delay="900">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
@@ -2975,7 +3018,7 @@
               </div>
             </div>
           </div>
-          <div class="faq__item faq-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
             data-aos-delay="1200">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
@@ -3009,7 +3052,7 @@
               </div>
             </div>
           </div>
-          <div class="faq__item faq-item" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up"
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up"
             data-aos-delay="1500">
             <button class="faq-item__header btn-reset">
               <span class="faq-item__question">
@@ -3051,7 +3094,7 @@
     </div>
   </div>
 </section>
-      <section class="cta" data-aos-anchor-placement="bottom-bottom" data-aos="fade-up" itemscope
+      <section class="cta" data-aos-anchor-placement="top-bottom" data-aos="fade-up" itemscope
   itemtype="https://schema.org/ContactPage">
   <meta itemprop="name" content="Демонстрация SellKit">
   <meta itemprop="description"
@@ -3089,6 +3132,39 @@
     </div>
   </div>
 </section>
+      <div class="modal" data-mouse-blue>
+  <div class="modal__body">
+    <button class="btn-reset modal__close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 1L1 17" stroke="#001840" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M1 1L17 17" stroke="#001840" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <div class="modal__content">
+      <h2 class="title2 title2--white cta__title" id="cta-title" itemprop="headline">
+        Давайте покажем, как все работает
+      </h2>
+      <form action="#" class="cta__form form" itemscope itemtype="https://schema.org/ContactForm">
+        <meta itemprop="name" content="Форма запроса демонстрации SellKit">
+        <div class="form__fields">
+          <input type="text" placeholder="Ваше имя" name="Имя" class="form__input" itemprop="name"
+            aria-label="Введите ваше имя" required />
+          <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input" itemprop="telephone"
+            aria-label="Введите номер телефона" required />
+          <input type="text" placeholder="Название проекта" name="Название проекта" class="form__input"
+            itemprop="subjectOf" aria-label="Введите название проекта" required />
+          <input type="text" placeholder="Город" name="Город" class="form__input" itemprop="addressLocality"
+            aria-label="Введите ваш город" required />
+        </div>
+        <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
+        <small class="form__agree">
+          Нажимая кнопку «Продолжить», вы принимаете
+          <a href="#" itemprop="termsOfService">политику обработки персональных данных</a>
+        </small>
+      </form>
+    </div>
+  </div>
+</div>
     </main>
     <footer class="footer">
   <div class="container">

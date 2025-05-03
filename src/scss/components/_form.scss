@@ -55,6 +55,11 @@
     &:not(:last-child) {
       margin-bottom: 12px;
     }
+    @include hover {
+      border-color: #fff;
+      background-color: #006aff;
+      color: #fff;
+    }
     @include small-tablet {
       font-size: 26px;
       padding-top: 18px;

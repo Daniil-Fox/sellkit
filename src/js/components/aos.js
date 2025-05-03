@@ -14,7 +14,7 @@ export default function initAOS() {
   const isMob = window.innerWidth < 768;
   // Возвращаемся к стандартной реализации AOS с небольшими модификациями
   AOS.init({
-    offset: 0, // Настраиваем смещение для точного срабатывания
+    offset: isMob ? 0 : 60, // Настраиваем смещение для точного срабатывания
     delay: 0,
     duration: 800,
     easing: "ease",
@@ -46,11 +46,17 @@ export default function initAOS() {
     }, 300);
   });
 
-  // Обработчик события прокрутки для ручного обновления видимости
+  // Оптимизированный обработчик события прокрутки с троттлингом
+  let scrollTimeout;
   window.addEventListener(
     "scroll",
     function () {
-      AOS.refresh();
+      if (!scrollTimeout) {
+        scrollTimeout = setTimeout(() => {
+          AOS.refresh();
+          scrollTimeout = null;
+        }, 100);
+      }
     },
     { passive: true }
   );
@@ -63,11 +69,15 @@ export default function initAOS() {
     }, 100);
   });
 
-  // При изменении размера окна
+  // Оптимизированный обработчик изменения размера окна
+  let resizeTimeout;
   window.addEventListener("resize", function () {
-    setTimeout(() => {
-      console.log("Window resized, refreshing AOS");
-      AOS.refresh();
-    }, 100);
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(() => {
+        console.log("Window resized, refreshing AOS");
+        AOS.refresh();
+        resizeTimeout = null;
+      }, 100);
+    }
   });
 }

@@ -1,0 +1,83 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--container-offset);
+  opacity: 0;
+  z-index: -1;
+  transition: z-index 0.3s ease-in, opacity 0.3s ease-in;
+  &__body {
+    position: relative;
+    width: 100%;
+    max-width: 990px;
+    background: #006aff;
+    padding: 40px 54px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: -799px;
+      bottom: -963px;
+      width: 1692px;
+      aspect-ratio: 1 / 1;
+      background-image: url("./../img/phones/star.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      @include small-tablet {
+        width: 1440px;
+        transform: rotate(11deg);
+        right: -709px;
+        bottom: -761px;
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      right: 52px;
+      bottom: -112px;
+      width: 312px;
+      height: 657px;
+
+      background-image: url("./../img/phone-modal.webp");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: rotate(-6deg);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    z-index: 4;
+    right: 14px;
+    top: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  &__content {
+    max-width: 452px;
+    position: relative;
+    z-index: 6;
+  }
+}

@@ -4,6 +4,25 @@
   padding-bottom: 97px;
   background-color: #000e2b;
   position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+  transition: opacity 0.3s ease-out;
+
+  &.scrolling {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: opacity 0.2s ease-out;
+  }
+
+  &.ready {
+    opacity: 1;
+  }
+
+  &.in-viewport {
+    opacity: 1;
+  }
 
   &--app {
     padding-bottom: 108px;
@@ -18,20 +37,24 @@
   &__shapes {
     position: absolute;
     inset: 0;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   &__star {
     position: absolute;
-
     width: 100%;
     height: 335px;
     background-color: #006aff;
     filter: blur(500px);
+    transition: opacity 0.3s ease-out;
+    will-change: opacity;
+    transform: translateZ(0);
 
     &--1 {
       left: 0;
       top: 50px;
       @include mobile {
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
       }
     }
     &--2 {
@@ -41,7 +64,7 @@
       @include mobile {
         left: unset;
         right: 0;
-        transform: translateX(50%);
+        transform: translateX(50%) translateZ(0);
       }
     }
     &--3 {
@@ -52,7 +75,7 @@
         top: 540px;
         right: unset;
         left: 0;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
       }
     }
     &--4 {
@@ -63,7 +86,7 @@
       @include mobile {
         right: 0;
         width: 340px;
-        transform: translateX(50%);
+        transform: translateX(50%) translateZ(0);
       }
     }
     &--5 {
@@ -75,7 +98,7 @@
         width: 340px;
         top: 1300px;
         left: 0;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateZ(0);
       }
     }
     &--6 {
@@ -267,5 +290,56 @@
       align-items: center;
       margin-top: 18px;
     }
+  }
+}
+
+.d-item {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  &__text {
+    transition: max-height 0.5s ease-out;
+    will-change: max-height;
+    transform: translateZ(0);
+  }
+
+  &__top {
+    transition: opacity 0.3s ease-out;
+  }
+
+  &.active {
+    transform: translateZ(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery {
+    &__star {
+      filter: blur(200px);
+      will-change: opacity;
+      transform: translateZ(0);
+    }
+  }
+
+  .d-item__text {
+    transition: max-height 0.5s ease-out;
   }
 }

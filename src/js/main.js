@@ -7,6 +7,7 @@ import {
   initAOS,
   initLoyalItems,
   initLazyLoad,
+  initDeferredLoading,
 } from "./_components.js";
 import "./functions/burger.js";
 
@@ -20,6 +21,9 @@ function addDeferred(fn) {
 
 // Инициализация основных компонентов
 function initMainComponents() {
+  // Инициализация отложенной загрузки ресурсов - запускаем первым для оптимизации
+  initDeferredLoading();
+
   // Инициализация компонента для управления loyal-item блоками
   initLoyalItems();
 
