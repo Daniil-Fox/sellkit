@@ -139,7 +139,15 @@
     text-align: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease-in, z-index 0.3s ease-in;
+    transition: opacity 0.12s ease-in, z-index 0.12s ease-in;
+    @include small-tablet {
+      padding: 120px 21px;
+    }
+    .modal__capture {
+      @include mobile {
+        font-size: 40px;
+      }
+    }
   }
 
   &__img {
@@ -148,6 +156,10 @@
     svg {
       height: 161px;
       width: auto;
+      @include small-tablet {
+        height: auto;
+        max-width: 80%;
+      }
     }
     .draw-path {
       stroke-dasharray: 1000;
