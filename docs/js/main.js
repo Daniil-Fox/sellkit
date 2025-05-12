@@ -104372,15 +104372,21 @@ function initDelivery() {
     }
   };
 
-  // Вызываем функцию при загрузке страницы
-
-  // Оптимизированный обработчик изменения размера с троттлингом
+  // Вызываем функцию только при изменении размера окна
   let resizeTimeout;
+  let prevWindowWidth = window.innerWidth;
   window.addEventListener("resize", () => {
     if (!resizeTimeout) {
       resizeTimeout = setTimeout(() => {
         resizeTimeout = null;
-        checkMobileState();
+        // Проверяем, изменилась ли ширина окна
+        const currentWidth = window.innerWidth;
+        // Если был клик по кнопке "показать еще" — пропускаем checkMobileState
+        if (window._deliveryShowMoreClicked) return;
+        if (currentWidth !== prevWindowWidth) {
+          checkMobileState();
+          prevWindowWidth = currentWidth;
+        }
       }, 250);
     }
   });
@@ -104391,7 +104397,6 @@ function initDelivery() {
     requestAnimationFrame(() => {
       deliveryItems.forEach(item => {
         if (item !== currentItem && item.classList.contains("active")) {
-          item.classList.remove("active");
           const content = item.querySelector(".d-item__text");
           const topContent = item.querySelector(".d-item__top");
           if (!content || !topContent) return;
@@ -104402,18 +104407,17 @@ function initDelivery() {
 
           // Используем RAF для плавной анимации
           requestAnimationFrame(() => {
-            setTimeout(() => {
-              content.style.maxHeight = null;
+            item.classList.remove("active");
+            content.style.maxHeight = null;
 
-              // Используем transition вместо setTimeout для более надежного управления
-              content.addEventListener("transitionend", function onEnd() {
-                topContent.style.display = "grid";
-                topContent.style.opacity = 1;
-                content.removeEventListener("transitionend", onEnd);
-              }, {
-                once: true
-              });
-            }, 10);
+            // Используем transition вместо setTimeout для более надежного управления
+            content.addEventListener("transitionend", function onEnd() {
+              topContent.style.display = "grid";
+              topContent.style.opacity = 1;
+              content.removeEventListener("transitionend", onEnd);
+            }, {
+              once: true
+            });
           });
         }
       });
@@ -104449,37 +104453,36 @@ function initDelivery() {
 
       // Отложенное выполнение тяжелой операции
       requestAnimationFrame(() => {
-        // Очищаем другие активные элементы
-        clearActive(item);
         if (isActive) {
-          // Открываем элемент
-          item.classList.add("active");
-          topContent.style.display = "none";
-          topContent.style.opacity = 0;
+          // Сначала очищаем другие активные элементы
+          clearActive(item);
 
-          // Плавный скролл для мобильных устройств
-          if (isMobile) {
-            const headerHeight = 48; // Высота шапки на мобильных
-            const itemTop = item.getBoundingClientRect().top + window.scrollY;
-            setTimeout(() => {
+          // Сразу после этого открываем новый элемент
+          requestAnimationFrame(() => {
+            item.classList.add("active");
+            topContent.style.display = "none";
+            topContent.style.opacity = 0;
+            content.style.maxHeight = contentHeight + "px";
+
+            // Плавный скролл для мобильных устройств
+            if (isMobile) {
+              const headerHeight = 48; // Высота шапки на мобильных
+              const itemTop = item.getBoundingClientRect().top + window.scrollY;
+
+              // Скроллим к элементу
               window.scrollTo({
                 top: itemTop - headerHeight,
                 behavior: "smooth"
               });
-            }, 100);
-          }
+            }
+          });
 
-          // Используем RAF для плавной анимации
-          requestAnimationFrame(() => {
-            content.style.maxHeight = contentHeight + "px";
-
-            // Удаляем флаг анимации после завершения
-            content.addEventListener("transitionend", function onEnd() {
-              item.removeAttribute("data-animating");
-              content.removeEventListener("transitionend", onEnd);
-            }, {
-              once: true
-            });
+          // Удаляем флаг анимации после завершения
+          content.addEventListener("transitionend", function onEnd() {
+            item.removeAttribute("data-animating");
+            content.removeEventListener("transitionend", onEnd);
+          }, {
+            once: true
           });
         } else {
           // Закрываем элемент
@@ -104507,19 +104510,23 @@ function initDelivery() {
       passive: false
     });
   });
-  checkMobileState();
+
   // Оптимизация для скролла
   let scrollTimeout;
   window.addEventListener("scroll", () => {
     // Снижаем качество эффектов при скролле для улучшения производительности
     if (!scrollTimeout) {
-      document.querySelector(".delivery").classList.add("scrolling");
+      // Добавляем класс scrolling только если нет активных блоков
+      const hasActiveItems = Array.from(deliveryItems).some(item => item.classList.contains("active"));
+      if (!hasActiveItems) {
+        document.querySelector(".delivery").classList.add("scrolling");
 
-      // Отключаем сложные эффекты при скролле
-      const blurElements = document.querySelectorAll(".delivery__star");
-      blurElements.forEach(el => {
-        el.style.opacity = "0.3";
-      });
+        // Отключаем сложные эффекты при скролле
+        const blurElements = document.querySelectorAll(".delivery__star");
+        blurElements.forEach(el => {
+          el.style.opacity = "0.3";
+        });
+      }
     }
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
@@ -104533,6 +104540,11 @@ function initDelivery() {
   }, {
     passive: true
   });
+
+  // Инициализация при загрузке страницы
+  if (window.innerWidth < 850) {
+    checkMobileState();
+  }
 }
 
 // Функция для управления отображением d-item блоков
@@ -104546,8 +104558,19 @@ function initDeliveryItems() {
     const deliveryItems = container.querySelectorAll(".d-item");
     if (deliveryItems.length <= visibleItems) return;
 
+    // Флаг, показывающий, что все элементы раскрыты
+    let allItemsShown = false;
+
     // Функция для обновления видимости элементов
     const updateVisibility = () => {
+      // Если все элементы уже раскрыты, всегда показываем все и скрываем кнопку
+      if (allItemsShown) {
+        deliveryItems.forEach(item => {
+          item.style.display = "";
+        });
+        showMoreBtn.style.display = "none";
+        return;
+      }
       // Проверяем ширину экрана
       if (window.innerWidth < 769) {
         // Скрываем элементы свыше указанного количества
@@ -104567,6 +104590,8 @@ function initDeliveryItems() {
 
         // Скрываем кнопку
         showMoreBtn.style.display = "none";
+        // Сброс флага при возврате на десктоп
+        allItemsShown = false;
       }
     };
 
@@ -104582,6 +104607,8 @@ function initDeliveryItems() {
 
       // Скрываем кнопку после клика
       showMoreBtn.style.display = "none";
+      // Устанавливаем флаг, чтобы updateVisibility больше не скрывал элементы
+      allItemsShown = true;
     });
 
     // Вызываем функцию при загрузке страницы
@@ -104901,8 +104928,19 @@ function initLoyalItems() {
     const loyalItems = container.querySelectorAll(".loyal-item");
     if (loyalItems.length <= visibleItems) return;
 
+    // Флаг, показывающий, что все элементы раскрыты
+    let allItemsShown = false;
+
     // Функция для обновления видимости элементов
     const updateVisibility = () => {
+      // Если все элементы уже раскрыты, всегда показываем все и скрываем кнопку
+      if (allItemsShown) {
+        loyalItems.forEach(item => {
+          item.style.display = "";
+        });
+        showMoreBtn.style.display = "none";
+        return;
+      }
       // Проверяем ширину экрана
       if (window.innerWidth < 850) {
         // Скрываем элементы свыше указанного количества
@@ -104922,6 +104960,8 @@ function initLoyalItems() {
 
         // Скрываем кнопку
         showMoreBtn.style.display = "none";
+        // Сброс флага при возврате на десктоп
+        allItemsShown = false;
       }
     };
 
@@ -104937,6 +104977,8 @@ function initLoyalItems() {
 
       // Скрываем кнопку после клика
       showMoreBtn.style.display = "none";
+      // Устанавливаем флаг, чтобы updateVisibility больше не скрывал элементы
+      allItemsShown = true;
     });
 
     // Вызываем функцию при загрузке страницы

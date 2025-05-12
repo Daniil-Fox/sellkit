@@ -17,8 +17,19 @@ export default function initLoyalItems() {
 
     if (loyalItems.length <= visibleItems) return;
 
+    // Флаг, показывающий, что все элементы раскрыты
+    let allItemsShown = false;
+
     // Функция для обновления видимости элементов
     const updateVisibility = () => {
+      // Если все элементы уже раскрыты, всегда показываем все и скрываем кнопку
+      if (allItemsShown) {
+        loyalItems.forEach((item) => {
+          item.style.display = "";
+        });
+        showMoreBtn.style.display = "none";
+        return;
+      }
       // Проверяем ширину экрана
       if (window.innerWidth < 850) {
         // Скрываем элементы свыше указанного количества
@@ -38,6 +49,8 @@ export default function initLoyalItems() {
 
         // Скрываем кнопку
         showMoreBtn.style.display = "none";
+        // Сброс флага при возврате на десктоп
+        allItemsShown = false;
       }
     };
 
@@ -53,6 +66,8 @@ export default function initLoyalItems() {
 
       // Скрываем кнопку после клика
       showMoreBtn.style.display = "none";
+      // Устанавливаем флаг, чтобы updateVisibility больше не скрывал элементы
+      allItemsShown = true;
     });
 
     // Вызываем функцию при загрузке страницы
