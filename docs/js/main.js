@@ -104357,8 +104357,8 @@ function initDelivery() {
     if (window.innerWidth < 850) {
       // Используем batch-обновление DOM
       requestAnimationFrame(() => {
-        // Закрываем все блоки, кроме первого на мобильных
-        deliveryItems.forEach((item, index) => {
+        // Закрываем все блоки на мобильных
+        deliveryItems.forEach(item => {
           item.classList.remove("active");
           const content = item.querySelector(".d-item__text");
           const topContent = item.querySelector(".d-item__top");
@@ -104373,7 +104373,6 @@ function initDelivery() {
   };
 
   // Вызываем функцию при загрузке страницы
-  checkMobileState();
 
   // Оптимизированный обработчик изменения размера с троттлингом
   let resizeTimeout;
@@ -104458,6 +104457,18 @@ function initDelivery() {
           topContent.style.display = "none";
           topContent.style.opacity = 0;
 
+          // Плавный скролл для мобильных устройств
+          if (isMobile) {
+            const headerHeight = 48; // Высота шапки на мобильных
+            const itemTop = item.getBoundingClientRect().top + window.scrollY;
+            setTimeout(() => {
+              window.scrollTo({
+                top: itemTop - headerHeight,
+                behavior: "smooth"
+              });
+            }, 100);
+          }
+
           // Используем RAF для плавной анимации
           requestAnimationFrame(() => {
             content.style.maxHeight = contentHeight + "px";
@@ -104496,7 +104507,7 @@ function initDelivery() {
       passive: false
     });
   });
-
+  checkMobileState();
   // Оптимизация для скролла
   let scrollTimeout;
   window.addEventListener("scroll", () => {
@@ -105605,22 +105616,21 @@ if (modalButtons.length > 0) {
   const modal = document.querySelector(".modal");
   const modalBody = document.querySelector(".modal__body");
   const modalClose = document.querySelector(".modal__close");
+  const menu = document.querySelector(".menu");
   modalButtons.forEach(button => {
     button.addEventListener("click", e => {
       e.preventDefault();
       modal.classList.add("active");
+      document.body.style.overflow = "hidden";
     });
   });
   modalClose.addEventListener("click", e => {
     e.preventDefault();
     modal.classList.remove("active");
-
-    // При закрытии модального окна также удаляем класс thankyou-active
-    // чтобы сбросить состояние анимации при следующем открытии
     modal.classList.remove("thankyou-active");
+    if (!menu.classList.contains("menu--active")) document.body.style.overflow = null;
   });
   modalBody.addEventListener("click", e => {
-    // Удаляем e.preventDefault() чтобы позволить клики по кнопкам и формам внутри модального окна
     e.stopPropagation();
   });
   modal.addEventListener("click", e => {
@@ -105629,6 +105639,7 @@ if (modalButtons.length > 0) {
 
     // При закрытии модального окна также удаляем класс thankyou-active
     modal.classList.remove("thankyou-active");
+    if (!menu.classList.contains("menu--active")) document.body.style.overflow = null;
   });
 }
 

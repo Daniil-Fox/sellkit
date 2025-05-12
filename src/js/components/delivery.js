@@ -53,8 +53,8 @@ export default function initDelivery() {
     if (window.innerWidth < 850) {
       // Используем batch-обновление DOM
       requestAnimationFrame(() => {
-        // Закрываем все блоки, кроме первого на мобильных
-        deliveryItems.forEach((item, index) => {
+        // Закрываем все блоки на мобильных
+        deliveryItems.forEach((item) => {
           item.classList.remove("active");
           const content = item.querySelector(".d-item__text");
           const topContent = item.querySelector(".d-item__top");
@@ -70,7 +70,6 @@ export default function initDelivery() {
   };
 
   // Вызываем функцию при загрузке страницы
-  checkMobileState();
 
   // Оптимизированный обработчик изменения размера с троттлингом
   let resizeTimeout;
@@ -162,6 +161,18 @@ export default function initDelivery() {
             topContent.style.display = "none";
             topContent.style.opacity = 0;
 
+            // Плавный скролл для мобильных устройств
+            if (isMobile) {
+              const headerHeight = 48; // Высота шапки на мобильных
+              const itemTop = item.getBoundingClientRect().top + window.scrollY;
+              setTimeout(() => {
+                window.scrollTo({
+                  top: itemTop - headerHeight,
+                  behavior: "smooth",
+                });
+              }, 100);
+            }
+
             // Используем RAF для плавной анимации
             requestAnimationFrame(() => {
               content.style.maxHeight = contentHeight + "px";
@@ -208,7 +219,7 @@ export default function initDelivery() {
       { passive: false }
     );
   });
-
+  checkMobileState();
   // Оптимизация для скролла
   let scrollTimeout;
   window.addEventListener(

@@ -9,7 +9,7 @@
   transition: 0.3s ease-in;
 
   @include tablet {
-    padding: 64px 16px;
+    padding: 5vh 16px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -26,7 +26,6 @@
     position: relative;
 
     height: 100%;
-
     width: 100%;
     max-width: 445px;
 
@@ -54,6 +53,9 @@
       margin-bottom: 8px;
       height: unset;
     }
+    @include mobile {
+      padding: 3.6vh 30px;
+    }
   }
   &__close {
     width: 24px;
@@ -77,6 +79,7 @@
 
     @include tablet {
       flex: unset;
+      padding: 20px 0;
     }
   }
   &__btn {
@@ -125,6 +128,9 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 15px;
+      @include mobile {
+        gap: 10px;
+      }
       li {
         a {
           letter-spacing: normal;
