@@ -30,8 +30,8 @@
     width: 100px;
     aspect-ratio: 1 / 1;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-    transition-delay: 1.2s;
+    transition: opacity 0.4s ease-in-out;
+    transition-delay: 0.8s;
     @media (max-width: 1300px) {
       width: 80px;
     }
@@ -241,7 +241,7 @@
     &--7,
     &--8,
     &--12 {
-      transition-delay: 0.2s;
+      transition-delay: 0.15s;
     }
 
     &--1,
@@ -249,7 +249,7 @@
     &--4,
     &--10,
     &--14 {
-      transition-delay: 0.7s;
+      transition-delay: 0.5s;
     }
   }
 }
@@ -335,7 +335,7 @@
   justify-content: center;
 
   &.animate {
-    animation: anim-logo 0.8s ease-in forwards;
+    animation: anim-logo 0.6s ease-in forwards;
     .int-logo {
       &__wrapper,
       &__logo {
@@ -356,8 +356,8 @@
       inset: -39px;
       background-color: rgba(0, 106, 255, 0.2);
       transform: scale(0.2);
-      transition: transform 0.6s ease-in;
-      transition-delay: 0.7s;
+      transition: transform 0.5s ease-in;
+      transition-delay: 0.5s;
 
       @media (max-width: 1300px) {
         inset: -19px;
@@ -372,8 +372,8 @@
       inset: -54px;
       background-color: #062963;
       transform: scale(0.2);
-      transition: transform 0.6s ease-in;
-      transition-delay: 0.8s;
+      transition: transform 0.5s ease-in;
+      transition-delay: 0.6s;
       @media (max-width: 1300px) {
         inset: -27px;
         border-radius: 22px;
@@ -400,8 +400,8 @@
       inset: -9px;
       background-color: #006aff;
       transform: scale(0.2);
-      transition: transform 0.6s ease-in;
-      transition-delay: 0.5s;
+      transition: transform 0.5s ease-in;
+      transition-delay: 0.4s;
       @media (max-width: 1300px) {
         inset: -4.5px;
         border-radius: 12px;
@@ -415,8 +415,8 @@
       inset: -24px;
       background-color: rgba(0, 106, 255, 0.3);
       transform: scale(0.2);
-      transition: transform 0.6s ease-in;
-      transition-delay: 0.6s;
+      transition: transform 0.5s ease-in;
+      transition-delay: 0.5s;
       @media (max-width: 1300px) {
         inset: -12px;
         border-radius: 15px;
@@ -436,7 +436,7 @@
     transform: scale(0.9);
   }
   50% {
-    transform: scale(1.3);
+    transform: scale(1.25);
   }
   100% {
     transform: scale(1);

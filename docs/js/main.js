@@ -106744,23 +106744,23 @@ function initSvgPathAnimations() {
           requestAnimationFrame(() => {
             // Добавим таймаут, но уменьшим его на мобильных
             const isMobile = window.innerWidth < 768;
-            const delay = isMobile ? 800 : 1300;
+            const delay = isMobile ? 500 : 800;
             setTimeout(() => {
               // На iOS используем transform и opacity вместо анимаций
               const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
               svgPaths.forEach(path => {
                 if (isIOS) {
                   path.style.strokeDashoffset = "0";
-                  path.style.transition = "stroke-dashoffset 8s ease-in-out";
+                  path.style.transition = "stroke-dashoffset 5s ease-in-out";
                 } else {
-                  path.style.animation = "draw 8s forwards 0.4s";
+                  path.style.animation = "draw 5s forwards 0.3s";
                 }
               });
               items.forEach((item, index) => {
                 // Добавляем постепенное появление для плавности
                 setTimeout(() => {
                   item.style.opacity = 1;
-                }, index * 100);
+                }, index * 70);
               });
               observer.unobserve(entry.target);
             }, delay);
@@ -106769,7 +106769,7 @@ function initSvgPathAnimations() {
       });
     }, {
       threshold: threshold,
-      rootMargin: "0px 0px -10% 0px" // Немного раньше запускаем анимацию
+      rootMargin: "0px 0px -10% 0px"
     });
     observer.observe(logo);
   }
