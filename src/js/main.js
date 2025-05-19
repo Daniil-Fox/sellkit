@@ -221,6 +221,15 @@ function initHeroParallax() {
 
   if (!heroSection || !decorWrapper) return;
 
+  // Проверяем, является ли устройство мобильным
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) || window.innerWidth <= 768;
+
+  // Если устройство мобильное, не инициализируем параллакс
+  if (isMobile) return;
+
   let mouseX = 0;
   let mouseY = 0;
   let windowWidth = window.innerWidth;
