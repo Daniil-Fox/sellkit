@@ -16,11 +16,14 @@
     position: absolute;
     inset: 0;
     z-index: 2;
-    background-image: url("./../img/cubes.webp");
-    background-size: cover;
-    background-repeat: no-repeat;
-    mix-blend-mode: luminosity;
 
+    background-color: #fff;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    mix-blend-mode: luminosity;
+    mask-image: url("./../img/cubes.webp");
+    mask-repeat: repeat;
+    mask-size: 100%;
     @include small-tablet {
       background-image: unset;
       display: none;
