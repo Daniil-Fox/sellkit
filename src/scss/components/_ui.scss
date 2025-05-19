@@ -164,7 +164,7 @@
   background-color: #006aff;
   opacity: 0;
   pointer-events: none;
-
+  mix-blend-mode: color-dodge;
   transition: opacity 0.3s ease-in;
   @include tablet {
     display: none;

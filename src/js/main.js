@@ -10,7 +10,7 @@ import {
   initDeferredLoading,
 } from "./_components.js";
 import "./functions/burger.js";
-
+import Typed from "typed.js";
 // Список функций для отложенной инициализации
 const deferredFunctions = [];
 
@@ -53,6 +53,7 @@ function initMainComponents() {
   addDeferred(initMapPathAnimations);
   addDeferred(initVideoOptimization);
   addDeferred(initHeroParallax);
+  // addDeferred(initTypedText);
 }
 
 // Функция для инициализации анимации SVG путей
@@ -347,6 +348,8 @@ document.addEventListener("DOMContentLoaded", () => {
       { passive: false }
     );
   }
+
+  // initTypedText();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации
@@ -367,3 +370,17 @@ window.addEventListener(
   },
   { passive: true }
 );
+
+const typed = new Typed(".hero__title-typed", {
+  strings: [
+    "для&nbsp;ресторана",
+    "для&nbsp;сети",
+    "для&nbsp;доставки",
+    "для&nbsp;кофейни",
+    "для&nbsp;фудпроекта",
+  ],
+  typeSpeed: 80,
+  backSpeed: 60,
+  backDelay: 2000,
+  loop: true,
+});

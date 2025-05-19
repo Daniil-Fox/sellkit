@@ -225,6 +225,15 @@
     @include small-tablet {
       margin-bottom: 16px;
     }
+
+    &-cursor {
+      display: inline-block;
+      opacity: 0;
+      font-weight: 300;
+      transition: opacity 0.1s ease;
+
+      animation: blink 1s infinite;
+    }
   }
   &__btn {
     padding: 15px 58px 17px;
@@ -235,5 +244,15 @@
       padding: 15px 20px;
       padding-top: 18px;
     }
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

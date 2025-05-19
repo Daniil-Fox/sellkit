@@ -19,7 +19,8 @@
     background-image: url("./../img/cubes.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    mix-blend-mode: screen;
+    mix-blend-mode: luminosity;
+
     @include small-tablet {
       background-image: unset;
       display: none;
