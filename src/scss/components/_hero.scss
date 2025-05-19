@@ -226,6 +226,13 @@
       margin-bottom: 16px;
     }
 
+    span {
+      color: #006aff;
+    }
+    span:not(:has(span)) {
+      display: inline-flex;
+    }
+
     &-cursor {
       display: inline-block;
       opacity: 0;
