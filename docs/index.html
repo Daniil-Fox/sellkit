@@ -447,14 +447,10 @@
   </div>
 
   <div class="hero__video">
-    <video loop playsinline autoplay muted preload="auto">
+    <video loop playsinline autoplay muted preload="metadata">
       <source src="main-cover.webm" type="video/webm">
       <source src="main-cover.mp4" type="video/mp4">
     </video>
-    <!-- <picture>
-      <source srcset="./img/hero-mob.webp" media="(max-width: 768px)" type="image/webp" />
-      <img src="./img/hero.webp" alt="" width="" height="" fetchpriority="high" />
-    </picture> -->
   </div>
 </section> <section class="products" data-mouse-oreal data-header="light" itemscope itemtype="https://schema.org/ItemList">
   <meta itemprop="name" content="Продукты SellKit для ресторанного бизнеса">
@@ -709,7 +705,7 @@
     </div>
   </div>
 </section>
-      <section class="loyal-wrapper" data-header="dark" role="region" aria-labelledby="loyal-title" itemscope
+      <section class="loyal-wrapper" data-header="light" role="region" aria-labelledby="loyal-title" itemscope
   itemtype="https://schema.org/WebPage">
   <meta itemprop="name" content="Программное решение для повышения лояльности гостей ресторана">
   <meta itemprop="description"
@@ -1322,7 +1318,7 @@
       <img src="./img/cover.webp" width="" height="" loading="lazy" alt="Декоративное изображение" />
     </picture>
   </div>
-</section> <section class="delivery" data-header="light">
+</section> <section class="delivery" data-header="dark">
   <div class="delivery__shapes">
     <div class="delivery__star delivery__star--1"></div>
     <div class="delivery__star delivery__star--2"></div>
@@ -2482,7 +2478,7 @@
       <span class="marquee__item">sellkit</span>
     </div>
   </div>
-</section> <section class="courier" data-header="dark" itemscope itemtype="https://schema.org/SoftwareApplication">
+</section> <section class="courier" data-header="light" itemscope itemtype="https://schema.org/SoftwareApplication">
   <meta itemprop="name" content="Sellkit Delivery - курьерское приложение для ресторанов">
   <meta itemprop="applicationCategory" content="Доставка еды">
   <meta itemprop="operatingSystem" content="Android, iOS">
@@ -3260,19 +3256,18 @@
         </svg>
       </a>
       <div class="footer__right">
-        <div class="footer__contacts">
-          <a href="tel:+79885650038" class="footer__link"
-            aria-label="Позвонить по телефону">+7 988 565-00-38</a>
-          <a href="#" class="footer__link" aria-label="Написать в Telegram">написать в telegram</a>
-          <a href="mailto:vladpertcev@mail.ru" class="footer__link"
-            aria-label="Написать на почту">vladpertcev@mail.ru</a>
-          <button class="btn-reset footer__link footer__link--up" aria-label="Прокрутить страницу вверх" type="button">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true">
-              <path d="M8 0L15 7L13.6 8.4L9 3.8V16H7V3.8L2.4 8.4L1 7L8 0Z" />
-            </svg>
-          </button>
-        </div>
+
+        <a href="tel:+79885650038" class="footer__link"
+          aria-label="Позвонить по телефону">+7 988 565-00-38</a>
+        <a href="#" class="footer__link" aria-label="Написать в Telegram">написать в telegram</a>
+        <a href="mailto:vladpertcev@mail.ru" class="footer__link" aria-label="Написать на почту">vladpertcev@mail.ru</a>
+        <button class="btn-reset footer__link footer__link--up" aria-label="Прокрутить страницу вверх" type="button">
+          НАВЕРХ
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <path d="M8 0L15 7L13.6 8.4L9 3.8V16H7V3.8L2.4 8.4L1 7L8 0Z" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
