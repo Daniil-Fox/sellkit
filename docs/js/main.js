@@ -107019,7 +107019,7 @@ window.addEventListener("load", () => {
   passive: true
 });
 const typed = new typed_js__WEBPACK_IMPORTED_MODULE_2__["default"](".hero__title-typed", {
-  strings: ["для&nbsp;ресторана", "для&nbsp;сети", "для&nbsp;доставки", "для&nbsp;кофейни", "для&nbsp;фудпроекта"],
+  strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
   typeSpeed: 80,
   backSpeed: 60,
   backDelay: 2000,
