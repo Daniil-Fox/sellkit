@@ -10,7 +10,7 @@ import {
   initDeferredLoading,
 } from "./_components.js";
 import "./functions/burger.js";
-import Typed from "typed.js";
+// import Typed from "typed.js";
 // Список функций для отложенной инициализации
 const deferredFunctions = [];
 
@@ -349,7 +349,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // initTypedText();
+  // Инициализируем анимацию текста
+  initTypedText();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации
@@ -370,10 +371,56 @@ window.addEventListener(
   },
   { passive: true }
 );
-const typed = new Typed(".hero__title-typed", {
-  strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
-  typeSpeed: 80,
-  backSpeed: 60,
-  backDelay: 2000,
-  loop: true,
-});
+// const typed = new Typed(".hero__title-typed", {
+//   strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
+//   typeSpeed: 80,
+//   backSpeed: 60,
+//   backDelay: 2000,
+//   loop: true,
+// });
+
+function initTypedText() {
+  const typedElement = document.querySelector(".hero__title-typed");
+  if (!typedElement) return;
+
+  const texts = ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"];
+  let currentIndex = 0;
+  let currentText = "";
+  let isDeleting = false;
+  let typingSpeed = 80;
+  let deletingSpeed = 60;
+  let pauseTime = 2000;
+
+  function type() {
+    const fullText = texts[currentIndex];
+
+    if (isDeleting) {
+      // Удаляем текст
+      currentText = fullText.substring(0, currentText.length - 1);
+      typingSpeed = deletingSpeed;
+    } else {
+      // Печатаем текст
+      currentText = fullText.substring(0, currentText.length + 1);
+      typingSpeed = 80;
+    }
+
+    typedElement.textContent = currentText;
+
+    // Если текст напечатан полностью
+    if (!isDeleting && currentText === fullText) {
+      isDeleting = true;
+      typingSpeed = pauseTime; // Пауза перед удалением
+    }
+    // Если текст полностью удален
+    else if (isDeleting && currentText === "") {
+      isDeleting = false;
+      currentIndex = (currentIndex + 1) % texts.length;
+      typingSpeed = 500; // Пауза перед следующим словом
+    }
+
+    setTimeout(type, typingSpeed);
+  }
+
+  // Запускаем анимацию
+  type();
+}

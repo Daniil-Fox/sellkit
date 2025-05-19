@@ -91,6 +91,16 @@ export default function initProducts() {
 
     item.addEventListener("click", (e) => {
       e.preventDefault();
+
+      // Проверяем, является ли устройство планшетом
+      const isTablet = window.innerWidth <= 1024;
+
+      // Если это планшет и элемент уже активен - закрываем его
+      if (isTablet && item.classList.contains("active")) {
+        clearActive();
+        return;
+      }
+
       clearActive();
 
       const fullText = itemTitle.dataset.fullText;

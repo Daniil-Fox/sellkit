@@ -228,9 +228,16 @@
 
     span {
       color: #408fff;
-    }
-    span:not(:has(span)) {
-      display: inline-flex;
+      position: relative;
+      &::after {
+        content: "|";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+
+        transform: translateY(-50%) translateX(-30%);
+        animation: blink 1s infinite;
+      }
     }
 
     &-cursor {
@@ -239,7 +246,7 @@
       font-weight: 300;
       transition: opacity 0.1s ease;
 
-      animation: blink 1s infinite;
+      animation: blink 0.8s infinite;
     }
   }
   &__btn {
