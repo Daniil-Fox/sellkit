@@ -109,5 +109,10 @@ const afterFormModal = () => {
   }
 };
 
-validateForms(".cta__form", rules1, [], afterForm);
-validateForms(".modal__form", rules2, [], afterFormModal);
+if (document.querySelector(".cta__form")) {
+  validateForms(".cta__form", rules1, [], afterForm);
+}
+
+if (document.querySelector(".modal__form")) {
+  validateForms(".modal__form", rules2, [], afterFormModal);
+}

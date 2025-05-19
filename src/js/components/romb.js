@@ -13,7 +13,7 @@ export default function initRomb() {
     rotationSpeed = 0.006;
   let isWireframe = true;
 
-  const colors = [0xf1f1f1, 0xececec, 0xe9e9e9, 0xf1f1f1, 0xececec, 0xe9e9e9];
+  const colors = [0xe5e8f3, 0xf0f2fb, 0xf6f8ff, 0xeef0f8, 0xe5e8f3, 0xf0f2fb];
 
   function init() {
     scene = new THREE.Scene();
@@ -102,7 +102,7 @@ export default function initRomb() {
     );
 
     const wireframeMaterial = new THREE.LineBasicMaterial({
-      color: 0xcccccc,
+      color: 0xd6d8e5,
       transparent: true,
       opacity: 1,
       depthTest: false, // This ensures wireframe is always visible

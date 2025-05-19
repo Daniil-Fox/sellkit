@@ -51,6 +51,8 @@ function initMainComponents() {
   // Добавляем остальные компоненты в очередь отложенных инициализаций
   addDeferred(initSvgPathAnimations);
   addDeferred(initMapPathAnimations);
+  addDeferred(initVideoOptimization);
+  addDeferred(initHeroParallax);
 }
 
 // Функция для инициализации анимации SVG путей
@@ -149,6 +151,45 @@ function initMapPathAnimations() {
   }
 }
 
+// Функция для оптимизации загрузки видео
+function initVideoOptimization() {
+  const videos = document.querySelectorAll('video[loading="lazy"]');
+
+  if ("IntersectionObserver" in window) {
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const video = entry.target;
+            const sources = video.getElementsByTagName("source");
+
+            // Загружаем видео только когда оно в поле зрения
+            Array.from(sources).forEach((source) => {
+              if (source.dataset.src) {
+                source.src = source.dataset.src;
+              }
+            });
+
+            // Загружаем видео
+            video.load();
+
+            // Отключаем наблюдение после загрузки
+            videoObserver.unobserve(video);
+          }
+        });
+      },
+      {
+        rootMargin: "50px 0px",
+        threshold: 0.1,
+      }
+    );
+
+    videos.forEach((video) => {
+      videoObserver.observe(video);
+    });
+  }
+}
+
 // Загрузка тяжелых компонентов
 function loadHeavyComponents() {
   const isMobile = window.innerWidth < 768;
@@ -171,6 +212,51 @@ function loadHeavyComponents() {
         console.error("Ошибка загрузки Matter.js:", error);
       });
   }, matterDelay);
+}
+
+// Функция для параллакс эффекта плюсиков
+function initHeroParallax() {
+  const heroSection = document.querySelector(".hero");
+  const decorWrapper = document.querySelector(".hero__decor");
+
+  if (!heroSection || !decorWrapper) return;
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let windowWidth = window.innerWidth;
+  let windowHeight = window.innerHeight;
+
+  // Обработчик движения мыши
+  heroSection.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // Функция анимации
+  function animate() {
+    // Нормализуем координаты мыши от -1 до 1
+    const normalizedX = (mouseX / windowWidth) * 2 - 1;
+    const normalizedY = (mouseY / windowHeight) * 2 - 1;
+
+    // Применяем параллакс к обертке
+    const intensity = 0.1; // Общая интенсивность для всей обертки
+    const offsetX = -normalizedX * intensity * 100;
+    const offsetY = -normalizedY * intensity * 100;
+
+    // Применяем трансформацию к обертке
+    decorWrapper.style.transform = `translate(calc(-50% + ${offsetX}px), ${offsetY}px)`;
+
+    requestAnimationFrame(animate);
+  }
+
+  // Запускаем анимацию
+  animate();
+
+  // Обновляем размеры окна при ресайзе
+  window.addEventListener("resize", () => {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+  });
 }
 
 // Выполнение отложенных функций с промежутками для снижения нагрузки на CPU

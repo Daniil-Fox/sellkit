@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@include('partials/error-head.html')
+
+<body class="page__body">
+  <div class="site-container">
+    @include('partials/header-sec.html') @include('partials/menu.html')
+    <main class="main main-cost">
+      <div class="error-page">
+        <div class="container">
+          <div class="error-page__content">
+            <div class="error-page__img">
+              <img src="./404.gif" alt="">
+            </div>
+            <h1 class="title2 title2--dark error-page__title">страница не найдена</h1>
+            <p class="desc2 error-page__desc">
+              Пока не&nbsp;знаем в&nbsp;чем проблема, но&nbsp;скоро пофиксим
+            </p>
+            <a href="/" class="btn btn-reset error-page__btn btn-reset">На&nbsp;главную</a>
+          </div>
+        </div>
+      </div>
+
+      @include('partials/modal.html')
+    </main>
+  </div>
+</body>
+
+</html>

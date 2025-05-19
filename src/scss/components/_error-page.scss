@@ -1,0 +1,54 @@
+.error-page {
+  height: 100vh;
+  background-color: #fff;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    text-align: center;
+  }
+  &__img {
+    display: flex;
+    justify-content: center;
+    height: 350px;
+    margin-bottom: 36px;
+    @include tablet {
+      height: 300px;
+    }
+    @include small-tablet {
+      height: 250px;
+    }
+    @include mobile {
+      height: 206px;
+      margin-bottom: 27px;
+    }
+    img {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  &__title {
+    margin-bottom: 12px;
+  }
+  .container {
+    @include mobile {
+      width: 100%;
+    }
+  }
+  &__desc {
+    max-width: 260px;
+    margin: 0 auto;
+    margin-bottom: 32px;
+  }
+
+  &__btn {
+    font-size: 32px;
+    padding: 11px 30px;
+    @include mobile {
+      width: 100%;
+    }
+  }
+}

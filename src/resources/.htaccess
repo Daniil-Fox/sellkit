@@ -1,0 +1,11 @@
+ErrorDocument 404 /404.html
+
+# Включаем перенаправление
+RewriteEngine On
+
+# Если файл или директория не существует
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Перенаправляем на 404.html
+RewriteRule ^(.*)$ /404.html [L]

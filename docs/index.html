@@ -443,12 +443,15 @@
     </div>
   </div>
 
-  <div class="hero__img">
-
-    <picture>
+  <div class="hero__video">
+    <video loop playsinline autoplay muted preload="auto">
+      <source src="main-cover.webm" type="video/webm">
+      <source src="main-cover.mp4" type="video/mp4">
+    </video>
+    <!-- <picture>
       <source srcset="./img/hero-mob.webp" media="(max-width: 768px)" type="image/webp" />
       <img src="./img/hero.webp" alt="" width="" height="" fetchpriority="high" />
-    </picture>
+    </picture> -->
   </div>
 </section> <section class="products" data-mouse-oreal data-header="light" itemscope itemtype="https://schema.org/ItemList">
   <meta itemprop="name" content="Продукты SellKit для ресторанного бизнеса">
@@ -484,7 +487,10 @@
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
+            <video loop preload="metadata" loading="lazy">
+              <source src="site.webm" type="video/webm">
+              <source src="site.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -496,7 +502,10 @@
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
+            <video loop>
+              <source src="app.webm" type="video/webm">
+              <source src="app.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -508,21 +517,26 @@
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
+            <video loop>
+              <source src="loyal.webm" type="video/webm">
+              <source src="loyal.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
+
       <div class="products__item prod-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
         <meta itemprop="position" content="4">
         <div class="prod-item__info">
           <div class="prod-item__num">[04]</div>
-          <div class="prod-item__title" itemprop="name">аналитика</div>
+          <div class="prod-item__title" itemprop="name">курьерский софт</div>
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <div class="prod-item__video">
-              <video loop src="cover.mp4" autoplay playsinline muted></video>
-            </div>
+            <video loop>
+              <source src="cour.webm" type="video/webm">
+              <source src="cour.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -530,11 +544,14 @@
         <meta itemprop="position" content="5">
         <div class="prod-item__info">
           <div class="prod-item__num">[05]</div>
-          <div class="prod-item__title" itemprop="name">курьерский софт</div>
+          <div class="prod-item__title" itemprop="name">QR-меню</div>
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
+            <video loop>
+              <source src="qr.webm" type="video/webm">
+              <source src="qr.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -542,23 +559,14 @@
         <meta itemprop="position" content="6">
         <div class="prod-item__info">
           <div class="prod-item__num">[06]</div>
-          <div class="prod-item__title" itemprop="name">QR-меню</div>
-        </div>
-        <div class="prod-item__content" itemprop="description">
-          <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
-          </div>
-        </div>
-      </div>
-      <div class="products__item prod-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
-        <meta itemprop="position" content="7">
-        <div class="prod-item__info">
-          <div class="prod-item__num">[07]</div>
           <div class="prod-item__title" itemprop="name">маркетинговая crm</div>
         </div>
         <div class="prod-item__content" itemprop="description">
           <div class="prod-item__video">
-            <video loop src="cover.mp4"></video>
+            <video loop>
+              <source src="market.webm" type="video/webm">
+              <source src="market.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
