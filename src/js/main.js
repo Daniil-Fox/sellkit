@@ -53,7 +53,7 @@ function initMainComponents() {
   addDeferred(initMapPathAnimations);
   addDeferred(initVideoOptimization);
   addDeferred(initHeroParallax);
-  addDeferred(initTypedText);
+  // addDeferred(initTypedText);
 }
 
 // Функция для инициализации анимации SVG путей
@@ -191,147 +191,98 @@ function initVideoOptimization() {
   }
 }
 
-// Оптимизированная версия Typed.js
-function initTypedText() {
-  const typedElement = document.querySelector(".hero__title-typed");
-  if (!typedElement) return;
+// Загрузка тяжелых компонентов
+function loadHeavyComponents() {
+  const isMobile = window.innerWidth < 768;
 
-  // Проверяем производительность устройства
-  const isLowEnd =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth <= 768;
+  // На мобильных устройствах делаем еще большую задержку для Matter.js
+  const matterDelay = isMobile ? 2500 : 1000;
 
-  if (isLowEnd) {
-    // Простая анимация для слабых устройств
-    let currentIndex = 0;
-    const texts = ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"];
-
-    function updateText() {
-      typedElement.textContent = texts[currentIndex];
-      currentIndex = (currentIndex + 1) % texts.length;
-    }
-
-    updateText();
-    setInterval(updateText, 2000);
-  } else {
-    // Полная версия для мощных устройств
-    const typed = new Typed(".hero__title-typed", {
-      strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
-      typeSpeed: 80,
-      backSpeed: 60,
-      backDelay: 2000,
-      loop: true,
-      showCursor: true,
-      cursorChar: "|",
-      autoInsertCss: true,
-    });
-  }
+  setTimeout(() => {
+    // Импортируем Matter.js только когда пользователь уже взаимодействовал со страницей
+    import(/* webpackChunkName: "matter" */ "./components/matter.js")
+      .then((module) => {
+        // Инициализируем Matter.js с помощью функции initMatter
+        if (typeof module.initMatter === "function") {
+          module.initMatter();
+        } else {
+          console.warn("Функция initMatter не найдена в модуле matter.js");
+        }
+      })
+      .catch((error) => {
+        console.error("Ошибка загрузки Matter.js:", error);
+      });
+  }, matterDelay);
 }
 
-// Оптимизированная версия параллакса
+// Функция для параллакс эффекта плюсиков
 function initHeroParallax() {
   const heroSection = document.querySelector(".hero");
   const decorWrapper = document.querySelector(".hero__decor");
 
   if (!heroSection || !decorWrapper) return;
 
-  // Отключаем параллакс на мобильных
+  // Проверяем, является ли устройство мобильным
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     ) || window.innerWidth <= 768;
+
+  // Если устройство мобильное, не инициализируем параллакс
   if (isMobile) return;
 
   let mouseX = 0;
   let mouseY = 0;
   let windowWidth = window.innerWidth;
   let windowHeight = window.innerHeight;
-  let ticking = false;
 
-  // Оптимизированный обработчик движения мыши
-  heroSection.addEventListener(
-    "mousemove",
-    (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+  // Обработчик движения мыши
+  heroSection.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const normalizedX = (mouseX / windowWidth) * 2 - 1;
-          const normalizedY = (mouseY / windowHeight) * 2 - 1;
-          const intensity = 0.1;
-          const offsetX = -normalizedX * intensity * 100;
-          const offsetY = -normalizedY * intensity * 100;
+  // Функция анимации
+  function animate() {
+    // Нормализуем координаты мыши от -1 до 1
+    const normalizedX = (mouseX / windowWidth) * 2 - 1;
+    const normalizedY = (mouseY / windowHeight) * 2 - 1;
 
-          decorWrapper.style.transform = `translate(calc(-50% + ${offsetX}px), ${offsetY}px)`;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    },
-    { passive: true }
-  );
+    // Применяем параллакс к обертке
+    const intensity = 0.1; // Общая интенсивность для всей обертки
+    const offsetX = -normalizedX * intensity * 100;
+    const offsetY = -normalizedY * intensity * 100;
 
-  // Оптимизированный обработчик ресайза
-  let resizeTimeout;
-  window.addEventListener(
-    "resize",
-    () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        windowWidth = window.innerWidth;
-        windowHeight = window.innerHeight;
-      }, 100);
-    },
-    { passive: true }
-  );
+    // Применяем трансформацию к обертке
+    decorWrapper.style.transform = `translate(calc(-50% + ${offsetX}px), ${offsetY}px)`;
+
+    requestAnimationFrame(animate);
+  }
+
+  // Запускаем анимацию
+  animate();
+
+  // Обновляем размеры окна при ресайзе
+  window.addEventListener("resize", () => {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+  });
 }
 
-// Оптимизированная версия загрузки тяжелых компонентов
-function loadHeavyComponents() {
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth <= 768;
-
-  // На мобильных устройствах не загружаем Matter.js
-  if (isMobile) return;
-
-  // Увеличиваем задержку для десктопа
-  setTimeout(() => {
-    import(/* webpackChunkName: "matter" */ "./components/matter.js")
-      .then((module) => {
-        if (typeof module.initMatter === "function") {
-          module.initMatter();
-        }
-      })
-      .catch((error) => {
-        console.error("Ошибка загрузки Matter.js:", error);
-      });
-  }, 2000);
-}
-
-// Оптимизированная версия выполнения отложенных функций
+// Выполнение отложенных функций с промежутками для снижения нагрузки на CPU
 function executeDeferredFunctions() {
   if (!deferredFunctions.length) return;
 
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) || window.innerWidth <= 768;
-  const interval = isMobile ? 500 : 150; // Увеличиваем интервал для мобильных
+  const isMobile = window.innerWidth < 768;
+  const interval = isMobile ? 300 : 150; // Больший интервал для мобильных
 
   let index = 0;
+
   function executeNext() {
     if (index >= deferredFunctions.length) return;
 
     const fn = deferredFunctions[index++];
-    try {
-      fn();
-    } catch (error) {
-      console.error("Error executing deferred function:", error);
-    }
+    fn();
 
     if (index < deferredFunctions.length) {
       setTimeout(executeNext, interval);
@@ -397,6 +348,8 @@ document.addEventListener("DOMContentLoaded", () => {
       { passive: false }
     );
   }
+
+  // initTypedText();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации
@@ -417,3 +370,10 @@ window.addEventListener(
   },
   { passive: true }
 );
+const typed = new Typed(".hero__title-typed", {
+  strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
+  typeSpeed: 80,
+  backSpeed: 60,
+  backDelay: 2000,
+  loop: true,
+});

@@ -139,6 +139,13 @@
   &:not(:last-child) {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
+
+  &__plus {
+    display: none;
+    @include tablet {
+      display: flex;
+    }
+  }
   &__info {
     position: absolute;
     left: 0;
@@ -219,7 +226,8 @@
 
   @include hover {
     background-color: #021947;
-    .prod-item__title {
+    .prod-item__title,
+    .prod-item__num {
       color: #fff;
     }
   }
@@ -247,6 +255,17 @@
 
       @include tablet {
         font-size: 28px;
+      }
+    }
+    .d-item__btn {
+      svg {
+        &:first-child {
+          opacity: 0;
+          transform: rotate(45deg);
+        }
+        &:last-child {
+          opacity: 1;
+        }
       }
     }
   }
