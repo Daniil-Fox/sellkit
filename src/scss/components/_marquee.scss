@@ -5,6 +5,7 @@
   gap: var(--m-gap);
   min-width: 100%;
   width: 100%;
+  overflow: hidden;
   @include small-tablet {
     --m-gap: 20px;
   }
@@ -13,7 +14,13 @@
     gap: var(--m-gap);
     min-width: 100%;
     flex-shrink: 0;
-    animation: marquee 80s linear infinite;
+    @media (min-width: 769px) {
+      animation: marquee 80s linear infinite;
+    }
+    @media (max-width: 768px) {
+      animation: marquee-mobile 40s linear infinite;
+      will-change: transform;
+    }
   }
   &__item {
     flex-shrink: 0;
@@ -36,6 +43,15 @@
 }
 
 @keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-mobile {
   from {
     transform: translateX(0);
   }

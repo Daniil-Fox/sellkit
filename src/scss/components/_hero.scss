@@ -74,8 +74,11 @@
     bottom: 54px;
     max-width: 1788px;
     pointer-events: none;
-    transition: transform 0.1s ease-out;
-    will-change: transform;
+
+    @media (min-width: 769px) {
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
 
     @include tablet {
       top: 24.5%;
@@ -85,6 +88,10 @@
     position: absolute;
     width: 44px;
     height: 44px;
+    @media (min-width: 769px) {
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
     @include tablet {
       width: 24px;
       height: 24px;
@@ -180,8 +187,6 @@
         display: none;
       }
     }
-    transition: transform 0.1s ease-out;
-    will-change: transform;
   }
   &__container {
     flex-grow: 1;
@@ -225,18 +230,25 @@
     @include small-tablet {
       margin-bottom: 16px;
     }
+    @include mobile {
+      white-space: nowrap;
+    }
 
-    span {
-      color: #408fff;
-      position: relative;
-      &::after {
-        content: "|";
-        position: absolute;
-        left: 100%;
-        top: 50%;
+    & > span {
+      white-space: nowrap;
+      display: block;
+      & > span {
+        color: #408fff;
+        position: relative;
+        &::after {
+          content: "|";
+          position: absolute;
+          left: 100%;
+          top: 50%;
 
-        transform: translateY(-50%) translateX(-30%);
-        animation: blink 1s infinite;
+          transform: translateY(-50%) translateX(-30%);
+          animation: blink 1s infinite;
+        }
       }
     }
 

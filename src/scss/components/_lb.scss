@@ -7,9 +7,11 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-
   @include tablet {
     height: 540px;
+  }
+  @include mobile {
+    display: none;
   }
   &__header {
     padding: 50px;

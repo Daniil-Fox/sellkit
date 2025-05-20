@@ -30,8 +30,17 @@
     width: 100px;
     aspect-ratio: 1 / 1;
     opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-    transition-delay: 0.8s;
+
+    @media (min-width: 769px) {
+      transition: opacity 0.4s ease-in-out;
+      transition-delay: 0.8s;
+    }
+
+    @media (max-width: 768px) {
+      transition: opacity 0.3s ease-in-out;
+      transition-delay: 0.4s;
+    }
+
     @media (max-width: 1300px) {
       width: 80px;
     }
@@ -57,10 +66,11 @@
     }
 
     &--1 {
-      bottom: calc(100% + 6px);
-      left: 0;
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        bottom: calc(100% + 6px);
+        left: 0;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: -10px;
@@ -70,11 +80,11 @@
       }
     }
     &--2 {
-      bottom: calc(100% + 6px);
-      left: 27.8%;
-
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        bottom: calc(100% + 6px);
+        left: 27.8%;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: 47px;
@@ -84,10 +94,11 @@
       }
     }
     &--3 {
-      bottom: calc(100% + 6px);
-      left: 55.7%;
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        bottom: calc(100% + 6px);
+        left: 55.7%;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: 105px;
@@ -98,10 +109,11 @@
     }
 
     &--4 {
-      left: 27.8%;
-      bottom: calc(50% + 6px);
-      transform: translateX(-43%) translateY(50%);
-
+      @media (min-width: 769px) {
+        left: 27.8%;
+        bottom: calc(50% + 6px);
+        transform: translateX(-43%) translateY(50%);
+      }
       @include tablet {
         bottom: unset;
         top: 55px;
@@ -111,10 +123,11 @@
     }
 
     &--5 {
-      top: calc(100% - 6px);
-      left: 0;
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        left: 0;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: -10px;
@@ -123,10 +136,11 @@
       }
     }
     &--6 {
-      top: calc(100% - 6px);
-      left: 27.8%;
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        left: 27.8%;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: 47px;
@@ -135,10 +149,11 @@
       }
     }
     &--7 {
-      top: calc(100% - 6px);
-      left: 55.7%;
-      transform: translateX(-43%);
-
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        left: 55.7%;
+        transform: translateX(-43%);
+      }
       @include tablet {
         bottom: unset;
         top: 105px;
@@ -148,10 +163,11 @@
     }
 
     &--8 {
-      right: 55.7%;
-      bottom: calc(100% + 6px);
-      transform: translateX(49%);
-
+      @media (min-width: 769px) {
+        right: 55.7%;
+        bottom: calc(100% + 6px);
+        transform: translateX(49%);
+      }
       @include tablet {
         bottom: unset;
         top: 36px;
@@ -160,9 +176,11 @@
       }
     }
     &--9 {
-      bottom: calc(100% + 6px);
-      transform: translateX(49%);
-      right: 27.8%;
+      @media (min-width: 769px) {
+        bottom: calc(100% + 6px);
+        transform: translateX(49%);
+        right: 27.8%;
+      }
       @include tablet {
         bottom: unset;
         top: 93px;
@@ -171,10 +189,11 @@
       }
     }
     &--10 {
-      bottom: calc(100% + 6px);
-      transform: translateX(49%);
-      right: 0;
-
+      @media (min-width: 769px) {
+        bottom: calc(100% + 6px);
+        transform: translateX(49%);
+        right: 0;
+      }
       @include tablet {
         bottom: unset;
         top: 150px;
@@ -184,11 +203,11 @@
     }
 
     &--11 {
-      right: 27.8%;
-
-      bottom: calc(50% + 6px);
-      transform: translateX(49%) translateY(50%);
-
+      @media (min-width: 769px) {
+        right: 27.8%;
+        bottom: calc(50% + 6px);
+        transform: translateX(49%) translateY(50%);
+      }
       @include tablet {
         bottom: unset;
         top: 100px;
@@ -198,11 +217,11 @@
     }
 
     &--12 {
-      top: calc(100% - 6px);
-      transform: translateX(49%);
-
-      right: 55.7%;
-
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        transform: translateX(49%);
+        right: 55.7%;
+      }
       @include tablet {
         bottom: unset;
         top: 36px;
@@ -212,9 +231,11 @@
       }
     }
     &--13 {
-      top: calc(100% - 6px);
-      transform: translateX(49%);
-      right: 27.8%;
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        transform: translateX(49%);
+        right: 27.8%;
+      }
       @include tablet {
         bottom: unset;
         top: 93px;
@@ -224,10 +245,11 @@
       }
     }
     &--14 {
-      top: calc(100% - 6px);
-      transform: translateX(49%);
-      right: 0;
-
+      @media (min-width: 769px) {
+        top: calc(100% - 6px);
+        transform: translateX(49%);
+        right: 0;
+      }
       @include tablet {
         bottom: unset;
         top: 150px;
@@ -237,19 +259,52 @@
       }
     }
 
-    &--3,
-    &--7,
-    &--8,
-    &--12 {
-      transition-delay: 0.15s;
+    @media (min-width: 769px) {
+      &--3,
+      &--7,
+      &--8,
+      &--12 {
+        transition-delay: 0.15s;
+      }
+
+      &--1,
+      &--5,
+      &--4,
+      &--10,
+      &--14 {
+        transition-delay: 0.3s;
+      }
+
+      &--2,
+      &--6,
+      &--9,
+      &--13 {
+        transition-delay: 0.45s;
+      }
     }
 
-    &--1,
-    &--5,
-    &--4,
-    &--10,
-    &--14 {
-      transition-delay: 0.5s;
+    @media (max-width: 768px) {
+      &--3,
+      &--7,
+      &--8,
+      &--12 {
+        transition-delay: 0.1s;
+      }
+
+      &--1,
+      &--5,
+      &--4,
+      &--10,
+      &--14 {
+        transition-delay: 0.2s;
+      }
+
+      &--2,
+      &--6,
+      &--9,
+      &--13 {
+        transition-delay: 0.3s;
+      }
     }
   }
 }

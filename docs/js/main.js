@@ -105695,88 +105695,95 @@ if (modalButtons.length > 0) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const mouse = {
-  x: 0,
-  y: 0
-};
-const mouseElem = document.querySelector(".mouse");
-window.addEventListener("mousemove", e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  mouseElem.style.left = `${mouse.x}px`;
-  mouseElem.style.top = `${mouse.y}px`;
-});
-document.querySelectorAll("a").forEach(el => {
-  el.addEventListener("mouseenter", e => {
-    mouseElem.classList.add("hovered");
+// Проверка на мобильное устройство
+const isMobile = window.innerWidth < 768;
+if (!isMobile) {
+  const mouse = {
+    x: 0,
+    y: 0
+  };
+  const mouseElem = document.querySelector(".mouse");
+  window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouseElem.style.left = `${mouse.x}px`;
+    mouseElem.style.top = `${mouse.y}px`;
   });
-  el.addEventListener("mouseleave", e => {
-    mouseElem.classList.remove("hovered");
-  });
-  el.addEventListener("mousedown", e => {
-    mouseElem.classList.add("active");
-  });
-  el.addEventListener("mouseup", e => {
-    mouseElem.classList.remove("active");
-  });
-});
-document.querySelectorAll("button").forEach(el => {
-  el.addEventListener("mouseenter", e => {
-    mouseElem.classList.add("hovered");
-  });
-  el.addEventListener("mouseleave", e => {
-    mouseElem.classList.remove("hovered");
-  });
-  el.addEventListener("mousedown", e => {
-    mouseElem.classList.add("active");
-  });
-  el.addEventListener("mouseup", e => {
-    mouseElem.classList.remove("active");
-  });
-});
-document.addEventListener("mousedown", e => {
-  mouseElem.classList.add("active");
-});
-document.addEventListener("mouseup", e => {
-  mouseElem.classList.remove("active");
-});
-const orealZone = document.querySelectorAll("[data-mouse-oreal]");
-const blueZone = document.querySelectorAll("[data-mouse-blue]");
-const oreal = document.querySelector("#oreal");
-if (orealZone.length > 0) {
-  orealZone.forEach(el => {
-    const oreal = document.createElement("div");
-    oreal.classList.add("oreal");
-    el.style.position = "relative"; // чтобы абсолют позиционировался относительно этого блока
-    el.append(oreal);
-
-    // Размеры элемента oreal для центрирования
-    const orealWidth = oreal.clientWidth; // установи так, как у тебя в CSS
-    const orealHeight = oreal.clientHeight;
-    el.addEventListener("mouseenter", () => {
-      oreal.style.opacity = "1";
-    });
-    el.addEventListener("mouseleave", () => {
-      oreal.style.opacity = "0";
-    });
-    el.addEventListener("mousemove", e => {
-      const rect = el.getBoundingClientRect();
-      // Координаты курсора относительно блока
-      const x = e.clientX - rect.left - orealWidth / 2;
-      const y = e.clientY - rect.top - orealHeight / 2;
-      oreal.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  });
-}
-if (blueZone.length > 0) {
-  blueZone.forEach(el => {
+  document.querySelectorAll("a").forEach(el => {
     el.addEventListener("mouseenter", e => {
-      mouseElem.classList.add("white");
+      mouseElem.classList.add("hovered");
     });
     el.addEventListener("mouseleave", e => {
-      mouseElem.classList.remove("white");
+      mouseElem.classList.remove("hovered");
+    });
+    el.addEventListener("mousedown", e => {
+      mouseElem.classList.add("active");
+    });
+    el.addEventListener("mouseup", e => {
+      mouseElem.classList.remove("active");
     });
   });
+  document.querySelectorAll("button").forEach(el => {
+    el.addEventListener("mouseenter", e => {
+      mouseElem.classList.add("hovered");
+    });
+    el.addEventListener("mouseleave", e => {
+      mouseElem.classList.remove("hovered");
+    });
+    el.addEventListener("mousedown", e => {
+      mouseElem.classList.add("active");
+    });
+    el.addEventListener("mouseup", e => {
+      mouseElem.classList.remove("active");
+    });
+  });
+  document.addEventListener("mousedown", e => {
+    mouseElem.classList.add("active");
+  });
+  document.addEventListener("mouseup", e => {
+    mouseElem.classList.remove("active");
+  });
+  const orealZone = document.querySelectorAll("[data-mouse-oreal]");
+  const blueZone = document.querySelectorAll("[data-mouse-blue]");
+  const oreal = document.querySelector("#oreal");
+  if (orealZone.length > 0) {
+    orealZone.forEach(el => {
+      const oreal = document.createElement("div");
+      oreal.classList.add("oreal");
+      el.style.position = "relative";
+      el.append(oreal);
+      const orealWidth = oreal.clientWidth;
+      const orealHeight = oreal.clientHeight;
+      el.addEventListener("mouseenter", () => {
+        oreal.style.opacity = "1";
+      });
+      el.addEventListener("mouseleave", () => {
+        oreal.style.opacity = "0";
+      });
+      el.addEventListener("mousemove", e => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - orealWidth / 2;
+        const y = e.clientY - rect.top - orealHeight / 2;
+        oreal.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    });
+  }
+  if (blueZone.length > 0) {
+    blueZone.forEach(el => {
+      el.addEventListener("mouseenter", e => {
+        mouseElem.classList.add("white");
+      });
+      el.addEventListener("mouseleave", e => {
+        mouseElem.classList.remove("white");
+      });
+    });
+  }
+} else {
+  // Удаляем элемент курсора на мобильных устройствах
+  const mouseElem = document.querySelector(".mouse");
+  if (mouseElem) {
+    mouseElem.remove();
+  }
 }
 
 /***/ }),
@@ -106696,7 +106703,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_burger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions/burger.js */ "./src/js/functions/burger.js");
 
 
-// import Typed from "typed.js";
 // Список функций для отложенной инициализации
 const deferredFunctions = [];
 
@@ -106857,20 +106863,57 @@ function initVideoOptimization() {
 // Загрузка тяжелых компонентов
 function loadHeavyComponents() {
   const isMobile = window.innerWidth < 768;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  // На мобильных устройствах делаем еще большую задержку для Matter.js
-  const matterDelay = isMobile ? 2500 : 1000;
+  // Если это мобильное устройство, не загружаем Matter.js
+  if (isMobile || isIOS) {
+    // Показываем статичную версию компонента
+    const container = document.querySelector(".lb__canvas");
+    if (container) {
+      container.classList.add("mobile-static-layout");
+
+      // Добавляем анимацию при скролле для мобильных устройств
+      const elements = container.querySelectorAll(".floating-element");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "50px"
+      });
+      elements.forEach((element, index) => {
+        // Начальное состояние
+        element.style.opacity = "0";
+        element.style.transform = "translateY(20px)";
+        element.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(element);
+      });
+
+      // Диспетчеризуем событие для скрытия прелоадера
+      window.dispatchEvent(new CustomEvent("matterInitialized"));
+    }
+    return;
+  }
+
+  // На десктопе загружаем Matter.js с задержкой
+  const matterDelay = 1000;
   setTimeout(() => {
-    // Импортируем Matter.js только когда пользователь уже взаимодействовал со страницей
     Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/matter.js */ "./src/js/components/matter.js")).then(module => {
-      // Инициализируем Matter.js с помощью функции initMatter
       if (typeof module.initMatter === "function") {
         module.initMatter();
       } else {
         console.warn("Функция initMatter не найдена в модуле matter.js");
+        // В случае ошибки все равно скрываем прелоадер
+        window.dispatchEvent(new CustomEvent("matterInitialized"));
       }
     }).catch(error => {
       console.error("Ошибка загрузки Matter.js:", error);
+      // В случае ошибки все равно скрываем прелоадер
+      window.dispatchEvent(new CustomEvent("matterInitialized"));
     });
   }, matterDelay);
 }
@@ -106941,16 +106984,67 @@ function executeDeferredFunctions() {
   executeNext();
 }
 
-// Обработчик события прокрутки с оптимизацией
+// Добавляем функцию для очистки памяти
+function cleanupMemory() {
+  // Очищаем все IntersectionObserver
+  const observers = new Set();
+  document.querySelectorAll("*").forEach(element => {
+    const observer = element._observer;
+    if (observer) {
+      observer.disconnect();
+      observers.add(observer);
+      delete element._observer;
+    }
+  });
+
+  // Очищаем все таймауты и интервалы
+  const highestTimeoutId = setTimeout(";");
+  for (let i = 0; i < highestTimeoutId; i++) {
+    clearTimeout(i);
+  }
+
+  // Очищаем все обработчики событий для неиспользуемых элементов
+  document.querySelectorAll('[data-cleanup="true"]').forEach(element => {
+    element.remove();
+  });
+
+  // Очищаем кэш изображений
+  const images = document.querySelectorAll("img[data-src]");
+  images.forEach(img => {
+    if (!isElementInViewport(img)) {
+      img.src = "";
+      img.removeAttribute("data-src");
+    }
+  });
+
+  // Принудительный запуск сборщика мусора
+  if (window.gc) {
+    window.gc();
+  }
+}
+
+// Функция для проверки видимости элемента
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+}
+
+// Оптимизация обработчика события прокрутки
 function setupOptimizedScroll() {
   let scrollTimeout;
   let lastKnownScrollPosition = 0;
   let ticking = false;
-  window.addEventListener("scroll", () => {
+  let scrollHandler;
+
+  // Функция для очистки памяти при скролле
+  const handleScroll = () => {
     lastKnownScrollPosition = window.scrollY;
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        // Здесь можно добавить обработку события прокрутки
+        // Очищаем память для элементов, которые далеко за пределами viewport
+        if (Math.abs(lastKnownScrollPosition - window.scrollY) > window.innerHeight * 2) {
+          cleanupMemory();
+        }
         ticking = false;
       });
       ticking = true;
@@ -106959,11 +107053,21 @@ function setupOptimizedScroll() {
     // Определяем окончание прокрутки
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-      // Код, который должен выполниться после окончания прокрутки
+      // Запускаем очистку памяти после окончания прокрутки
+      cleanupMemory();
     }, 150);
-  }, {
+  };
+
+  // Используем passive listener для улучшения производительности
+  window.addEventListener("scroll", handleScroll, {
     passive: true
   });
+
+  // Сохраняем ссылку на обработчик для возможности удаления
+  scrollHandler = handleScroll;
+  return () => {
+    window.removeEventListener("scroll", scrollHandler);
+  };
 }
 
 // Инициализация при загрузке DOM
@@ -106975,7 +107079,7 @@ document.addEventListener("DOMContentLoaded", () => {
   executeDeferredFunctions();
 
   // Настройка оптимизированной прокрутки
-  setupOptimizedScroll();
+  const removeScrollHandler = setupOptimizedScroll();
 
   // Загрузка тяжелых компонентов
   loadHeavyComponents();
@@ -106994,30 +107098,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Очистка памяти при уходе со страницы
+  window.addEventListener("unload", () => {
+    removeScrollHandler();
+    cleanupMemory();
+  });
+
+  // Очистка памяти при переходе в фоновый режим
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cleanupMemory();
+    }
+  });
+
   // Инициализируем анимацию текста
   initTypedText();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации
 window.addEventListener("load", () => {
-  // После полной загрузки страницы можно выполнить дополнительные оптимизации
+  // После полной загрузки страницы запускаем очистку памяти
   setTimeout(() => {
-    // Удаляем неиспользуемые обработчики и освобождаем ресурсы
+    cleanupMemory();
+
+    // Логируем использование памяти в консоль
     if (window.performance && window.performance.memory) {
-      console.log("Memory usage:", window.performance.memory.usedJSHeapSize / 1048576, "MB");
+      console.log("Memory usage:", Math.round(window.performance.memory.usedJSHeapSize / 1048576), "MB");
     }
   }, 3000);
 }, {
   passive: true
 });
-// const typed = new Typed(".hero__title-typed", {
-//   strings: ["ресторана", "сети", "доставки", "кофейни", "фудпроекта"],
-//   typeSpeed: 80,
-//   backSpeed: 60,
-//   backDelay: 2000,
-//   loop: true,
-// });
-
 function initTypedText() {
   const typedElement = document.querySelector(".hero__title-typed");
   if (!typedElement) return;

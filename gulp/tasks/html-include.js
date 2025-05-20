@@ -26,14 +26,13 @@ export const htmlInclude = () => {
           replace(
             /<script src="(.*?)js\/main(.*)\.js"><\/script>/g,
             (match) => {
-              // Формируем имя файла в зависимости от режима сборки
               const libsFile = app.isProd ? "libs.min.js" : "libs.js";
-              return `<script src="js/${libsFile}"></script>\n${match}`;
+              return `<script src="js/${libsFile}" defer crossorigin="anonymous"></script>\n${match}`;
             }
           )
         )
       )
-      // Добавляем атрибуты lazy loading для img и source
+      // Оптимизируем загрузку изображений
       .pipe(
         gulpif(
           app.isProd,
@@ -42,41 +41,67 @@ export const htmlInclude = () => {
             if (match.includes(" loading=")) {
               return match;
             }
-            // Добавляем атрибут loading=lazy для всех остальных изображений
-            return match.replace("<img", '<img loading="lazy"');
-          })
-        )
-      )
-      .pipe(
-        gulpif(
-          app.isProd,
-          replace(/<source(.*?)(?!\sdecoding=['"]).*?>/gs, (match) => {
-            // Не изменяем source, у которых уже есть атрибут decoding
-            if (match.includes(" decoding=")) {
-              return match;
+
+            // Добавляем атрибуты для оптимизации загрузки и кэширования
+            let optimizedMatch = match.replace(
+              "<img",
+              '<img loading="lazy" decoding="async"'
+            );
+
+            // Добавляем fetchpriority для изображений выше фолда
+            if (
+              match.includes('class="hero') ||
+              match.includes('class="header')
+            ) {
+              optimizedMatch = optimizedMatch.replace(
+                'loading="lazy"',
+                'fetchpriority="high"'
+              );
             }
-            // Добавляем атрибут decoding=async для всех остальных source
-            return match.replace("<source", '<source decoding="async"');
+
+            // Добавляем атрибуты для кэширования
+            if (!optimizedMatch.includes("crossorigin=")) {
+              optimizedMatch = optimizedMatch.replace(
+                ">",
+                ' crossorigin="anonymous">'
+              );
+            }
+
+            return optimizedMatch;
           })
         )
       )
-      // Замена путей для изображений, чтобы использовать AVIF и WebP
+      // Оптимизируем загрузку стилей
       .pipe(
         gulpif(
           app.isProd,
           replace(
-            /<img src=["'](.*?\.(?:jpg|jpeg|png))["'].*?>/gs,
-            (match, src) => {
-              // Создаем элемент picture с поддержкой AVIF и WebP
-              const baseSrc = src.replace(/\.(jpg|jpeg|png)$/, "");
-              const ext = src.match(/\.(jpg|jpeg|png)$/)[0];
-
-              return `<picture>
-            <source srcset="${baseSrc}.avif" type="image/avif">
-            <source srcset="${baseSrc}.webp" type="image/webp">
-            ${match}
-          </picture>`;
-            }
+            /<link rel="stylesheet"(.*?)>/g,
+            '<link rel="stylesheet"$1 crossorigin="anonymous">'
+          )
+        )
+      )
+      // Оптимизируем загрузку шрифтов
+      .pipe(
+        gulpif(
+          app.isProd,
+          replace(
+            /<link rel="preload" as="font"(.*?)>/g,
+            '<link rel="preload" as="font"$1 crossorigin="anonymous">'
+          )
+        )
+      )
+      // Добавляем preconnect для внешних ресурсов
+      .pipe(
+        gulpif(
+          app.isProd,
+          replace(
+            /<head>/,
+            `<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">`
           )
         )
       )

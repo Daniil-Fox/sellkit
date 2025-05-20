@@ -73,7 +73,6 @@
     "simplebar": "^6.2.5",
     "swiped-events": "^1.1.9",
     "swiper": "^11.2.6",
-    "three": "^0.176.0",
-    "typed.js": "^2.1.0"
+    "three": "^0.176.0"
   }
 }
