@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="theme-color" content="#111111" />
+  <meta name="format-detection" content="telephone=no" />
 
   <!-- Предварительные подключения для ускорения загрузки ресурсов -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://www.google-analytics.com" />
-  <link rel="preconnect" href="https://mc.yandex.ru" />
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin />
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -30,6 +31,8 @@
   <meta property="og:image" content="https://daniil-fox.github.io/sellkit/img/hero-thumb.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="SellKit" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -41,20 +44,14 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://daniil-fox.github.io/sellkit/" />
 
-  <!-- Критические шрифты - только самые необходимые для первого отображения -->
+  <!-- Предзагрузка шрифтов -->
   <link rel="preload" href="fonts/BebasNeueCyrillic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/BebasNeueRegular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/BebasNeueBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin />
-
-  <!-- Некритичные шрифты - загрузятся с низким приоритетом -->
-  <link rel="preload" href="fonts/BebasNeueRegular.woff2" as="font" type="font/woff2" crossorigin media="print"
-    onload="this.media='all'" />
-  <link rel="preload" href="fonts/BebasNeueBold.woff2" as="font" type="font/woff2" crossorigin media="print"
-    onload="this.media='all'" />
-  <link rel="preload" href="fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin media="print"
-    onload="this.media='all'" />
-  <link rel="preload" href="fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin media="print"
-    onload="this.media='all'" />
+  <link rel="preload" href="fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
   <script type="application/ld+json">
     {
@@ -231,7 +228,7 @@
   </div>
 </div>
     <main class="main">
-      <section class="hero" data-header="default" itemscope itemtype="https://schema.org/WebPage">
+      <section class="hero" data-header="default" itemscope itemtype="https://schema.org/WebPage" aria-label="Главный экран">
   <meta itemprop="name" content="SellKit - комплексное решение для ресторанного бизнеса">
   <meta itemprop="description"
     content="Профессиональная система автоматизации для ресторанов с доставкой, мобильным приложением и аналитикой">
@@ -239,7 +236,8 @@
   <div class="container hero__container">
     <div class="hero__decor" aria-hidden="true">
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -252,7 +250,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -265,7 +264,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -278,7 +278,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -291,7 +292,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -304,7 +306,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -317,7 +320,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -330,7 +334,8 @@
         </svg>
       </div>
       <div class="hero__plus">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <g clip-path="url(#clip0_1_789)">
             <path d="M20.9524 0H23.0476V44H20.9524V0Z" fill="#006AFF" />
             <path d="M9.15858e-08 23.0476L0 20.9524L44 20.9524L44 23.0476L9.15858e-08 23.0476Z" fill="#006AFF" />
@@ -415,10 +420,11 @@
     </div>
   </div>
 
-  <div class="hero__video">
-    <video loop playsinline autoplay muted preload="metadata">
-      <source src="main-cover.webm" type="video/webm">
-      <source src="main-cover.mp4" type="video/mp4">
+  <div class="hero__video" aria-hidden="true">
+    <video loop playsinline autoplay muted preload="metadata" aria-label="Фоновое видео">
+      <source src="main-cover.webm" type="video/webm" />
+      <source src="main-cover.mp4" type="video/mp4" />
+      <p>Ваш браузер не поддерживает HTML5 видео.</p>
     </video>
   </div>
 </section> <section class="products" data-mouse-oreal data-header="light" itemscope itemtype="https://schema.org/ItemList">
@@ -3171,42 +3177,43 @@
     </div>
   </div>
 </section>
-      <div class="modal" data-mouse-blue>
+      <div class="modal" data-mouse-blue role="dialog" aria-labelledby="modal-title" aria-modal="true">
   <div class="modal__body">
-    <button class="btn-reset modal__close">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 1L1 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M1 1L17 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <button class="btn-reset modal__close" aria-label="Закрыть модальное окно">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M17 1L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M1 1L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
     <div class="modal__content">
-      <h2 class="title2 title2--white cta__title" id="cta-title" itemprop="headline">
+      <h2 class="title2 title2--white cta__title" id="modal-title">
         Давайте покажем, как все работает
       </h2>
-      <form action="#" class="modal__form form" itemscope itemtype="https://schema.org/ContactForm">
+      <form method="POST" action="#" class="modal__form form" itemscope itemtype="https://schema.org/ContactForm">
         <meta itemprop="name" content="Форма запроса демонстрации SellKit">
         <div class="form__fields">
           <div class="form__field">
             <input type="text" placeholder="Ваше имя" name="Имя" class="form__input input-name" itemprop="name"
-              aria-label="Введите ваше имя" />
+              aria-label="Введите ваше имя" required />
           </div>
           <div class="form__field">
             <input type="tel" placeholder="Номер телефона" name="Телефон" class="form__input input-tel"
-              itemprop="telephone" aria-label="Введите номер телефона" />
+              itemprop="telephone" aria-label="Введите номер телефона" required />
           </div>
           <div class="form__field">
             <input type="text" placeholder="Название проекта" name="Название проекта" class="form__input input-project"
-              itemprop="subjectOf" aria-label="Введите название проекта" />
+              itemprop="subjectOf" aria-label="Введите название проекта" required />
           </div>
           <div class="form__field">
             <input type="text" placeholder="Город" name="Город" class="form__input input-city"
-              itemprop="addressLocality" aria-label="Введите ваш город" />
+              itemprop="addressLocality" aria-label="Введите ваш город" required />
           </div>
         </div>
-        <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
+        <button type="submit" class="btn-reset btn btn--white form__btn"
+          itemprop="actionableFeedbackPolicy">продолжить</button>
         <small class="form__agree">
           Нажимая кнопку «Продолжить», вы принимаете
-          <a href="#" itemprop="termsOfService">политику обработки персональных данных</a>
+          <a href="/privacy-policy.html" itemprop="termsOfService">политику обработки персональных данных</a>
         </small>
       </form>
     </div>
@@ -3242,6 +3249,7 @@
   </div>
 
 </div>
+
     </main>
     <footer class="footer">
   <div class="container">
