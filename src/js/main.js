@@ -333,100 +333,34 @@ function executeDeferredFunctions() {
   executeNext();
 }
 
-// Добавляем функцию для очистки памяти
-function cleanupMemory() {
-  // Очищаем все IntersectionObserver
-  const observers = new Set();
-  document.querySelectorAll("*").forEach((element) => {
-    const observer = element._observer;
-    if (observer) {
-      observer.disconnect();
-      observers.add(observer);
-      delete element._observer;
-    }
-  });
-
-  // Очищаем все таймауты и интервалы
-  const highestTimeoutId = setTimeout(";");
-  for (let i = 0; i < highestTimeoutId; i++) {
-    clearTimeout(i);
-  }
-
-  // Очищаем все обработчики событий для неиспользуемых элементов
-  document.querySelectorAll('[data-cleanup="true"]').forEach((element) => {
-    element.remove();
-  });
-
-  // Очищаем кэш изображений
-  const images = document.querySelectorAll("img[data-src]");
-  images.forEach((img) => {
-    if (!isElementInViewport(img)) {
-      img.src = "";
-      img.removeAttribute("data-src");
-    }
-  });
-
-  // Принудительный запуск сборщика мусора
-  if (window.gc) {
-    window.gc();
-  }
-}
-
-// Функция для проверки видимости элемента
-function isElementInViewport(el) {
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-// Оптимизация обработчика события прокрутки
+// Обработчик события прокрутки с оптимизацией
 function setupOptimizedScroll() {
   let scrollTimeout;
   let lastKnownScrollPosition = 0;
   let ticking = false;
-  let scrollHandler;
 
-  // Функция для очистки памяти при скролле
-  const handleScroll = () => {
-    lastKnownScrollPosition = window.scrollY;
+  window.addEventListener(
+    "scroll",
+    () => {
+      lastKnownScrollPosition = window.scrollY;
 
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        // Очищаем память для элементов, которые далеко за пределами viewport
-        if (
-          Math.abs(lastKnownScrollPosition - window.scrollY) >
-          window.innerHeight * 2
-        ) {
-          cleanupMemory();
-        }
-        ticking = false;
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Здесь можно добавить обработку события прокрутки
+          ticking = false;
+        });
 
-      ticking = true;
-    }
+        ticking = true;
+      }
 
-    // Определяем окончание прокрутки
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      // Запускаем очистку памяти после окончания прокрутки
-      cleanupMemory();
-    }, 150);
-  };
-
-  // Используем passive listener для улучшения производительности
-  window.addEventListener("scroll", handleScroll, { passive: true });
-
-  // Сохраняем ссылку на обработчик для возможности удаления
-  scrollHandler = handleScroll;
-
-  return () => {
-    window.removeEventListener("scroll", scrollHandler);
-  };
+      // Определяем окончание прокрутки
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        // Код, который должен выполниться после окончания прокрутки
+      }, 150);
+    },
+    { passive: true }
+  );
 }
 
 // Инициализация при загрузке DOM
@@ -438,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
   executeDeferredFunctions();
 
   // Настройка оптимизированной прокрутки
-  const removeScrollHandler = setupOptimizedScroll();
+  setupOptimizedScroll();
 
   // Загрузка тяжелых компонентов
   loadHeavyComponents();
@@ -456,19 +390,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // Очистка памяти при уходе со страницы
-  window.addEventListener("unload", () => {
-    removeScrollHandler();
-    cleanupMemory();
-  });
-
-  // Очистка памяти при переходе в фоновый режим
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      cleanupMemory();
-    }
-  });
-
   // Инициализируем анимацию текста
   initTypedText();
 });
@@ -477,15 +398,13 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener(
   "load",
   () => {
-    // После полной загрузки страницы запускаем очистку памяти
+    // После полной загрузки страницы можно выполнить дополнительные оптимизации
     setTimeout(() => {
-      cleanupMemory();
-
-      // Логируем использование памяти в консоль
+      // Удаляем неиспользуемые обработчики и освобождаем ресурсы
       if (window.performance && window.performance.memory) {
         console.log(
           "Memory usage:",
-          Math.round(window.performance.memory.usedJSHeapSize / 1048576),
+          window.performance.memory.usedJSHeapSize / 1048576,
           "MB"
         );
       }
