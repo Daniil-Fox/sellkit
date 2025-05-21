@@ -97,7 +97,9 @@
     }
     @include small-tablet {
       height: 530px;
+      display: none;
     }
+
     img {
       display: block;
       height: auto;
@@ -108,6 +110,19 @@
       &:nth-child(2) {
         width: 55%;
         align-self: flex-end;
+      }
+    }
+
+    &--mob {
+      display: none;
+      @include small-tablet {
+        display: block;
+
+        img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover;
+        }
       }
     }
   }
