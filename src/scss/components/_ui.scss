@@ -185,6 +185,16 @@
     }
   }
 }
+
+[data-aos="show-card"] {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+
+  &.aos-animate {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+}
 @keyframes plus-anim {
   0% {
     transform: scale(0.3);

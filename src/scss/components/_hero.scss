@@ -235,8 +235,10 @@
     }
 
     & > span {
-      white-space: nowrap;
-      display: block;
+      @include mobile {
+        white-space: nowrap;
+        display: block;
+      }
       & > span {
         color: #408fff;
         position: relative;

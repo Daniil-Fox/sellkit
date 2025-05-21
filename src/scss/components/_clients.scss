@@ -31,6 +31,23 @@
       margin-bottom: 22px;
     }
   }
+  &__bottom {
+    margin-top: 45px;
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: #006aff;
+    text-align: center;
+    @include small-tablet {
+      font-size: 36px;
+      margin-top: 34px;
+    }
+    @include mobile {
+      font-size: 32px;
+    }
+  }
   &__title {
     margin-bottom: 8px;
   }

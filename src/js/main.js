@@ -10,6 +10,7 @@ import {
   initDeferredLoading,
 } from "./_components.js";
 import "./functions/burger.js";
+import LoyalParallax from "./components/loyal-parallax.js";
 // Список функций для отложенной инициализации
 const deferredFunctions = [];
 
@@ -392,6 +393,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Инициализируем анимацию текста
   initTypedText();
+
+  new LoyalParallax();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации

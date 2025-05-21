@@ -23,7 +23,7 @@ export default function initProducts() {
 
     // Если ширина экрана больше 850px, активируем элемент с индексом 3
     if (window.innerWidth >= 850 && prodItems.length > 3) {
-      const targetItem = prodItems[3];
+      const targetItem = prodItems[1];
       const itemTitle = targetItem.querySelector(".prod-item__title");
       const video = targetItem.querySelector("video");
       const fullText = itemTitle.dataset.fullText;

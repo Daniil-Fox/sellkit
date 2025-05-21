@@ -104991,6 +104991,52 @@ function initLoyalItems() {
 
 /***/ }),
 
+/***/ "./src/js/components/loyal-parallax.js":
+/*!*********************************************!*\
+  !*** ./src/js/components/loyal-parallax.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LoyalParallax)
+/* harmony export */ });
+class LoyalParallax {
+  constructor() {
+    this.parallaxContainer = document.querySelector(".loyal-parallax");
+    if (!this.parallaxContainer) return;
+    this.images = this.parallaxContainer.querySelectorAll("img");
+    this.scrollPosition = 0;
+    this.ticking = false;
+    this.init();
+  }
+  init() {
+    if (window.innerWidth <= 1024) return;
+    window.addEventListener("scroll", () => {
+      this.scrollPosition = window.scrollY - this.parallaxContainer.offsetTop / 2;
+      if (!this.ticking) {
+        window.requestAnimationFrame(() => {
+          this.updateParallax();
+          this.ticking = false;
+        });
+        this.ticking = true;
+      }
+    });
+  }
+  updateParallax() {
+    const movePercent = this.scrollPosition * 0.17;
+
+    // Первое изображение движется вверх
+    this.images[0].style.transform = `translateY(-${movePercent}px)`;
+
+    // Второе изображение движется вниз
+    this.images[1].style.transform = `translateY(${movePercent}px)`;
+  }
+}
+
+/***/ }),
+
 /***/ "./src/js/components/matter.js":
 /*!*************************************!*\
   !*** ./src/js/components/matter.js ***!
@@ -105850,7 +105896,7 @@ function initProducts() {
 
     // Если ширина экрана больше 850px, активируем элемент с индексом 3
     if (window.innerWidth >= 850 && prodItems.length > 3) {
-      const targetItem = prodItems[3];
+      const targetItem = prodItems[1];
       const itemTitle = targetItem.querySelector(".prod-item__title");
       const video = targetItem.querySelector("video");
       const fullText = itemTitle.dataset.fullText;
@@ -106701,6 +106747,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_components.js */ "./src/js/_components.js");
 /* harmony import */ var _functions_burger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions/burger.js */ "./src/js/functions/burger.js");
+/* harmony import */ var _components_loyal_parallax_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/loyal-parallax.js */ "./src/js/components/loyal-parallax.js");
+
 
 
 // Список функций для отложенной инициализации
@@ -107039,6 +107087,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Инициализируем анимацию текста
   initTypedText();
+  new _components_loyal_parallax_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
 });
 
 // Добавляем обработчик события загрузки окна для дополнительной оптимизации
