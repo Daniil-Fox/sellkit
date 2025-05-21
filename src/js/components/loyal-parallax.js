@@ -30,7 +30,7 @@ export default class LoyalParallax {
   }
 
   updateParallax() {
-    const movePercent = this.scrollPosition * 0.17;
+    const movePercent = this.scrollPosition * 0.25;
 
     // Первое изображение движется вверх
     this.images[0].style.transform = `translateY(-${movePercent}px)`;
