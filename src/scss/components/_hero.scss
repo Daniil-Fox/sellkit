@@ -250,6 +250,11 @@
 
           transform: translateY(-50%) translateX(-30%);
           animation: blink 1s infinite;
+
+          @include small-tablet {
+            position: static;
+            transform: none;
+          }
         }
       }
     }

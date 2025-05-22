@@ -16,7 +16,9 @@ export default class LoyalParallax {
 
     window.addEventListener("scroll", () => {
       this.scrollPosition =
-        window.scrollY - this.parallaxContainer.offsetTop / 2;
+        window.scrollY -
+        this.parallaxContainer.offsetTop +
+        this.parallaxContainer.offsetHeight * 1.4;
 
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
@@ -30,7 +32,7 @@ export default class LoyalParallax {
   }
 
   updateParallax() {
-    const movePercent = this.scrollPosition * 0.25;
+    const movePercent = this.scrollPosition * 0.6;
 
     // Первое изображение движется вверх
     this.images[0].style.transform = `translateY(-${movePercent}px)`;

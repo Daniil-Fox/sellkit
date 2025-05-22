@@ -104442,42 +104442,33 @@ function initDelivery() {
     // Оптимизированный обработчик клика
     btn.addEventListener("click", e => {
       e.preventDefault();
-
-      // Защита от множественных кликов
       if (item.hasAttribute("data-animating")) return;
       item.setAttribute("data-animating", "true");
-
-      // Предварительные вычисления вне цикла DOM-операций
       const isActive = !item.classList.contains("active");
       const contentHeight = content.scrollHeight;
-
-      // Отложенное выполнение тяжелой операции
       requestAnimationFrame(() => {
         if (isActive) {
-          // Сначала очищаем другие активные элементы
-          clearActive(item);
-
-          // Сразу после этого открываем новый элемент
+          // На десктопе оставляем автозакрытие, на мобильных убираем
+          if (!isMobile) {
+            clearActive(item);
+          }
           requestAnimationFrame(() => {
             item.classList.add("active");
             topContent.style.display = "none";
             topContent.style.opacity = 0;
             content.style.maxHeight = contentHeight + "px";
 
-            // Плавный скролл для мобильных устройств
+            // Скролл только на мобильных
             if (isMobile) {
-              const headerHeight = 48; // Высота шапки на мобильных
+              const headerHeight = 80;
+              const offset = 20;
               const itemTop = item.getBoundingClientRect().top + window.scrollY;
-
-              // Скроллим к элементу
+              const randomOffset = Math.random() * 2 - 1;
               window.scrollTo({
-                top: itemTop - headerHeight,
-                behavior: "smooth"
+                top: itemTop - headerHeight - offset + randomOffset
               });
             }
           });
-
-          // Удаляем флаг анимации после завершения
           content.addEventListener("transitionend", function onEnd() {
             item.removeAttribute("data-animating");
             content.removeEventListener("transitionend", onEnd);
@@ -104485,13 +104476,10 @@ function initDelivery() {
             once: true
           });
         } else {
-          // Закрываем элемент
+          // Логика закрытия элемента
           item.classList.remove("active");
           content.style.maxHeight = contentHeight + "px";
-
-          // Используем RAF для плавного закрытия
           requestAnimationFrame(() => {
-            // Короткая задержка для iOS
             setTimeout(() => {
               content.style.maxHeight = null;
             }, isIOS ? 20 : 5);
@@ -105014,7 +105002,7 @@ class LoyalParallax {
   init() {
     if (window.innerWidth <= 1024) return;
     window.addEventListener("scroll", () => {
-      this.scrollPosition = window.scrollY - this.parallaxContainer.offsetTop / 2;
+      this.scrollPosition = window.scrollY - this.parallaxContainer.offsetTop + this.parallaxContainer.offsetHeight * 1.4;
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
           this.updateParallax();
@@ -105025,7 +105013,7 @@ class LoyalParallax {
     });
   }
   updateParallax() {
-    const movePercent = this.scrollPosition * 0.25;
+    const movePercent = this.scrollPosition * 0.6;
 
     // Первое изображение движется вверх
     this.images[0].style.transform = `translateY(-${movePercent}px)`;

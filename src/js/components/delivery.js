@@ -146,42 +146,39 @@ export default function initDelivery() {
       (e) => {
         e.preventDefault();
 
-        // Защита от множественных кликов
         if (item.hasAttribute("data-animating")) return;
         item.setAttribute("data-animating", "true");
 
-        // Предварительные вычисления вне цикла DOM-операций
         const isActive = !item.classList.contains("active");
         const contentHeight = content.scrollHeight;
 
-        // Отложенное выполнение тяжелой операции
         requestAnimationFrame(() => {
           if (isActive) {
-            // Сначала очищаем другие активные элементы
-            clearActive(item);
+            // На десктопе оставляем автозакрытие, на мобильных убираем
+            if (!isMobile) {
+              clearActive(item);
+            }
 
-            // Сразу после этого открываем новый элемент
             requestAnimationFrame(() => {
               item.classList.add("active");
               topContent.style.display = "none";
               topContent.style.opacity = 0;
               content.style.maxHeight = contentHeight + "px";
 
-              // Плавный скролл для мобильных устройств
+              // Скролл только на мобильных
               if (isMobile) {
-                const headerHeight = 48; // Высота шапки на мобильных
+                const headerHeight = 80;
+                const offset = 20;
                 const itemTop =
                   item.getBoundingClientRect().top + window.scrollY;
+                const randomOffset = Math.random() * 2 - 1;
 
-                // Скроллим к элементу
                 window.scrollTo({
-                  top: itemTop - headerHeight,
-                  behavior: "smooth",
+                  top: itemTop - headerHeight - offset + randomOffset,
                 });
               }
             });
 
-            // Удаляем флаг анимации после завершения
             content.addEventListener(
               "transitionend",
               function onEnd() {
@@ -191,13 +188,11 @@ export default function initDelivery() {
               { once: true }
             );
           } else {
-            // Закрываем элемент
+            // Логика закрытия элемента
             item.classList.remove("active");
             content.style.maxHeight = contentHeight + "px";
 
-            // Используем RAF для плавного закрытия
             requestAnimationFrame(() => {
-              // Короткая задержка для iOS
               setTimeout(
                 () => {
                   content.style.maxHeight = null;
