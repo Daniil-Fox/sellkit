@@ -133,9 +133,7 @@ a {
 // Скрываем элементы, связанные с курсором на мобильных
 @media (max-width: 768px) {
   .mouse,
-  .oreal,
-  [data-mouse-oreal],
-  [data-mouse-blue] {
+  .oreal {
     display: none !important;
   }
 }

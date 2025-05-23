@@ -5,11 +5,56 @@ if (modalButtons.length > 0) {
   const modalBody = document.querySelector(".modal__body");
   const modalClose = document.querySelector(".modal__close");
   const menu = document.querySelector(".menu");
+
+  // Функция для получения ширины скроллбара
+  const getScrollbarWidth = () => {
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll";
+    document.body.appendChild(outer);
+
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+  };
+
+  // Функция для управления скроллбаром
+  const handleScrollbar = (isOpen) => {
+    const scrollbarWidth = getScrollbarWidth();
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      // Добавляем отступ для фиксированных элементов, если они есть
+      const fixedElements = document.querySelectorAll(
+        ".header-fixed, .fixed-element"
+      );
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = `${scrollbarWidth}px`;
+      });
+    } else {
+      if (!menu.classList.contains("menu--active")) {
+        document.body.style.overflow = null;
+        document.body.style.paddingRight = "";
+        // Убираем отступ у фиксированных элементов
+        const fixedElements = document.querySelectorAll(
+          ".header-fixed, .fixed-element"
+        );
+        fixedElements.forEach((el) => {
+          el.style.paddingRight = "";
+        });
+      }
+    }
+  };
+
   modalButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       e.preventDefault();
       modal.classList.add("active");
-      document.body.style.overflow = "hidden";
+      handleScrollbar(true);
     });
   });
 
@@ -17,8 +62,7 @@ if (modalButtons.length > 0) {
     e.preventDefault();
     modal.classList.remove("active");
     modal.classList.remove("thankyou-active");
-    if (!menu.classList.contains("menu--active"))
-      document.body.style.overflow = null;
+    handleScrollbar(false);
   });
 
   modalBody.addEventListener("click", (e) => {
@@ -28,10 +72,7 @@ if (modalButtons.length > 0) {
   modal.addEventListener("click", (e) => {
     e.preventDefault();
     modal.classList.remove("active");
-
-    // При закрытии модального окна также удаляем класс thankyou-active
     modal.classList.remove("thankyou-active");
-    if (!menu.classList.contains("menu--active"))
-      document.body.style.overflow = null;
+    handleScrollbar(false);
   });
 }
