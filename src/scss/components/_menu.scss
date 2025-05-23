@@ -6,7 +6,8 @@
   height: 100%;
   z-index: -1;
   background-color: rgba(#000, 0.5);
-  transition: 0.3s ease-in;
+  opacity: 0;
+  transition: opacity 0.1s ease-in, z-index 0.07s ease-in;
 
   @include tablet {
     padding: 5vh 16px;
@@ -168,6 +169,7 @@
     }
   }
   &.menu--active {
+    opacity: 1;
     z-index: 101;
     .menu__body {
       opacity: 1;
