@@ -105966,7 +105966,7 @@ function initProducts() {
   }
 
   // Оптимизируем загрузку видео для всех элементов
-  prodItems.forEach(item => {
+  prodItems.forEach((item, index) => {
     const itemTitle = item.querySelector(".prod-item__title");
     const video = item.querySelector("video");
 
@@ -105974,7 +105974,7 @@ function initProducts() {
     itemTitle.dataset.fullText = itemTitle.textContent;
 
     // Оптимизируем загрузку видео
-    if (video) {
+    if (index !== 1 && video) {
       video.setAttribute("preload", "none"); // Отключаем предзагрузку
       video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
       video.muted = true; // Гарантируем, что видео будет без звука
