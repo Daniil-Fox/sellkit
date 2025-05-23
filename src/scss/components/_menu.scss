@@ -62,8 +62,20 @@
     width: 24px;
     height: 24px;
     position: absolute;
+    z-index: 4;
     top: 18px;
     right: 19px;
+    &::before {
+      content: "";
+      position: absolute;
+      right: 70%;
+      top: 70%;
+      width: 100%;
+      height: 100%;
+      background-color: currentColor;
+      background: none;
+      transform: scale(1.5) translate(50%, -50%);
+    }
     svg {
       width: 100%;
       height: 100%;

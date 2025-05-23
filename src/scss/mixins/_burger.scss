@@ -52,6 +52,18 @@
     transform: translateY(-50%);
     border-radius: 5px;
     transition: transform 0.3s ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      right: 0%;
+      bottom: 50%;
+      width: var(--burger-width);
+      height: var(--burger-width);
+      background-color: currentColor;
+      background: none;
+      transform: scale(1.5) translate(0%, 40%);
+    }
   }
 
   &--active {

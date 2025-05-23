@@ -7,4 +7,13 @@
   --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
 
   --light-color: #fff;
+  --dark-color: #202020;
+
+  --system-background: var(--light-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --system-background: var(--dark-color);
+  }
 }

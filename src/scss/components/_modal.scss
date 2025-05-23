@@ -94,7 +94,17 @@
     justify-content: center;
     padding: 10px;
     background-color: #fff;
-
+    &::before {
+      content: "";
+      position: absolute;
+      left: 70%;
+      top: 70%;
+      width: 100%;
+      height: 100%;
+      background-color: currentColor;
+      background: none;
+      transform: scale(1.5) translate(-50%, -50%);
+    }
     @include small-tablet {
       background: none;
       padding: 0;

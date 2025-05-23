@@ -7,6 +7,48 @@ import { enableScroll } from "../functions/enable-scroll.js";
   const menuItems = document?.querySelectorAll("[data-menu-item]");
   const overlay = document?.querySelector("[data-menu-overlay]");
 
+  // Функция для получения ширины скроллбара
+  const getScrollbarWidth = () => {
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll";
+    document.body.appendChild(outer);
+
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+  };
+
+  // Функция для управления скроллбаром
+  const handleScrollbar = (isOpen) => {
+    const scrollbarWidth = getScrollbarWidth();
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      // Добавляем отступ для фиксированных элементов
+      const fixedElements = document.querySelectorAll(
+        ".header, .fixed-element"
+      );
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = `${scrollbarWidth + 16}px`;
+      });
+    } else {
+      document.body.style.overflow = null;
+      document.body.style.paddingRight = "";
+      // Убираем отступ у фиксированных элементов
+      const fixedElements = document.querySelectorAll(
+        ".header, .fixed-element"
+      );
+      fixedElements.forEach((el) => {
+        el.style.paddingRight = "";
+      });
+    }
+  };
+
   burger?.addEventListener("click", (e) => {
     burger?.classList.toggle("burger--active");
     menu?.classList.toggle("menu--active");
@@ -14,11 +56,11 @@ import { enableScroll } from "../functions/enable-scroll.js";
     if (menu?.classList.contains("menu--active")) {
       burger?.setAttribute("aria-expanded", "true");
       burger?.setAttribute("aria-label", "Закрыть меню");
-      document.body.style.overflow = "hidden";
+      handleScrollbar(true);
     } else {
       burger?.setAttribute("aria-expanded", "false");
       burger?.setAttribute("aria-label", "Открыть меню");
-      document.body.style.overflow = null;
+      handleScrollbar(false);
     }
   });
 
@@ -27,7 +69,7 @@ import { enableScroll } from "../functions/enable-scroll.js";
     burger?.setAttribute("aria-label", "Открыть меню");
     burger.classList.remove("burger--active");
     menu.classList.remove("menu--active");
-    document.body.style.overflow = null;
+    handleScrollbar(false);
   });
 
   menuItems?.forEach((el) => {
@@ -36,7 +78,7 @@ import { enableScroll } from "../functions/enable-scroll.js";
       burger?.setAttribute("aria-label", "Открыть меню");
       burger.classList.remove("burger--active");
       menu.classList.remove("menu--active");
-      document.body.style.overflow = null;
+      handleScrollbar(false);
     });
   });
 })();

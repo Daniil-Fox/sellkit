@@ -103915,6 +103915,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_loyal_items_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/loyal-items.js */ "./src/js/components/loyal-items.js");
 /* harmony import */ var _components_lazyImages_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/lazyImages.js */ "./src/js/components/lazyImages.js");
 /* harmony import */ var _components_deferred_loading_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/deferred-loading.js */ "./src/js/components/deferred-loading.js");
+/* harmony import */ var _components_anchor_links_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/anchor-links.js */ "./src/js/components/anchor-links.js");
+
 
 
 
@@ -103953,6 +103955,41 @@ __webpack_require__.r(__webpack_exports__);
   documentEl: document,
   htmlEl: document.documentElement,
   bodyEl: document.body
+});
+
+/***/ }),
+
+/***/ "./src/js/components/anchor-links.js":
+/*!*******************************************!*\
+  !*** ./src/js/components/anchor-links.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+document.addEventListener("DOMContentLoaded", () => {
+  // Находим все ссылки с атрибутом data-scroll-to
+  const scrollLinks = document.querySelectorAll("[data-scroll-to]");
+  scrollLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("data-scroll-to");
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        // Добавляем дополнительный отступ для мобильных устройств
+        const isMobile = window.innerWidth < 768;
+        const headerHeight = document.querySelector(".header")?.offsetHeight || 0;
+        const additionalOffset = isMobile ? 30 : 0;
+
+        // Получаем позицию элемента и сразу скроллим к нему
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - additionalOffset;
+        window.scrollTo({
+          top: elementPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
 });
 
 /***/ }),
@@ -105714,16 +105751,16 @@ if (modalButtons.length > 0) {
       document.body.style.overflow = "hidden";
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       // Добавляем отступ для фиксированных элементов, если они есть
-      const fixedElements = document.querySelectorAll(".header-fixed, .fixed-element");
+      const fixedElements = document.querySelectorAll(".header, .fixed-element");
       fixedElements.forEach(el => {
-        el.style.paddingRight = `${scrollbarWidth}px`;
+        el.style.paddingRight = `${scrollbarWidth + 16}px`;
       });
     } else {
       if (!menu.classList.contains("menu--active")) {
         document.body.style.overflow = null;
         document.body.style.paddingRight = "";
         // Убираем отступ у фиксированных элементов
-        const fixedElements = document.querySelectorAll(".header-fixed, .fixed-element");
+        const fixedElements = document.querySelectorAll(".header, .fixed-element");
         fixedElements.forEach(el => {
           el.style.paddingRight = "";
         });
@@ -106472,17 +106509,52 @@ __webpack_require__.r(__webpack_exports__);
   const menu = document?.querySelector("[data-menu]");
   const menuItems = document?.querySelectorAll("[data-menu-item]");
   const overlay = document?.querySelector("[data-menu-overlay]");
+
+  // Функция для получения ширины скроллбара
+  const getScrollbarWidth = () => {
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll";
+    document.body.appendChild(outer);
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+    return scrollbarWidth;
+  };
+
+  // Функция для управления скроллбаром
+  const handleScrollbar = isOpen => {
+    const scrollbarWidth = getScrollbarWidth();
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      // Добавляем отступ для фиксированных элементов
+      const fixedElements = document.querySelectorAll(".header, .fixed-element");
+      fixedElements.forEach(el => {
+        el.style.paddingRight = `${scrollbarWidth + 16}px`;
+      });
+    } else {
+      document.body.style.overflow = null;
+      document.body.style.paddingRight = "";
+      // Убираем отступ у фиксированных элементов
+      const fixedElements = document.querySelectorAll(".header, .fixed-element");
+      fixedElements.forEach(el => {
+        el.style.paddingRight = "";
+      });
+    }
+  };
   burger?.addEventListener("click", e => {
     burger?.classList.toggle("burger--active");
     menu?.classList.toggle("menu--active");
     if (menu?.classList.contains("menu--active")) {
       burger?.setAttribute("aria-expanded", "true");
       burger?.setAttribute("aria-label", "Закрыть меню");
-      document.body.style.overflow = "hidden";
+      handleScrollbar(true);
     } else {
       burger?.setAttribute("aria-expanded", "false");
       burger?.setAttribute("aria-label", "Открыть меню");
-      document.body.style.overflow = null;
+      handleScrollbar(false);
     }
   });
   overlay?.addEventListener("click", () => {
@@ -106490,7 +106562,7 @@ __webpack_require__.r(__webpack_exports__);
     burger?.setAttribute("aria-label", "Открыть меню");
     burger.classList.remove("burger--active");
     menu.classList.remove("menu--active");
-    document.body.style.overflow = null;
+    handleScrollbar(false);
   });
   menuItems?.forEach(el => {
     el.addEventListener("click", () => {
@@ -106498,7 +106570,7 @@ __webpack_require__.r(__webpack_exports__);
       burger?.setAttribute("aria-label", "Открыть меню");
       burger.classList.remove("burger--active");
       menu.classList.remove("menu--active");
-      document.body.style.overflow = null;
+      handleScrollbar(false);
     });
   });
 })();

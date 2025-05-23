@@ -14,6 +14,7 @@ import "./components/validation.js";
 import initLoyalItems from "./components/loyal-items.js";
 import initLazyLoad from "./components/lazyImages.js";
 import initDeferredLoading from "./components/deferred-loading.js";
+import "./components/anchor-links.js";
 
 // Экспортируем все функции инициализации
 export {

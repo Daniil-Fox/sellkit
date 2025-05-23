@@ -30,10 +30,10 @@ if (modalButtons.length > 0) {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       // Добавляем отступ для фиксированных элементов, если они есть
       const fixedElements = document.querySelectorAll(
-        ".header-fixed, .fixed-element"
+        ".header, .fixed-element"
       );
       fixedElements.forEach((el) => {
-        el.style.paddingRight = `${scrollbarWidth}px`;
+        el.style.paddingRight = `${scrollbarWidth + 16}px`;
       });
     } else {
       if (!menu.classList.contains("menu--active")) {
@@ -41,7 +41,7 @@ if (modalButtons.length > 0) {
         document.body.style.paddingRight = "";
         // Убираем отступ у фиксированных элементов
         const fixedElements = document.querySelectorAll(
-          ".header-fixed, .fixed-element"
+          ".header, .fixed-element"
         );
         fixedElements.forEach((el) => {
           el.style.paddingRight = "";
