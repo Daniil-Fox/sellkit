@@ -482,7 +482,7 @@
     </div>
   </div>
 </section>
-      <section class="faq">
+      <section class="faq" itemscope itemtype="https://schema.org/FAQPage">
   <div class="container">
     <div class="faq__container">
       <div class="faq__left" data-aos-anchor-placement="top-bottom" data-aos="fade-right">
@@ -520,9 +520,10 @@
           </a>
         </div>
         <div class="faq__items">
-          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up" data-aos-delay="0">
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up" data-aos-delay="0"
+            itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <button class="faq-item__header btn-reset">
-              <span class="faq-item__question">
+              <span class="faq-item__question" itemprop="name">
                 Чем SellKit лучше агрегаторов?
               </span>
               <span class="faq-item__plus">
@@ -536,8 +537,8 @@
                 </svg>
               </span>
             </button>
-            <div class="faq-item__content">
-              <div class="faq-item__body">
+            <div class="faq-item__content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-item__body" itemprop="text">
                 <p>Вы получаете полный контроль без комиссий 25-30%:</p>
                 <ol>
                   <li>Собственное мобильное приложение и сайт</li>
@@ -718,38 +719,40 @@
   </div>
 </section>
       <section class="cta" data-aos-anchor-placement="top-bottom" data-aos="fade-up" itemscope
-  itemtype="https://schema.org/ContactPage">
-  <meta itemprop="name" content="Демонстрация SellKit">
-  <meta itemprop="description"
-    content="Заполните форму, чтобы получить демонстрацию возможностей SellKit для автоматизации вашего ресторана">
+  itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="SellKit">
+  <meta itemprop="description" content="Система автоматизации ресторанного бизнеса">
 
   <div class="container">
     <div class="cta__content" data-mouse-blue>
       <div class="cta__wrapper">
-        <h2 class="title2 title2--white cta__title" id="cta-title" itemprop="headline">
+        <h2 class="title2 title2--white cta__title" id="cta-title">
           Давайте покажем, как все работает
         </h2>
-        <form action="#" class="cta__form form" itemscope itemtype="https://schema.org/ContactForm">
-          <meta itemprop="name" content="Форма запроса демонстрации SellKit">
-          <div class="form__fields">
-            <div class="form__field">
-              <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name" itemprop="name"
-                aria-label="Введите ваше имя" required />
-            </div>
-            <div class="form__field">
-              <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
-                itemprop="telephone" aria-label="Введите номер телефона" required />
-            </div>
-            <div class="form__field">
-              <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
-                itemprop="subjectOf" aria-label="Введите название проекта" required />
-            </div>
-            <div class="form__field">
-              <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
-                itemprop="addressLocality" aria-label="Введите ваш город" required />
+        <form action="#" class="cta__form form">
+          <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+            <meta itemprop="contactType" content="sales" />
+            <meta itemprop="availableLanguage" content="Russian" />
+            <div class="form__fields">
+              <div class="form__field">
+                <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name"
+                  aria-label="Введите ваше имя" required />
+              </div>
+              <div class="form__field">
+                <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
+                  itemprop="telephone" aria-label="Введите номер телефона" required />
+              </div>
+              <div class="form__field">
+                <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
+                  aria-label="Введите название проекта" required />
+              </div>
+              <div class="form__field">
+                <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
+                  itemprop="areaServed" aria-label="Введите ваш город" required />
+              </div>
             </div>
           </div>
-          <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
+          <button class="btn-reset btn btn--white form__btn">продолжить</button>
           <small class="form__agree">
             Нажимая кнопку «Продолжить», вы принимаете
             <a href="#" itemprop="termsOfService">политику обработки персональных данных</a>
@@ -777,24 +780,29 @@
         Давайте покажем, как все работает
       </h2>
       <form method="POST" action="#" class="modal__form form" data-form itemscope
-        itemtype="https://schema.org/ContactForm">
-        <meta itemprop="name" content="Форма запроса демонстрации SellKit" />
-        <div class="form__fields">
-          <div class="form__field">
-            <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name" itemprop="name"
-              aria-label="Введите ваше имя" required />
-          </div>
-          <div class="form__field">
-            <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
-              itemprop="telephone" aria-label="Введите номер телефона" pattern="[0-9+\s-()]+" required />
-          </div>
-          <div class="form__field">
-            <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
-              itemprop="subjectOf" aria-label="Введите название проекта" required />
-          </div>
-          <div class="form__field">
-            <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
-              itemprop="addressLocality" aria-label="Введите ваш город" required />
+        itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="SellKit" />
+        <meta itemprop="description" content="Система автоматизации ресторанного бизнеса" />
+        <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+          <meta itemprop="contactType" content="sales" />
+          <meta itemprop="availableLanguage" content="Russian" />
+          <div class="form__fields">
+            <div class="form__field">
+              <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name"
+                aria-label="Введите ваше имя" required />
+            </div>
+            <div class="form__field">
+              <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
+                itemprop="telephone" aria-label="Введите номер телефона" pattern="[0-9+\s-()]+" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
+                aria-label="Введите название проекта" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Город" name="ur-city" class="form__input input-city" itemprop="areaServed"
+                aria-label="Введите ваш город" required />
+            </div>
           </div>
         </div>
         <button type="submit" class="btn-reset btn btn--white form__btn">
@@ -802,8 +810,8 @@
         </button>
         <small class="form__agree">
           Нажимая кнопку «Продолжить», вы принимаете
-          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">политику обработки персональных
-            данных</a>
+          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" itemprop="termsOfService">политику
+            обработки персональных данных</a>
         </small>
       </form>
     </div>

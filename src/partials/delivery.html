@@ -1,4 +1,4 @@
-<section class="delivery" id="app" data-header="dark">
+<section class="delivery" id="app" data-header="dark" itemscope itemtype="https://schema.org/Service">
 
   <div class="container">
     <div class="delivery__header" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
@@ -8,12 +8,12 @@
         </span>
       </div>
       <div class="delivery__right">
-        <h2 class="title1 delivery__title">
+        <h2 class="title1 delivery__title" itemprop="name">
           <span>приложение и&nbsp;сайт</span>
           <span>доставки&nbsp;еды</span>
         </h2>
 
-        <p class="delivery__desc desc2 desc2--white">
+        <p class="delivery__desc desc2 desc2--white" itemprop="description">
           Наши сайты и&nbsp;приложения отличаются простотой в&nbsp;использовании
           и&nbsp;настраиваются под любые потребности вашего ресторана.
           Мы&nbsp;предлагаем вам&nbsp;современный и&nbsp;функциональный
@@ -21,6 +21,10 @@
           но&nbsp;и&nbsp;поможет автоматизировать рабочие процессы, а&nbsp;также
           увеличит количество заказов.
         </p>
+
+        <meta itemprop="provider" content="SellKit">
+        <meta itemprop="areaServed" content="Россия">
+        <meta itemprop="serviceType" content="Автоматизация доставки еды">
 
         <button class="btn btn-reset delivery__btn  modal-btn">
           запланировать презентацию

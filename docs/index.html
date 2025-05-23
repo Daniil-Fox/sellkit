@@ -15,9 +15,9 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-  <title>SellKit — комплексное решение для ресторанного бизнеса</title>
+  <title>SellKit — приложение, сайт и лояльность для ресторана и доставки еды</title>
   <meta name="description"
-    content="SellKit - профессиональное программное обеспечение для автоматизации ресторанного бизнеса: сайт, мобильное приложение, система лояльности и аналитика." />
+    content="Полный набор инструментов для ресторанов: создайте сайт, мобильное приложение, программу лояльности и управляйте аналитикой в одной системе. Интеграция с iiko." />
   <meta name="keywords"
     content="sellkit, автоматизация ресторана, доставка еды, мобильное приложение для ресторана, система лояльности, курьерский софт, iiko партнер" />
   <meta name="author" content="SellKit" />
@@ -430,21 +430,23 @@
       <p>Ваш браузер не поддерживает HTML5 видео.</p>
     </video>
   </div>
-</section> <section class="products" data-mouse-oreal data-header="light" itemscope itemtype="https://schema.org/ItemList">
-  <meta itemprop="name" content="Продукты SellKit для ресторанного бизнеса">
-  <meta itemprop="description"
-    content="Полный каталог решений SellKit для автоматизации ресторанов - сайт, приложение, аналитика и другие продукты">
+</section> <section class="products" data-mouse-oreal data-header="light">
+  <div itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="name" content="Продукты SellKit для ресторанного бизнеса">
+    <meta itemprop="description"
+      content="Полный каталог решений SellKit для автоматизации ресторанов - сайт, приложение, аналитика и другие продукты">
+    <h2 class="title3 title3--white products__title" itemprop="headline">
+      ДОРАБАТЫВАЕМ СИСТЕМУ ПОД ЗАДАЧИ ВАШЕГО БИЗНЕСА —
+      <span>НОВЫЕ РАЗДЕЛЫ, БРЕНДИРОВАННЫЙ ДИЗАЙН, ФУНКЦИИ
+        <span>ИНДИВИДУАЛЬНО ПОД ВАС</span></span>
+    </h2>
+  </div>
 
   <div id="stars" aria-hidden="true"></div>
   <div id="stars2" aria-hidden="true"></div>
   <div id="stars3" aria-hidden="true"></div>
   <div class="container products__main" data-aos="fade-up">
     <div class="products__header">
-      <h2 class="title3 title3--white products__title" itemprop="headline">
-        ДОРАБАТЫВАЕМ СИСТЕМУ ПОД ЗАДАЧИ ВАШЕГО БИЗНЕСА —
-        <span>НОВЫЕ РАЗДЕЛЫ, БРЕНДИРОВАННЫЙ ДИЗАЙН, ФУНКЦИИ
-          <span>ИНДИВИДУАЛЬНО ПОД ВАС</span></span>
-      </h2>
       <button class="btn btn-reset btn--stroke products__btn">
         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true">
@@ -1614,7 +1616,7 @@
       <img loading="lazy" src="./img/cover-mob.jpg" class="image" width="" height="" alt="Декоративное изображение" />
     </picture>
   </div>
-</section> <section class="delivery" id="app" data-header="dark">
+</section> <section class="delivery" id="app" data-header="dark" itemscope itemtype="https://schema.org/Service">
 
   <div class="container">
     <div class="delivery__header" data-aos-anchor-placement="top-bottom" data-aos="fade-up">
@@ -1624,12 +1626,12 @@
         </span>
       </div>
       <div class="delivery__right">
-        <h2 class="title1 delivery__title">
+        <h2 class="title1 delivery__title" itemprop="name">
           <span>приложение и сайт</span>
           <span>доставки еды</span>
         </h2>
 
-        <p class="delivery__desc desc2 desc2--white">
+        <p class="delivery__desc desc2 desc2--white" itemprop="description">
           Наши сайты и приложения отличаются простотой в использовании
           и настраиваются под любые потребности вашего ресторана.
           Мы предлагаем вам современный и функциональный
@@ -1637,6 +1639,10 @@
           но и поможет автоматизировать рабочие процессы, а также
           увеличит количество заказов.
         </p>
+
+        <meta itemprop="provider" content="SellKit">
+        <meta itemprop="areaServed" content="Россия">
+        <meta itemprop="serviceType" content="Автоматизация доставки еды">
 
         <button class="btn btn-reset delivery__btn  modal-btn">
           запланировать презентацию
@@ -2635,8 +2641,8 @@
     </div>
   </div>
 </section>
-      <section class="business" id="business" data-mouse-blue itemscope itemtype="https://schema.org/Product">
-  <meta itemprop="name" content="Системы аналитики и маркетинга для ресторанного бизнеса">
+      <section class="business" id="business" data-mouse-blue itemscope itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="SellKit">
   <meta itemprop="description"
     content="Возможности Sellkit для бизнес-аналитики и маркетинга - увеличивайте прибыль ресторана с помощью данных">
 
@@ -2659,89 +2665,90 @@
       </h2>
     </div>
   </div>
-  <div class="business__body" data-loyal-items="2" itemprop="hasOfferCatalog" itemscope
-    itemtype="https://schema.org/OfferCatalog">
-    <div class="container">
-      <div class="business__items" role="list" itemscope itemtype="https://schema.org/ItemList">
-        <meta itemprop="itemListOrder" content="Unordered">
-        <meta itemprop="numberOfItems" content="5">
+  <div itemprop="hasOfferCatalog" itemscope itemtype="https://schema.org/OfferCatalog">
+    <div class="business__body" data-loyal-items="2">
+      <div class="container">
+        <div class="business__items" role="list" itemscope itemtype="https://schema.org/ItemList">
+          <meta itemprop="itemListOrder" content="Unordered">
+          <meta itemprop="numberOfItems" content="5">
 
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="0"
-          itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
-          <meta itemprop="position" content="1">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="100">
-            <div class="loyal-item__fig">01</div>
-            <p class="loyal-item__title" itemprop="name">Отчёты и аналитика</p>
-            <p class="loyal-item__desc" itemprop="description">
-              Автоматизированные отчёты по ключевым метрикам: выручка,
-              средний чек, конверсия, популярность блюд, эффективность акций,
-              push-кампаний, аналитика по франчайзи, по клиентам, RFM
-              и LTV отчёты.
-            </p>
+          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="0"
+            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <meta itemprop="position" content="1">
+            <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="100">
+              <div class="loyal-item__fig">01</div>
+              <p class="loyal-item__title" itemprop="name">Отчёты и аналитика</p>
+              <p class="loyal-item__desc" itemprop="description">
+                Автоматизированные отчёты по ключевым метрикам: выручка,
+                средний чек, конверсия, популярность блюд, эффективность акций,
+                push-кампаний, аналитика по франчайзи, по клиентам, RFM
+                и LTV отчёты.
+              </p>
+            </div>
+          </div>
+
+          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="200"
+            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <meta itemprop="position" content="2">
+            <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="300">
+              <div class="loyal-item__fig">02</div>
+              <p class="loyal-item__title" itemprop="name">Сегментация</p>
+              <p class="loyal-item__desc" itemprop="description">
+                Разделение клиентов на группы по поведению, заказам,
+                демографии. Автоматические сегменты: «новички»,
+                «постоянные», «потерянные» Ручные фильтры:
+                по сумме чека, частоте заказов, любимым блюдам
+              </p>
+            </div>
+          </div>
+
+          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="400"
+            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <meta itemprop="position" content="3">
+            <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="500">
+              <div class="loyal-item__fig">03</div>
+              <p class="loyal-item__title" itemprop="name">PUSH-уведомления</p>
+              <p class="loyal-item__desc" itemprop="description">
+                Персонализированные сообщения в мобильное приложение.
+                Используйте триггерные автоматические рассылки: брошенная корзина,
+                день рождения, акция на любимое блюдо.
+              </p>
+            </div>
+          </div>
+
+          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="600"
+            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <meta itemprop="position" content="4">
+            <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="700">
+              <div class="loyal-item__fig">04</div>
+              <p class="loyal-item__title" itemprop="name">конструктор акций</p>
+              <p class="loyal-item__desc" itemprop="description">
+                Инструмент для создания любых акций. Готовые шаблоны:
+                «2 по цене 1», «Подарок
+                за заказ», «Скидка на комбо», гибкие
+                фильтры: по времени, сумме чека, категориям блюд, интеграция.
+              </p>
+            </div>
+          </div>
+
+          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="800"
+            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+            <meta itemprop="position" content="5">
+            <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="900">
+              <div class="loyal-item__fig">05</div>
+              <p class="loyal-item__title" itemprop="name">ABC-АНАЛИЗ</p>
+              <p class="loyal-item__desc" itemprop="description">
+                Ранжирование блюд по прибыльности и популярности. Выгоды
+                для ресторана: снижение затрат на кухню —
+                закупаете только то, что хорошо продаётся; увеличение
+                маржи — делаете акцент на прибыльных позициях.
+              </p>
+            </div>
           </div>
         </div>
-
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="200"
-          itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
-          <meta itemprop="position" content="2">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="300">
-            <div class="loyal-item__fig">02</div>
-            <p class="loyal-item__title" itemprop="name">Сегментация</p>
-            <p class="loyal-item__desc" itemprop="description">
-              Разделение клиентов на группы по поведению, заказам,
-              демографии. Автоматические сегменты: «новички»,
-              «постоянные», «потерянные» Ручные фильтры:
-              по сумме чека, частоте заказов, любимым блюдам
-            </p>
-          </div>
+        <div class="business__mob">
+          <button class="btn-reset loyal-more-btn">Показать ещё</button>
         </div>
-
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="400"
-          itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
-          <meta itemprop="position" content="3">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="500">
-            <div class="loyal-item__fig">03</div>
-            <p class="loyal-item__title" itemprop="name">PUSH-уведомления</p>
-            <p class="loyal-item__desc" itemprop="description">
-              Персонализированные сообщения в мобильное приложение.
-              Используйте триггерные автоматические рассылки: брошенная корзина,
-              день рождения, акция на любимое блюдо.
-            </p>
-          </div>
-        </div>
-
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="600"
-          itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
-          <meta itemprop="position" content="4">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="700">
-            <div class="loyal-item__fig">04</div>
-            <p class="loyal-item__title" itemprop="name">конструктор акций</p>
-            <p class="loyal-item__desc" itemprop="description">
-              Инструмент для создания любых акций. Готовые шаблоны:
-              «2 по цене 1», «Подарок
-              за заказ», «Скидка на комбо», гибкие
-              фильтры: по времени, сумме чека, категориям блюд, интеграция.
-            </p>
-          </div>
-        </div>
-
-        <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="800"
-          itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
-          <meta itemprop="position" content="5">
-          <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="900">
-            <div class="loyal-item__fig">05</div>
-            <p class="loyal-item__title" itemprop="name">ABC-АНАЛИЗ</p>
-            <p class="loyal-item__desc" itemprop="description">
-              Ранжирование блюд по прибыльности и популярности. Выгоды
-              для ресторана: снижение затрат на кухню —
-              закупаете только то, что хорошо продаётся; увеличение
-              маржи — делаете акцент на прибыльных позициях.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="business__mob">
-        <button class="btn-reset loyal-more-btn">Показать ещё</button>
       </div>
     </div>
   </div>
@@ -2780,6 +2787,10 @@
   <meta itemprop="applicationCategory" content="Доставка еды">
   <meta itemprop="operatingSystem" content="Android, iOS">
   <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+  <meta itemprop="featureList" content="Автоматическая загрузка заказов из iiko">
+  <meta itemprop="featureList" content="Отслеживание курьера на карте">
+  <meta itemprop="featureList" content="Подключение внешних курьерских служб">
+  <meta itemprop="featureList" content="Оптимизация логистики">
 
   <div class="courier__map-right" aria-hidden="true"></div>
   <div class="courier__inf info"></div>
@@ -2806,14 +2817,17 @@
                 </div>
                 <button class="btn-reset prepare__btn  modal-btn">Начать доставку</button>
               </div>
-              <div class="prepare__item" itemprop="deliveryAddress" itemscope itemtype="https://schema.org/Place">
+              <div class="prepare__item" itemprop="deliveryMethod" itemscope
+                itemtype="https://schema.org/DeliveryMethod">
                 <div class="prepare__wrap">
                   <div class="prepare__supercapture">Доставить</div>
                   <p class="prepare__address" itemprop="address">
                     ул. Короленко, 211/2 б, кв. 12, подъезд 4,
                     домофон 15
                   </p>
-                  <div class="prepare__intime" itemprop="estimatedDeliveryTime">16:55</div>
+                  <div class="prepare__intime">
+                    <meta itemprop="deliveryTime" content="PT25M">16:55
+                  </div>
                 </div>
               </div>
             </div>
@@ -2848,8 +2862,7 @@
           </div>
         </div>
       </div>
-      <div class="courier__body" data-loyal-items="2" itemprop="featureList" itemscope
-        itemtype="https://schema.org/ItemList">
+      <div class="courier__body" data-loyal-items="2" itemscope itemtype="https://schema.org/ItemList">
         <meta itemprop="itemListOrder" content="Unordered">
         <meta itemprop="numberOfItems" content="4">
 
@@ -3175,7 +3188,7 @@
       <button class="btn-reset btn plans__btn  modal-btn">оставить заявку</button>
     </div>
   </div>
-</section> <section class="faq">
+</section> <section class="faq" itemscope itemtype="https://schema.org/FAQPage">
   <div class="container">
     <div class="faq__container">
       <div class="faq__left" data-aos-anchor-placement="top-bottom" data-aos="fade-right">
@@ -3213,9 +3226,10 @@
           </a>
         </div>
         <div class="faq__items">
-          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up" data-aos-delay="0">
+          <div class="faq__item faq-item" data-aos-anchor-placement="top-bottom" data-aos="fade-up" data-aos-delay="0"
+            itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <button class="faq-item__header btn-reset">
-              <span class="faq-item__question">
+              <span class="faq-item__question" itemprop="name">
                 Чем SellKit лучше агрегаторов?
               </span>
               <span class="faq-item__plus">
@@ -3229,8 +3243,8 @@
                 </svg>
               </span>
             </button>
-            <div class="faq-item__content">
-              <div class="faq-item__body">
+            <div class="faq-item__content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-item__body" itemprop="text">
                 <p>Вы получаете полный контроль без комиссий 25-30%:</p>
                 <ol>
                   <li>Собственное мобильное приложение и сайт</li>
@@ -3411,38 +3425,40 @@
   </div>
 </section>
       <section class="cta" data-aos-anchor-placement="top-bottom" data-aos="fade-up" itemscope
-  itemtype="https://schema.org/ContactPage">
-  <meta itemprop="name" content="Демонстрация SellKit">
-  <meta itemprop="description"
-    content="Заполните форму, чтобы получить демонстрацию возможностей SellKit для автоматизации вашего ресторана">
+  itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content="SellKit">
+  <meta itemprop="description" content="Система автоматизации ресторанного бизнеса">
 
   <div class="container">
     <div class="cta__content" data-mouse-blue>
       <div class="cta__wrapper">
-        <h2 class="title2 title2--white cta__title" id="cta-title" itemprop="headline">
+        <h2 class="title2 title2--white cta__title" id="cta-title">
           Давайте покажем, как все работает
         </h2>
-        <form action="#" class="cta__form form" itemscope itemtype="https://schema.org/ContactForm">
-          <meta itemprop="name" content="Форма запроса демонстрации SellKit">
-          <div class="form__fields">
-            <div class="form__field">
-              <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name" itemprop="name"
-                aria-label="Введите ваше имя" required />
-            </div>
-            <div class="form__field">
-              <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
-                itemprop="telephone" aria-label="Введите номер телефона" required />
-            </div>
-            <div class="form__field">
-              <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
-                itemprop="subjectOf" aria-label="Введите название проекта" required />
-            </div>
-            <div class="form__field">
-              <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
-                itemprop="addressLocality" aria-label="Введите ваш город" required />
+        <form action="#" class="cta__form form">
+          <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+            <meta itemprop="contactType" content="sales" />
+            <meta itemprop="availableLanguage" content="Russian" />
+            <div class="form__fields">
+              <div class="form__field">
+                <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name"
+                  aria-label="Введите ваше имя" required />
+              </div>
+              <div class="form__field">
+                <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
+                  itemprop="telephone" aria-label="Введите номер телефона" required />
+              </div>
+              <div class="form__field">
+                <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
+                  aria-label="Введите название проекта" required />
+              </div>
+              <div class="form__field">
+                <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
+                  itemprop="areaServed" aria-label="Введите ваш город" required />
+              </div>
             </div>
           </div>
-          <button class="btn-reset btn btn--white form__btn" itemprop="actionableFeedbackPolicy">продолжить</button>
+          <button class="btn-reset btn btn--white form__btn">продолжить</button>
           <small class="form__agree">
             Нажимая кнопку «Продолжить», вы принимаете
             <a href="#" itemprop="termsOfService">политику обработки персональных данных</a>
@@ -3470,24 +3486,29 @@
         Давайте покажем, как все работает
       </h2>
       <form method="POST" action="#" class="modal__form form" data-form itemscope
-        itemtype="https://schema.org/ContactForm">
-        <meta itemprop="name" content="Форма запроса демонстрации SellKit" />
-        <div class="form__fields">
-          <div class="form__field">
-            <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name" itemprop="name"
-              aria-label="Введите ваше имя" required />
-          </div>
-          <div class="form__field">
-            <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
-              itemprop="telephone" aria-label="Введите номер телефона" pattern="[0-9+\s-()]+" required />
-          </div>
-          <div class="form__field">
-            <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
-              itemprop="subjectOf" aria-label="Введите название проекта" required />
-          </div>
-          <div class="form__field">
-            <input type="text" placeholder="Город" name="ur-city" class="form__input input-city"
-              itemprop="addressLocality" aria-label="Введите ваш город" required />
+        itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="SellKit" />
+        <meta itemprop="description" content="Система автоматизации ресторанного бизнеса" />
+        <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+          <meta itemprop="contactType" content="sales" />
+          <meta itemprop="availableLanguage" content="Russian" />
+          <div class="form__fields">
+            <div class="form__field">
+              <input type="text" placeholder="Ваше имя" name="ur-name" class="form__input input-name"
+                aria-label="Введите ваше имя" required />
+            </div>
+            <div class="form__field">
+              <input type="tel" placeholder="Номер телефона" name="ur-phone" class="form__input input-tel"
+                itemprop="telephone" aria-label="Введите номер телефона" pattern="[0-9+\s-()]+" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Название проекта" name="ur-rest" class="form__input input-project"
+                aria-label="Введите название проекта" required />
+            </div>
+            <div class="form__field">
+              <input type="text" placeholder="Город" name="ur-city" class="form__input input-city" itemprop="areaServed"
+                aria-label="Введите ваш город" required />
+            </div>
           </div>
         </div>
         <button type="submit" class="btn-reset btn btn--white form__btn">
@@ -3495,8 +3516,8 @@
         </button>
         <small class="form__agree">
           Нажимая кнопку «Продолжить», вы принимаете
-          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">политику обработки персональных
-            данных</a>
+          <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer" itemprop="termsOfService">политику
+            обработки персональных данных</a>
         </small>
       </form>
     </div>

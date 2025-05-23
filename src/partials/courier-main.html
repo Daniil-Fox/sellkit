@@ -3,6 +3,10 @@
   <meta itemprop="applicationCategory" content="Доставка еды">
   <meta itemprop="operatingSystem" content="Android, iOS">
   <meta itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+  <meta itemprop="featureList" content="Автоматическая загрузка заказов из iiko">
+  <meta itemprop="featureList" content="Отслеживание курьера на карте">
+  <meta itemprop="featureList" content="Подключение внешних курьерских служб">
+  <meta itemprop="featureList" content="Оптимизация логистики">
 
   <div class="courier__map-right" aria-hidden="true"></div>
   <div class="courier__inf info"></div>
@@ -29,14 +33,17 @@
                 </div>
                 <button class="btn-reset prepare__btn">Начать доставку</button>
               </div>
-              <div class="prepare__item" itemprop="deliveryAddress" itemscope itemtype="https://schema.org/Place">
+              <div class="prepare__item" itemprop="deliveryMethod" itemscope
+                itemtype="https://schema.org/DeliveryMethod">
                 <div class="prepare__wrap">
                   <div class="prepare__supercapture">Доставить</div>
                   <p class="prepare__address" itemprop="address">
                     ул. Короленко, 211/2&nbsp;б, кв.&nbsp;12, подъезд&nbsp;4,
                     домофон&nbsp;15
                   </p>
-                  <div class="prepare__intime" itemprop="estimatedDeliveryTime">16:55</div>
+                  <div class="prepare__intime">
+                    <meta itemprop="deliveryTime" content="PT25M">16:55
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,8 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="courier__body" data-loyal-items="1" itemprop="featureList" itemscope
-        itemtype="https://schema.org/ItemList">
+      <div class="courier__body" data-loyal-items="1" itemscope itemtype="https://schema.org/ItemList">
         <meta itemprop="itemListOrder" content="Unordered">
         <meta itemprop="numberOfItems" content="4">
 
