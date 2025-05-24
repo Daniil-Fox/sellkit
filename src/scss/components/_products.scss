@@ -194,7 +194,6 @@
     transform: rotateZ(-180deg);
     writing-mode: vertical-lr;
     white-space: nowrap;
-    overflow: hidden;
     transition: color 0.4s ease-in;
 
     @include tablet {
