@@ -106692,20 +106692,20 @@ const validateForms = function (selector, rules) {
   const form = document?.querySelector(selector);
   const telSelector = form?.querySelector('input[type="tel"]');
   if (!form) {
-    console.error('Нет такого селектора!');
+    console.error("Нет такого селектора!");
     return false;
   }
   if (!rules) {
-    console.error('Вы не передали правила валидации!');
+    console.error("Вы не передали правила валидации!");
     return false;
   }
   if (telSelector) {
-    const inputMask = new _node_modules_inputmask_dist_inputmask_es6_js__WEBPACK_IMPORTED_MODULE_1__["default"]('+7 (999) 999-99-99');
+    const inputMask = new _node_modules_inputmask_dist_inputmask_es6_js__WEBPACK_IMPORTED_MODULE_1__["default"]("+7 (999) 999-99-99");
     inputMask.mask(telSelector);
     for (let item of rules) {
       if (item.tel) {
         item.rules.push({
-          rule: 'function',
+          rule: "function",
           validator: function () {
             const phone = telSelector.inputmask.unmaskedvalue();
             return phone.length === 10;
@@ -106733,11 +106733,15 @@ const validateForms = function (selector, rules) {
           if (afterSend) {
             afterSend();
           }
-          console.log('Отправлено');
+          // Отправляем цель в Яндекс Метрику
+          if (typeof ym !== "undefined") {
+            ym(95717947, "reachGoal", "1234");
+          }
+          console.log("Отправлено");
         }
       }
     };
-    xhr.open('POST', 'mail.php', true);
+    xhr.open("POST", "mail.php", true);
     xhr.send(formData);
     ev.target.reset();
   });
