@@ -14,4 +14,4 @@ Disallow: /zapad/*
 
 Allow: /
 
-# Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://sellkit.cc/sitemap.xml
