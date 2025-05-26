@@ -106012,7 +106012,7 @@ function initProducts() {
 
     // Оптимизируем загрузку видео
     if (index !== 1 && video) {
-      video.setAttribute("preload", "none"); // Отключаем предзагрузку
+      video.setAttribute("preload", "metadata"); // Отключаем предзагрузку
       video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
       video.muted = true; // Гарантируем, что видео будет без звука
     }
