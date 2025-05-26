@@ -59,7 +59,9 @@
     color: #001840;
     position: relative;
     display: inline-block;
-
+    span {
+      font-family: "Bebas Neue Latin";
+    }
     &::after {
       content: "";
       position: absolute;

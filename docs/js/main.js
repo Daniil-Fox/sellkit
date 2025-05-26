@@ -106499,7 +106499,7 @@ __webpack_require__.r(__webpack_exports__);
 
 (function () {
   const burger = document?.querySelector("[data-burger]");
-  const menu = document?.querySelector("[data-menu]");
+  const menu = document?.querySelector("#mainMenu");
   const menuItems = document?.querySelectorAll("[data-menu-item]");
   const overlay = document?.querySelector("[data-menu-overlay]");
 

@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru" class="page">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="theme-color" content="#111111" />
-  <meta name="format-detection" content="telephone=no" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#111111">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- Предварительные подключения для ускорения загрузки ресурсов -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
 
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <title>SellKit — приложение, сайт и лояльность для ресторана и доставки еды</title>
   <meta name="description"
-    content="Полный набор инструментов для ресторанов: создайте сайт, мобильное приложение, программу лояльности и управляйте аналитикой в одной системе. Интеграция с iiko." />
+    content="Полный набор инструментов для ресторанов: создайте сайт, мобильное приложение, программу лояльности и управляйте аналитикой в одной системе. Интеграция с iiko">
   <meta name="keywords"
-    content="sellkit, автоматизация ресторана, доставка еды, мобильное приложение для ресторана, система лояльности, курьерский софт, iiko партнер" />
-  <meta name="author" content="SellKit" />
-  <meta name="robots" content="index, follow" />
+    content="sellkit, автоматизация ресторана, доставка еды, мобильное приложение для ресторана, система лояльности, курьерский софт, iiko партнер">
+  <meta name="author" content="SellKit">
+  <meta name="robots" content="index, follow">
 
   <!-- Open Graph соц. сети -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sellkit.cc/" />
-  <meta property="og:title" content="SellKit — приложение, сайт и лояльность для ресторана и доставки еды" />
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sellkit.cc/">
+  <meta property="og:title" content="SellKit — приложение, сайт и лояльность для ресторана и доставки еды">
   <meta property="og:description"
     content="Полный набор инструментов для ресторанов: создайте сайт, мобильное приложение, программу лояльности и управляйте аналитикой в одной системе. Интеграция с iiko." />
   <meta property="og:image" content="https://sellkit.cc/img/hero-thumb.jpg" />
@@ -167,11 +167,12 @@
     </div>
   </div>
 </header>
-<div class="mouse" aria-hidden="true"></div> <div class="menu" data-menu>
+<div class="mouse" aria-hidden="true"></div> <div class="menu" id="mainMenu" role="navigation">
   <div class="menu__body">
     <div class="menu__wrapper">
-      <button class="btn-reset menu__close" data-menu-item>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button class="btn-reset menu__close" data-menu-item aria-label="Закрыть меню">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
           <path d="M23 1L1 23" stroke="#202020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M1 1L23 23" stroke="#202020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
@@ -197,6 +198,7 @@
             <path
               d="M8.76682 32.7414C6.76894 32.7414 5.11398 32.3985 3.80194 31.7126C2.51972 31.0268 1.5655 30.1471 0.939302 29.0736C0.313101 28.0002 0 26.8968 0 25.7637C0 24.6604 0.268372 23.6167 0.805116 22.6327C1.34186 21.6189 2.10225 20.7839 3.08628 20.1279C4.10013 19.4719 5.29289 19.1439 6.66457 19.1439C6.63475 19.4122 6.61984 19.6657 6.61984 19.9043C6.61984 20.113 6.61984 20.2174 6.61984 20.2174C6.61984 22.2152 6.81367 23.7957 7.20132 24.9586C7.58897 26.0917 8.08098 26.9118 8.67736 27.4187C9.27375 27.8958 9.88504 28.1343 10.5112 28.1343C11.4655 28.1343 12.3153 27.7616 13.0608 27.0161C13.8063 26.2408 14.179 25.3463 14.179 24.3324C14.179 23.1993 13.687 22.2003 12.7029 21.3356C11.7487 20.4708 10.5261 19.5166 9.03519 18.4729C8.20026 17.8467 7.30568 17.146 6.35147 16.3707C5.42708 15.5656 4.63687 14.6263 3.98085 13.5528C3.32483 12.4495 2.99682 11.1524 2.99682 9.66139C2.99682 8.1108 3.35465 6.73912 4.07031 5.54635C4.81579 4.35359 5.78491 3.35465 6.97767 2.54953C8.20026 1.7146 9.52721 1.0884 10.9585 0.67093C12.4197 0.223644 13.8659 0 15.2972 0C17.0565 0 18.5028 0.283282 19.6359 0.849845C20.769 1.41641 21.6189 2.14698 22.1854 3.04155C22.752 3.93612 23.0353 4.86052 23.0353 5.81473C23.0353 6.7093 22.7818 7.57406 22.2749 8.40899C21.7978 9.21411 21.0821 9.87013 20.1279 10.3771C19.1737 10.884 17.9958 11.1374 16.5943 11.1374C16.6838 10.72 16.7434 10.3472 16.7733 10.0192C16.8031 9.6614 16.818 9.3483 16.818 9.07992C16.818 7.58897 16.49 6.53039 15.834 5.90418C15.2078 5.24816 14.507 4.92015 13.7317 4.92015C12.9862 4.92015 12.2706 5.20344 11.5847 5.77C10.8989 6.30674 10.556 7.18641 10.556 8.40899C10.556 9.45266 10.8243 10.3472 11.3611 11.0927C11.9276 11.8382 12.6433 12.4942 13.5081 13.0608C14.4026 13.6273 15.3419 14.179 16.326 14.7157C17.3398 15.2525 18.3089 15.8489 19.2333 16.5049C20.1875 17.1311 20.9778 17.8766 21.604 18.7413C22.2302 19.6061 22.5433 20.6945 22.5433 22.0065C22.5433 23.3782 22.1705 24.7201 21.425 26.0321C20.6796 27.3143 19.6657 28.4624 18.3835 29.4762C17.1013 30.4602 15.6252 31.2504 13.9553 31.8468C12.3153 32.4432 10.5858 32.7414 8.76682 32.7414Z" />
           </svg>
+          <span class="visually-hidden">На главную страницу SellKit</span>
         </a>
         <p class="menu__desc">
           Решение для ресторанов, объединяющее сайт, приложение, систему
@@ -213,38 +215,40 @@
         </a>
       </div>
       <div class="menu__mid">
-        <nav class="menu__nav nav">
-          <ul>
-            <li>
-              <a href="./">Главная</a>
+        <nav class="menu__nav nav" aria-label="Главное меню">
+          <ul role="menubar">
+            <li role="none">
+              <a href="./" role="menuitem">Главная</a>
             </li>
-            <li>
-              <a href="./cases.html">Кейсы</a>
+            <li role="none">
+              <a href="./cases.html" role="menuitem">Кейсы</a>
             </li>
-            <li>
-              <a href="./app.html">Сайт и приложение</a>
+            <li role="none">
+              <a href="./app.html" role="menuitem">Сайт и приложение</a>
             </li>
-            <li>
-              <a href="./analitic.html">Маркетинг</a>
+            <li role="none">
+              <a href="./analitic.html" role="menuitem">Маркетинг</a>
             </li>
-            <li>
-              <a href="./courier.html">Курьерское приложение</a>
+            <li role="none">
+              <a href="./courier.html" role="menuitem">Курьерское приложение</a>
             </li>
-            <li>
-              <a href="./cost.html">Тарифы</a>
+            <li role="none">
+              <a href="./cost.html" role="menuitem">Тарифы</a>
             </li>
           </ul>
         </nav>
-        <button class="btn-reset btn btn--check menu__btn modal-btn">
+        <button class="btn-reset btn btn--check menu__btn js-modal-trigger" aria-haspopup="dialog"
+          aria-controls="contactModal">
           оставить заявку
         </button>
       </div>
       <div class="menu__bottom">
-        <p><a href="https://t.me/SellKitApp" target="_blank">Написать в Telegram</a></p>
+        <p><a href="https://t.me/SellKitApp" target="_blank" rel="noopener noreferrer">Написать в Telegram</a></p>
         <p><a href="tel:+79953770038">+7 995 377-00-38</a></p>
       </div>
     </div>
-    <button class="btn-reset btn btn--check menu__btn menu__btn--mob modal-btn">
+    <button class="btn-reset btn btn--check menu__btn menu__btn--mob js-modal-trigger" aria-haspopup="dialog"
+      aria-controls="contactModal">
       оставить заявку
     </button>
   </div>
@@ -499,8 +503,7 @@
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
               <video loop preload="metadata" loading="lazy">
-
-                <source src="site.mp4" type="video/mp4">
+                <source src="./site.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -527,7 +530,7 @@
             <div class="prod-item__video">
               <video loop autoplay muted disablePictureInPicture controlsList="nodownload nofullscreen"
                 preload="metadata">
-                <source src="app.mp4" type="video/mp4">
+                <source src="./app.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -553,7 +556,7 @@
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
               <video loop disablePictureInPicture controlsList="nodownload nofullscreen">
-                <source src="loyal.mp4" type="video/mp4">
+                <source src="./loyal.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -581,7 +584,7 @@
             <div class="prod-item__video">
               <video loop>
 
-                <source src="cour.mp4" type="video/mp4">
+                <source src="./cour.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -607,7 +610,7 @@
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
               <video loop disablePictureInPicture controlsList="nodownload nofullscreen">
-                <source src="qr.mp4" type="video/mp4">
+                <source src="./qr.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -634,7 +637,7 @@
             <div class="prod-item__video">
               <video loop>
 
-                <source src="market.mp4" type="video/mp4">
+                <source src="./market.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -651,12 +654,19 @@
                 loading="lazy" />
             </div>
             <div class="prod-slider__content">
-              <h3 class="prod-slider__title">Приложение и сайт</h3>
-              <a data-scroll-to="app" class="prod-slider__link" aria-label="Подробнее о приложении и сайте">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+              <h3 class="prod-slider__title">Мобильное приложение</h3>
+              <p class="prod-slider__desc">
+                Собственное брендированное приложение для ресторана
+                с программой лояльности
+              </p>
+              <a href="#app" class="prod-slider__link">
+                <span class="visually-hidden">Подробнее о приложении и сайте</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true">
-                  <path
-                    d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
+                  <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
               </a>
             </div>
@@ -726,7 +736,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">SellKit — партнёр iiko</h3>
               <a href="https://store.iiko.ru/sellkit" target="_blank" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Перейти в магазин iiko</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -746,7 +758,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">Телеграмм канал</h3>
               <a href="https://t.me/+HKYJVVDRNlhkMDVi" target="_blank" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Присоединиться к каналу в Telegram</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -763,7 +777,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">Стоимость решения</h3>
               <a data-scroll-to="plans" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Перейти к тарифам</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -802,12 +818,19 @@
                 loading="lazy" />
             </div>
             <div class="prod-slider__content">
-              <h3 class="prod-slider__title">Приложение и сайт</h3>
-              <a data-scroll-to="app" class="prod-slider__link" aria-label="Подробнее о приложении и сайте">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+              <h3 class="prod-slider__title">Мобильное приложение</h3>
+              <p class="prod-slider__desc">
+                Собственное брендированное приложение для ресторана
+                с программой лояльности
+              </p>
+              <a href="#app" class="prod-slider__link">
+                <span class="visually-hidden">Подробнее о приложении и сайте</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true">
-                  <path
-                    d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
+                  <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
               </a>
             </div>
@@ -877,7 +900,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">SellKit — партнёр iiko</h3>
               <a href="https://store.iiko.ru/sellkit" target="_blank" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Перейти в магазин iiko</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -897,7 +922,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">Телеграмм канал</h3>
               <a href="https://t.me/+HKYJVVDRNlhkMDVi" target="_blank" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Присоединиться к каналу в Telegram</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -914,7 +941,9 @@
             <div class="prod-slider__content">
               <h3 class="prod-slider__title">Стоимость решения</h3>
               <a data-scroll-to="plans" class="prod-slider__link">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="visually-hidden">Перейти к тарифам</span>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true">
                   <path
                     d="M0.466595 6.54312C0.466595 6.23279 0.732719 5.98114 1.061 5.98114L13.8917 5.98114L8.96238 1.3207C8.73027 1.10123 8.73027 0.745398 8.96238 0.525929C9.1945 0.306461 9.57088 0.306461 9.80299 0.525929L15.7471 6.14574C15.9792 6.36525 15.9792 6.72105 15.7471 6.9405L9.80299 12.5603C9.57088 12.7798 9.1945 12.7798 8.96238 12.5603C8.73027 12.3409 8.73027 11.9851 8.96238 11.7656L13.8917 7.10511L1.061 7.10511C0.732719 7.10511 0.466595 6.85351 0.466595 6.54312Z" />
                 </svg>
@@ -2849,9 +2878,10 @@
 
   <div class="business__header">
     <div class="business__video">
-      <video autoplay playsinline muted loop>
+      <video autoplay playsinline muted loop controls="false" preload="metadata">
         <source src="./marketing.webm" type="video/webm">
         <source src="./marketing.mp4" type="video/mp4">
+        <p>Ваш браузер не поддерживает HTML5 видео.</p>
       </video>
     </div>
     <div class="container business__container">
@@ -2873,8 +2903,8 @@
           <meta itemprop="itemListOrder" content="Unordered">
           <meta itemprop="numberOfItems" content="5">
 
-          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="0"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+          <div class="business__item loyal-item loyal-item--white" role="listitem" data-aos="draw-plus"
+            data-aos-delay="0" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
             <meta itemprop="position" content="1">
             <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="100">
               <div class="loyal-item__fig">01</div>
@@ -2888,8 +2918,8 @@
             </div>
           </div>
 
-          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="200"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+          <div class="business__item loyal-item loyal-item--white" role="listitem" data-aos="draw-plus"
+            data-aos-delay="200" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
             <meta itemprop="position" content="2">
             <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="300">
               <div class="loyal-item__fig">02</div>
@@ -2903,8 +2933,8 @@
             </div>
           </div>
 
-          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="400"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+          <div class="business__item loyal-item loyal-item--white" role="listitem" data-aos="draw-plus"
+            data-aos-delay="400" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
             <meta itemprop="position" content="3">
             <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="500">
               <div class="loyal-item__fig">03</div>
@@ -2917,8 +2947,8 @@
             </div>
           </div>
 
-          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="600"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+          <div class="business__item loyal-item loyal-item--white" role="listitem" data-aos="draw-plus"
+            data-aos-delay="600" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
             <meta itemprop="position" content="4">
             <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="700">
               <div class="loyal-item__fig">04</div>
@@ -2932,8 +2962,8 @@
             </div>
           </div>
 
-          <div class="business__item loyal-item loyal-item--white" data-aos="draw-plus" data-aos-delay="800"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+          <div class="business__item loyal-item loyal-item--white" role="listitem" data-aos="draw-plus"
+            data-aos-delay="800" itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
             <meta itemprop="position" content="5">
             <div class="loyal-item__content" data-aos="fade-up" data-aos-delay="900">
               <div class="loyal-item__fig">05</div>
@@ -3782,7 +3812,7 @@
       <div class="footer__right">
 
         <a href="tel:+79953770038" class="footer__link"
-          aria-label="Позвонить по телефону">+7 995 377-00-38</a>
+          aria-label="Позвонить по телефону"><span>+</span>7 (995) 377-00-38</a>
         <a href="https://t.me/SellKitApp" target="_blank" class="footer__link" aria-label="Написать в Telegram">написать
           в telegram</a>
         <a href="mailto:vladpertcev@mail.ru" class="footer__link" aria-label="Написать на почту">vladpertcev@mail.ru</a>
