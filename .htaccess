@@ -58,24 +58,13 @@ AddType image/svg+xml .svg
 AddType application/font-woff2 .woff2
 AddType application/font-woff .woff
 
-# Запрет доступа к директориям
-RewriteEngine On
-
-# Запрет прямого доступа к директориям
-RedirectMatch 403 ^/Asia/?$
-RedirectMatch 403 ^/Siriya/?$
-RedirectMatch 403 ^/cases/?$
-RedirectMatch 403 ^/mama/?$
-RedirectMatch 403 ^/zapad/?$
-
-# Дополнительная защита директорий
-<DirectoryMatch "^/.*(Asia|Siriya|cases|mama|zapad)/">
-    Order deny,allow
-    Deny from all
-</DirectoryMatch>
-
-# Защита от просмотра содержимого директорий
+# Защита от индексации директорий
 Options -Indexes
+
+# Создание robots.txt правил через .htaccess
+<FilesMatch "^(Asia|Siriya|cases|mama|zapad)/">
+    Header set X-Robots-Tag "noindex, nofollow"
+</FilesMatch>
 
 # Запрет доступа к конфигурационным файлам
 <FilesMatch "^\.">
