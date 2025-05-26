@@ -10,8 +10,8 @@ export default function initSliders() {
       slidesPerView: "auto",
       spaceBetween: 13,
       loop: true,
-      loopedSlides: 8, // Указываем количество слайдов для правильной работы loop
-      speed: 4000,
+
+      speed: 6000,
       allowTouchMove: true,
       grabCursor: true,
       freeMode: {
@@ -24,13 +24,7 @@ export default function initSliders() {
         delay: 1,
         disableOnInteraction: false,
         pauseOnMouseEnter: false,
-        stopOnLastSlide: false,
       },
-
-      // Настройки для корректной работыループа
-      watchSlidesProgress: true,
-      observer: true,
-      observeParents: true,
     });
 
     let isAutoplayPaused = false;

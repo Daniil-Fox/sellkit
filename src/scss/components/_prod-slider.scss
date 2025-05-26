@@ -109,11 +109,7 @@
     }
   }
 
-  .swiper-wrapper {
-    transition-timing-function: linear !important;
-  }
-
-  .swiper-slide {
+  &__wrapper {
     position: relative;
     width: 350px;
     aspect-ratio: 1 / 1;
@@ -131,6 +127,14 @@
     @include mobile {
       width: 156px;
     }
+  }
+
+  .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+
+  .swiper-slide {
+    width: auto;
     @include hover {
       transform: translateY(-5px);
 
