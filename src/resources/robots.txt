@@ -1,0 +1,17 @@
+User-agent: *
+
+Disallow: /Asia/
+Disallow: /Siriya/
+Disallow: /cases/
+Disallow: /mama/
+Disallow: /zapad/
+
+Disallow: /Asia/*
+Disallow: /Siriya/*
+Disallow: /cases/*
+Disallow: /mama/*
+Disallow: /zapad/*
+
+Allow: /
+
+Sitemap: https://sellkit.cc/sitemap.xml
