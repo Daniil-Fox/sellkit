@@ -215,7 +215,7 @@
     opacity: 0;
 
     background-image: url("./../loader.gif");
-    background-size: 100px 100px;
+    background-size: 150px 150px;
     background-position: center;
     background-repeat: no-repeat;
 
@@ -227,6 +227,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    @include mobile {
+      background-size: 120px 120px;
     }
   }
 
