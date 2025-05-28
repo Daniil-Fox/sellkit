@@ -104494,19 +104494,18 @@ function initDelivery() {
             topContent.style.display = "none";
             topContent.style.opacity = 0;
             content.style.maxHeight = contentHeight + "px";
-
-            // Скролл только на мобильных
-            if (isMobile) {
+          });
+          content.addEventListener("transitionend", function onEnd() {
+            // Плавная прокрутка к открытому блоку после раскрытия
+            setTimeout(() => {
               const headerHeight = 80;
               const offset = 20;
               const itemTop = item.getBoundingClientRect().top + window.scrollY;
-              const randomOffset = Math.random() * 2 - 1;
               window.scrollTo({
-                top: itemTop - headerHeight - offset + randomOffset
+                top: itemTop - headerHeight - offset,
+                behavior: "smooth"
               });
-            }
-          });
-          content.addEventListener("transitionend", function onEnd() {
+            }, 100);
             item.removeAttribute("data-animating");
             content.removeEventListener("transitionend", onEnd);
           }, {
@@ -105803,94 +105802,96 @@ if (modalButtons.length > 0) {
 __webpack_require__.r(__webpack_exports__);
 // Проверка на мобильное устройство
 const isMobile = window.innerWidth < 768;
-if (!isMobile) {
-  const mouse = {
-    x: 0,
-    y: 0
-  };
-  const mouseElem = document.querySelector(".mouse");
-  window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    mouseElem.style.left = `${mouse.x}px`;
-    mouseElem.style.top = `${mouse.y}px`;
-  });
-  document.querySelectorAll("a").forEach(el => {
-    el.addEventListener("mouseenter", e => {
-      mouseElem.classList.add("hovered");
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isMobile) {
+    const mouse = {
+      x: 0,
+      y: 0
+    };
+    const mouseElem = document.querySelector(".mouse");
+    window.addEventListener("mousemove", e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouseElem.style.left = `${mouse.x}px`;
+      mouseElem.style.top = `${mouse.y}px`;
     });
-    el.addEventListener("mouseleave", e => {
-      mouseElem.classList.remove("hovered");
-    });
-    el.addEventListener("mousedown", e => {
-      mouseElem.classList.add("active");
-    });
-    el.addEventListener("mouseup", e => {
-      mouseElem.classList.remove("active");
-    });
-  });
-  document.querySelectorAll("button").forEach(el => {
-    el.addEventListener("mouseenter", e => {
-      mouseElem.classList.add("hovered");
-    });
-    el.addEventListener("mouseleave", e => {
-      mouseElem.classList.remove("hovered");
-    });
-    el.addEventListener("mousedown", e => {
-      mouseElem.classList.add("active");
-    });
-    el.addEventListener("mouseup", e => {
-      mouseElem.classList.remove("active");
-    });
-  });
-  document.addEventListener("mousedown", e => {
-    mouseElem.classList.add("active");
-  });
-  document.addEventListener("mouseup", e => {
-    mouseElem.classList.remove("active");
-  });
-  const orealZone = document.querySelectorAll("[data-mouse-oreal]");
-  const blueZone = document.querySelectorAll("[data-mouse-blue]");
-  const oreal = document.querySelector("#oreal");
-  if (orealZone.length > 0) {
-    orealZone.forEach(el => {
-      const oreal = document.createElement("div");
-      oreal.classList.add("oreal");
-      el.style.position = "relative";
-      el.append(oreal);
-      const orealWidth = oreal.clientWidth;
-      const orealHeight = oreal.clientHeight;
-      el.addEventListener("mouseenter", () => {
-        oreal.style.opacity = "1";
-      });
-      el.addEventListener("mouseleave", () => {
-        oreal.style.opacity = "0";
-      });
-      el.addEventListener("mousemove", e => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - orealWidth / 2;
-        const y = e.clientY - rect.top - orealHeight / 2;
-        oreal.style.transform = `translate(${x}px, ${y}px)`;
-      });
-    });
-  }
-  if (blueZone.length > 0) {
-    blueZone.forEach(el => {
+    document.querySelectorAll("a").forEach(el => {
       el.addEventListener("mouseenter", e => {
-        mouseElem.classList.add("white");
+        mouseElem.classList.add("hovered");
       });
       el.addEventListener("mouseleave", e => {
-        mouseElem.classList.remove("white");
+        mouseElem.classList.remove("hovered");
+      });
+      el.addEventListener("mousedown", e => {
+        mouseElem.classList.add("active");
+      });
+      el.addEventListener("mouseup", e => {
+        mouseElem.classList.remove("active");
       });
     });
+    document.querySelectorAll("button").forEach(el => {
+      el.addEventListener("mouseenter", e => {
+        mouseElem.classList.add("hovered");
+      });
+      el.addEventListener("mouseleave", e => {
+        mouseElem.classList.remove("hovered");
+      });
+      el.addEventListener("mousedown", e => {
+        mouseElem.classList.add("active");
+      });
+      el.addEventListener("mouseup", e => {
+        mouseElem.classList.remove("active");
+      });
+    });
+    document.addEventListener("mousedown", e => {
+      mouseElem.classList.add("active");
+    });
+    document.addEventListener("mouseup", e => {
+      mouseElem.classList.remove("active");
+    });
+    const orealZone = document.querySelectorAll("[data-mouse-oreal]");
+    const blueZone = document.querySelectorAll("[data-mouse-blue]");
+    const oreal = document.querySelector("#oreal");
+    if (orealZone.length > 0) {
+      orealZone.forEach(el => {
+        const oreal = document.createElement("div");
+        oreal.classList.add("oreal");
+        el.style.position = "relative";
+        el.append(oreal);
+        const orealWidth = oreal.clientWidth;
+        const orealHeight = oreal.clientHeight;
+        el.addEventListener("mouseenter", () => {
+          oreal.style.opacity = "1";
+        });
+        el.addEventListener("mouseleave", () => {
+          oreal.style.opacity = "0";
+        });
+        el.addEventListener("mousemove", e => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - orealWidth / 2;
+          const y = e.clientY - rect.top - orealHeight / 2;
+          oreal.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+    }
+    if (blueZone.length > 0) {
+      blueZone.forEach(el => {
+        el.addEventListener("mouseenter", e => {
+          mouseElem.classList.add("white");
+        });
+        el.addEventListener("mouseleave", e => {
+          mouseElem.classList.remove("white");
+        });
+      });
+    }
+  } else {
+    // Удаляем элемент курсора на мобильных устройствах
+    const mouseElem = document.querySelector(".mouse");
+    if (mouseElem) {
+      mouseElem.remove();
+    }
   }
-} else {
-  // Удаляем элемент курсора на мобильных устройствах
-  const mouseElem = document.querySelector(".mouse");
-  if (mouseElem) {
-    mouseElem.remove();
-  }
-}
+});
 
 /***/ }),
 
@@ -106011,10 +106012,21 @@ function initProducts() {
     itemTitle.dataset.fullText = itemTitle.textContent;
 
     // Оптимизируем загрузку видео
-    if (index !== 1 && video) {
+    if (video) {
       video.setAttribute("preload", "metadata"); // Отключаем предзагрузку
       video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
+      video.setAttribute("playsinline", ""); // Предотвращаем полноэкранное воспроизведение
+      video.setAttribute("webkit-playsinline", ""); // Для Safari
+      video.setAttribute("controls", "false");
+      video.disablePictureInPicture = true; // Отключаем картинку в картинке
       video.muted = true; // Гарантируем, что видео будет без звука
+
+      // Обработчик ошибок воспроизведения
+      video.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement === video) {
+          document.exitFullscreen();
+        }
+      });
     }
     item.addEventListener("click", e => {
       e.preventDefault();
@@ -106035,11 +106047,16 @@ function initProducts() {
       // Оптимизированное воспроизведение видео
       if (video) {
         if (video.readyState >= 2) {
-          video.play();
+          video.play().catch(() => {
+            // Игнорируем ошибки воспроизведения
+            console.warn("Автовоспроизведение видео заблокировано");
+          });
         } else {
           video.load(); // Загружаем видео при необходимости
           video.addEventListener("loadeddata", () => {
-            video.play();
+            video.play().catch(() => {
+              console.warn("Автовоспроизведение видео заблокировано");
+            });
           }, {
             once: true
           });

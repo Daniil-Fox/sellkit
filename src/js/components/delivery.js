@@ -164,24 +164,24 @@ export default function initDelivery() {
               topContent.style.display = "none";
               topContent.style.opacity = 0;
               content.style.maxHeight = contentHeight + "px";
-
-              // Скролл только на мобильных
-              if (isMobile) {
-                const headerHeight = 80;
-                const offset = 20;
-                const itemTop =
-                  item.getBoundingClientRect().top + window.scrollY;
-                const randomOffset = Math.random() * 2 - 1;
-
-                window.scrollTo({
-                  top: itemTop - headerHeight - offset + randomOffset,
-                });
-              }
             });
 
             content.addEventListener(
               "transitionend",
               function onEnd() {
+                // Плавная прокрутка к открытому блоку после раскрытия
+                setTimeout(() => {
+                  const headerHeight = 80;
+                  const offset = 20;
+                  const itemTop =
+                    item.getBoundingClientRect().top + window.scrollY;
+
+                  window.scrollTo({
+                    top: itemTop - headerHeight - offset,
+                    behavior: "smooth",
+                  });
+                }, 100);
+
                 item.removeAttribute("data-animating");
                 content.removeEventListener("transitionend", onEnd);
               },

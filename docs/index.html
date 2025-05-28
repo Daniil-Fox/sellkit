@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content="#111111">
   <meta name="format-detection" content="telephone=no">
+  <meta name="google" content="notranslate">
+  <meta name="referrer" content="no-referrer-when-downgrade">
 
   <!-- Предварительные подключения для ускорения загрузки ресурсов -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +20,6 @@
   <title>SellKit — приложение, сайт и лояльность для ресторана и доставки еды</title>
   <meta name="description"
     content="Полный набор инструментов для ресторанов: создайте сайт, мобильное приложение, программу лояльности и управляйте аналитикой в одной системе. Интеграция с iiko">
-  <meta name="keywords"
-    content="sellkit, автоматизация ресторана, доставка еды, мобильное приложение для ресторана, система лояльности, курьерский софт, iiko партнер">
   <meta name="author" content="SellKit">
   <meta name="robots" content="index, follow">
 
@@ -69,11 +69,28 @@
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+7 (988) 565 00 38",
-        "contactType": "customer service"
+        "contactType": "customer service",
+        "availableLanguage": "Russian"
       },
-      "sameAs": ["https://t.me/sellkit", "https://vk.com/sellkit"]
+      "sameAs": ["https://t.me/sellkit", "https://vk.com/sellkit"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://sellkit.cc/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
     }
   </script>
+
+  <!-- Критические стили и скрипты -->
+  <link rel="stylesheet" href="css/vendor.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <script defer src="js/main.js"></script>
+</head>
+
+<body class="page__body">
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
     (function (m, e, t, r, i, k, a) {
@@ -95,14 +112,6 @@
     <div><img src="https://mc.yandex.ru/watch/95717947" style="position:absolute; left:-9999px;" alt="" /></div>
   </noscript>
   <!-- /Yandex.Metrika counter -->
-
-  <!-- Критические стили и скрипты -->
-  <link rel="stylesheet" href="css/vendor.css" />
-  <link rel="stylesheet" href="css/main.css" />
-  <script defer src="js/main.js"></script>
-</head>
-
-<body class="page__body">
   <div class="site-container">
     <header class="header" itemscope itemtype="https://schema.org/WPHeader">
   <div class="header__container">
@@ -1093,7 +1102,7 @@
         </div>
       </div>
 
-      <div class="lb__block lb" data-mouse-blue" itemscope itemtype="https://schema.org/Offer">
+      <div class="lb__block lb" data-mouse-blue itemscope itemtype="https://schema.org/Offer">
         <div class="lb__header">
           <div class="lb__icon" aria-hidden="true"></div>
           <p class="lb__supertitle">Функциональное и стабильное решение</p>

@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="theme-color" content="#111111" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="google" content="notranslate">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <title>
     SellKit — CRM, аналитика, отчеты, маркетинг в экосистеме для ресторана и доставки еды
@@ -27,6 +32,8 @@
   <meta property="og:image" content="https://sellkit.cc/img/hero-thumb.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="SellKit" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -48,6 +55,41 @@
   <link rel="preload" href="fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
+  <!-- Schema.org разметка -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SellKit Analytics",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Аналитическая платформа для ресторанного бизнеса",
+      "featureList": [
+        "Анализ продаж",
+        "Отчеты по эффективности",
+        "Метрики доставки",
+        "Аналитика клиентов",
+        "Интеграция с iiko"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "RUB"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/vendor.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <script defer src="js/main.js"></script>
+</head>
+
+<body class="page__body">
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
     (function (m, e, t, r, i, k, a) {
@@ -69,32 +111,6 @@
     <div><img src="https://mc.yandex.ru/watch/95717947" style="position:absolute; left:-9999px;" alt="" /></div>
   </noscript>
   <!-- /Yandex.Metrika counter -->
-
-  <!-- Schema.org разметка -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SellKit Analytics",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "description": "Аналитическая платформа для ресторанного бизнеса",
-      "featureList": [
-        "Анализ продаж",
-        "Отчеты по эффективности",
-        "Метрики доставки",
-        "Аналитика клиентов",
-        "Интеграция с iiko"
-      ]
-    }
-  </script>
-
-  <link rel="stylesheet" href="css/vendor.css" />
-  <link rel="stylesheet" href="css/main.css" />
-  <script defer src="js/main.js"></script>
-</head>
-
-<body class="page__body">
   <div class="site-container">
     <header class="header" itemscope itemtype="https://schema.org/WPHeader">
   <div class="header__container">

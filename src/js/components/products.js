@@ -83,10 +83,21 @@ export default function initProducts() {
     itemTitle.dataset.fullText = itemTitle.textContent;
 
     // Оптимизируем загрузку видео
-    if (index !== 1 && video) {
+    if (video) {
       video.setAttribute("preload", "metadata"); // Отключаем предзагрузку
       video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
+      video.setAttribute("playsinline", ""); // Предотвращаем полноэкранное воспроизведение
+      video.setAttribute("webkit-playsinline", ""); // Для Safari
+      video.setAttribute("controls", "false");
+      video.disablePictureInPicture = true; // Отключаем картинку в картинке
       video.muted = true; // Гарантируем, что видео будет без звука
+
+      // Обработчик ошибок воспроизведения
+      video.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement === video) {
+          document.exitFullscreen();
+        }
+      });
     }
 
     item.addEventListener("click", (e) => {
@@ -111,13 +122,18 @@ export default function initProducts() {
       // Оптимизированное воспроизведение видео
       if (video) {
         if (video.readyState >= 2) {
-          video.play();
+          video.play().catch(() => {
+            // Игнорируем ошибки воспроизведения
+            console.warn("Автовоспроизведение видео заблокировано");
+          });
         } else {
           video.load(); // Загружаем видео при необходимости
           video.addEventListener(
             "loadeddata",
             () => {
-              video.play();
+              video.play().catch(() => {
+                console.warn("Автовоспроизведение видео заблокировано");
+              });
             },
             { once: true }
           );
