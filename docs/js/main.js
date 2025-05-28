@@ -106017,7 +106017,6 @@ function initProducts() {
       video.setAttribute("loading", "lazy"); // Добавляем ленивую загрузку
       video.setAttribute("playsinline", ""); // Предотвращаем полноэкранное воспроизведение
       video.setAttribute("webkit-playsinline", ""); // Для Safari
-      video.setAttribute("controls", "false");
       video.disablePictureInPicture = true; // Отключаем картинку в картинке
       video.muted = true; // Гарантируем, что видео будет без звука
 
