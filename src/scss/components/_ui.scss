@@ -109,8 +109,7 @@
   background-color: #006aff;
   pointer-events: none;
   border: 0.5px solid #006aff;
-  transition: background-color 0.2s ease-in, transform 0.2s ease-in,
-    opacity 0.2s ease-in;
+  transition: background-color 0.2s ease-in, opacity 0.2s ease-in;
   @include tablet {
     display: none;
   }

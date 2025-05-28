@@ -103,7 +103,7 @@
 
   @include hover {
     &::after {
-      animation: slide 1.5s ease-in infinite;
+      animation: slide 1.5s ease-in infinite forwards;
     }
   }
 

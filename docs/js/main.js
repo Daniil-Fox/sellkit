@@ -16274,49 +16274,17 @@ function initDeferredLoading() {
     setupDeferredLoading();
   }
   function setupDeferredLoading() {
-    // Отложенная загрузка тяжелых скриптов
-    deferNonCriticalScripts();
-
     // Отложенная загрузка декоративных изображений
     lazyLoadDecorativeImages();
 
     // Отложенная загрузка нижней части страницы
-    deferBelowFoldContent();
+    // deferBelowFoldContent();
 
     // Отложенная загрузка шрифтов
-    optimizeFontLoading();
+    // optimizeFontLoading();
   }
 
   // Отложенная загрузка тяжелых JS-скриптов
-  function deferNonCriticalScripts() {
-    // Список скриптов, которые можно загрузить отложенно
-    const nonCriticalScripts = [
-    // Внешние аналитические скрипты и т.д.
-    {
-      src: "https://www.google-analytics.com/analytics.js",
-      async: true,
-      defer: true
-    }, {
-      src: "https://www.googletagmanager.com/gtag/js",
-      async: true,
-      defer: true
-    }];
-
-    // Откладываем загрузку на несколько секунд после загрузки страницы
-    setTimeout(() => {
-      nonCriticalScripts.forEach(scriptData => {
-        const scriptElement = document.createElement("script");
-
-        // Устанавливаем атрибуты скрипта
-        scriptElement.src = scriptData.src;
-        if (scriptData.async) scriptElement.async = true;
-        if (scriptData.defer) scriptElement.defer = true;
-
-        // Добавляем скрипт в конец body
-        document.body.appendChild(scriptElement);
-      });
-    }, isMobile ? 3000 : 1000); // Большая задержка для мобильных устройств
-  }
 
   // Отложенная загрузка декоративных изображений
   function lazyLoadDecorativeImages() {
@@ -17141,7 +17109,7 @@ __webpack_require__.r(__webpack_exports__);
 class LoyalParallax {
   constructor() {
     this.parallaxContainer = document.querySelector(".loyal-parallax");
-    if (!this.parallaxContainer) return;
+    if (!this.parallaxContainer || window.innerWidth <= 1024) return;
     this.images = this.parallaxContainer.querySelectorAll("img");
     this.scrollPosition = 0;
     this.ticking = false;
@@ -17961,86 +17929,95 @@ __webpack_require__.r(__webpack_exports__);
 const isMobile = window.innerWidth < 768;
 document.addEventListener("DOMContentLoaded", () => {
   if (!isMobile) {
-    const mouse = {
-      x: 0,
-      y: 0
-    };
     const mouseElem = document.querySelector(".mouse");
+    if (!mouseElem) return; // Если элемент курсора не найден, выходим
+
+    // Для основного курсора - используем transform
+    // CSS для .mouse должен быть типа: position: fixed; left: 0; top: 0; pointer-events: none;
+    // transform: translate3d(var(--mouse-x, 0px), var(--mouse-y, 0px), 0); (для плавности через CSS transition, если нужно)
+    // или напрямую через JS, как здесь.
+    // Начальное положение может быть скрыто (например, transform: scale(0)) и появляться при первом движении
+    let rafId;
     window.addEventListener("mousemove", e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouseElem.style.left = `${mouse.x}px`;
-      mouseElem.style.top = `${mouse.y}px`;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      rafId = requestAnimationFrame(() => {
+        // Используем translate3d для лучшей производительности (аппаратное ускорение)
+        mouseElem.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      });
     });
-    document.querySelectorAll("a").forEach(el => {
-      el.addEventListener("mouseenter", e => {
+
+    // Делегирование событий для изменения состояния курсора на ссылках и кнопках
+    document.body.addEventListener("mouseover", e => {
+      if (e.target.closest("a") || e.target.closest("button")) {
         mouseElem.classList.add("hovered");
-      });
-      el.addEventListener("mouseleave", e => {
-        mouseElem.classList.remove("hovered");
-      });
-      el.addEventListener("mousedown", e => {
-        mouseElem.classList.add("active");
-      });
-      el.addEventListener("mouseup", e => {
-        mouseElem.classList.remove("active");
-      });
+      }
     });
-    document.querySelectorAll("button").forEach(el => {
-      el.addEventListener("mouseenter", e => {
-        mouseElem.classList.add("hovered");
-      });
-      el.addEventListener("mouseleave", e => {
+    document.body.addEventListener("mouseout", e => {
+      if (e.target.closest("a") || e.target.closest("button")) {
         mouseElem.classList.remove("hovered");
-      });
-      el.addEventListener("mousedown", e => {
-        mouseElem.classList.add("active");
-      });
-      el.addEventListener("mouseup", e => {
-        mouseElem.classList.remove("active");
-      });
+      }
     });
-    document.addEventListener("mousedown", e => {
+
+    // Общие mousedown/mouseup для эффекта "active" на курсоре
+    document.body.addEventListener("mousedown", e => {
       mouseElem.classList.add("active");
     });
-    document.addEventListener("mouseup", e => {
+    document.body.addEventListener("mouseup", e => {
       mouseElem.classList.remove("active");
     });
-    const orealZone = document.querySelectorAll("[data-mouse-oreal]");
-    const blueZone = document.querySelectorAll("[data-mouse-blue]");
-    const oreal = document.querySelector("#oreal");
-    if (orealZone.length > 0) {
-      orealZone.forEach(el => {
-        const oreal = document.createElement("div");
-        oreal.classList.add("oreal");
-        el.style.position = "relative";
-        el.append(oreal);
-        const orealWidth = oreal.clientWidth;
-        const orealHeight = oreal.clientHeight;
-        el.addEventListener("mouseenter", () => {
-          oreal.style.opacity = "1";
-        });
-        el.addEventListener("mouseleave", () => {
-          oreal.style.opacity = "0";
-        });
-        el.addEventListener("mousemove", e => {
-          const rect = el.getBoundingClientRect();
-          const x = e.clientX - rect.left - orealWidth / 2;
-          const y = e.clientY - rect.top - orealHeight / 2;
-          oreal.style.transform = `translate(${x}px, ${y}px)`;
+
+    // Эффект "oreal" для [data-mouse-oreal]
+    const orealZones = document.querySelectorAll("[data-mouse-oreal]");
+    orealZones.forEach(zone => {
+      const orealChild = document.createElement("div"); // Переименовал, чтобы не конфликтовать с переменной oreal в других контекстах, если они есть
+      orealChild.classList.add("oreal");
+
+      // Убедимся, что у зоны есть position, иначе absolute/relative позиционирование orealChild будет относительно другого предка
+      if (getComputedStyle(zone).position === "static") {
+        zone.style.position = "relative";
+      }
+      zone.append(orealChild);
+      const orealWidth = orealChild.offsetWidth;
+      const orealHeight = orealChild.offsetHeight;
+      let zoneRect = null;
+      let orealRafId;
+      zone.addEventListener("mouseenter", () => {
+        orealChild.style.opacity = "1";
+      });
+      zone.addEventListener("mouseleave", () => {
+        orealChild.style.opacity = "0";
+        zoneRect = null;
+        if (orealRafId) {
+          cancelAnimationFrame(orealRafId);
+        }
+      });
+      zone.addEventListener("mousemove", e => {
+        zoneRect = zone.getBoundingClientRect();
+        // Вычисляем позицию относительно текущего элемента zone
+        const x = e.clientX - zoneRect.left - orealWidth / 2;
+        const y = e.clientY - zoneRect.top - orealHeight / 2;
+        if (orealRafId) {
+          cancelAnimationFrame(orealRafId);
+        }
+        // Анимируем orealChild через requestAnimationFrame
+        orealRafId = requestAnimationFrame(() => {
+          orealChild.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         });
       });
-    }
-    if (blueZone.length > 0) {
-      blueZone.forEach(el => {
-        el.addEventListener("mouseenter", e => {
-          mouseElem.classList.add("white");
-        });
-        el.addEventListener("mouseleave", e => {
-          mouseElem.classList.remove("white");
-        });
+    });
+
+    // Эффект для [data-mouse-blue]
+    const blueZones = document.querySelectorAll("[data-mouse-blue]");
+    blueZones.forEach(zone => {
+      zone.addEventListener("mouseenter", e => {
+        mouseElem.classList.add("white");
       });
-    }
+      zone.addEventListener("mouseleave", e => {
+        mouseElem.classList.remove("white");
+      });
+    });
   } else {
     // Удаляем элемент курсора на мобильных устройствах
     const mouseElem = document.querySelector(".mouse");
@@ -18488,7 +18465,6 @@ __webpack_require__.r(__webpack_exports__);
 
 swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper.use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.FreeMode, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay]);
 function initSliders() {
-  // Инициализация prod-slider
   const prodSliderElement = document.querySelector(".prod-slider");
   if (prodSliderElement) {
     const prodSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__.Swiper(".prod-slider", {
@@ -18502,63 +18478,34 @@ function initSliders() {
         enabled: true,
         momentum: false
       },
-      // Настройки автопрокрутки
       autoplay: {
         delay: 1,
         disableOnInteraction: false,
-        pauseOnMouseEnter: false
+        pauseOnMouseEnter: true
       }
     });
-    let isAutoplayPaused = false;
-    let autoplayResume;
-
-    // Обработчик наведения мыши
-    prodSlider.el.addEventListener("mouseenter", () => {
-      if (!isAutoplayPaused) {
-        prodSlider.autoplay.stop();
-        isAutoplayPaused = true;
-        clearTimeout(autoplayResume);
-      }
+    const handleSliderIntersection = entries => {
+      entries.forEach(entry => {
+        if (!prodSlider || !prodSlider.el || !prodSlider.autoplay || !prodSlider.params) return;
+        if (entry.isIntersecting) {
+          if (prodSlider.params.autoplay && typeof prodSlider.params.autoplay === "object" && prodSlider.params.autoplay.enabled !== false) {
+            if (!prodSlider.autoplay.running) {
+              prodSlider.el.classList.remove("swiper-paused-by-observer");
+              prodSlider.autoplay.start();
+            }
+          }
+        } else {
+          if (prodSlider.autoplay.running) {
+            prodSlider.el.classList.add("swiper-paused-by-observer");
+            prodSlider.autoplay.stop();
+          }
+        }
+      });
+    };
+    const sliderObserver = new IntersectionObserver(handleSliderIntersection, {
+      threshold: 0.01
     });
-
-    // Обработчик ухода мыши
-    prodSlider.el.addEventListener("mouseleave", () => {
-      if (isAutoplayPaused) {
-        autoplayResume = setTimeout(() => {
-          prodSlider.autoplay.start();
-          isAutoplayPaused = false;
-        }, 100);
-      }
-    });
-
-    // Обработчик начала касания
-    prodSlider.el.addEventListener("touchstart", () => {
-      if (!isAutoplayPaused) {
-        prodSlider.autoplay.stop();
-        isAutoplayPaused = true;
-        clearTimeout(autoplayResume);
-      }
-    });
-
-    // Обработчик окончания касания
-    prodSlider.el.addEventListener("touchend", () => {
-      if (isAutoplayPaused) {
-        autoplayResume = setTimeout(() => {
-          prodSlider.autoplay.start();
-          isAutoplayPaused = false;
-        }, 100);
-      }
-    });
-
-    // Запуск автопрокрутки при инициализации
-    prodSlider.autoplay.start();
-
-    // Обработчик для проверки состояния слайдера
-    prodSlider.on("autoplayStop", () => {
-      if (!isAutoplayPaused) {
-        prodSlider.autoplay.start();
-      }
-    });
+    sliderObserver.observe(prodSliderElement);
   }
 
   // Инициализация clients__thumbs

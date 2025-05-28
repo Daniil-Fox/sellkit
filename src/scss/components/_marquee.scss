@@ -19,7 +19,6 @@
     }
     @media (max-width: 768px) {
       animation: marquee-mobile 40s linear infinite;
-      will-change: transform;
     }
   }
   &__item {

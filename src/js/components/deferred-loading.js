@@ -13,54 +13,17 @@ export default function initDeferredLoading() {
   }
 
   function setupDeferredLoading() {
-    // Отложенная загрузка тяжелых скриптов
-    deferNonCriticalScripts();
-
     // Отложенная загрузка декоративных изображений
     lazyLoadDecorativeImages();
 
     // Отложенная загрузка нижней части страницы
-    deferBelowFoldContent();
+    // deferBelowFoldContent();
 
     // Отложенная загрузка шрифтов
-    optimizeFontLoading();
+    // optimizeFontLoading();
   }
 
   // Отложенная загрузка тяжелых JS-скриптов
-  function deferNonCriticalScripts() {
-    // Список скриптов, которые можно загрузить отложенно
-    const nonCriticalScripts = [
-      // Внешние аналитические скрипты и т.д.
-      {
-        src: "https://www.google-analytics.com/analytics.js",
-        async: true,
-        defer: true,
-      },
-      {
-        src: "https://www.googletagmanager.com/gtag/js",
-        async: true,
-        defer: true,
-      },
-    ];
-
-    // Откладываем загрузку на несколько секунд после загрузки страницы
-    setTimeout(
-      () => {
-        nonCriticalScripts.forEach((scriptData) => {
-          const scriptElement = document.createElement("script");
-
-          // Устанавливаем атрибуты скрипта
-          scriptElement.src = scriptData.src;
-          if (scriptData.async) scriptElement.async = true;
-          if (scriptData.defer) scriptElement.defer = true;
-
-          // Добавляем скрипт в конец body
-          document.body.appendChild(scriptElement);
-        });
-      },
-      isMobile ? 3000 : 1000
-    ); // Большая задержка для мобильных устройств
-  }
 
   // Отложенная загрузка декоративных изображений
   function lazyLoadDecorativeImages() {

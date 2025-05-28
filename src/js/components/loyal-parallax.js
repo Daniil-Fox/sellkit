@@ -2,7 +2,7 @@ export default class LoyalParallax {
   constructor() {
     this.parallaxContainer = document.querySelector(".loyal-parallax");
 
-    if (!this.parallaxContainer) return;
+    if (!this.parallaxContainer || window.innerWidth <= 1024) return;
 
     this.images = this.parallaxContainer.querySelectorAll("img");
     this.scrollPosition = 0;
