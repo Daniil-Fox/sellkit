@@ -151,7 +151,8 @@
     font-size: 12px;
     line-height: 140%;
     color: #fff;
-    transition: 0.2s ease-in;
+    transition: background-color 0.2s ease-in, color 0.2s ease-in,
+      border-color 0.2s ease-in;
     @include mobile {
       padding: 5.7px;
       font-size: 7px;

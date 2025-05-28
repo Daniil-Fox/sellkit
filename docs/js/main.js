@@ -16427,15 +16427,6 @@ function initDelivery() {
   deliverySection.style.perspective = "1000px";
 
   // Оптимизация для фоновых элементов
-  const backgroundShapes = document.querySelectorAll(".delivery__star");
-  backgroundShapes.forEach(shape => {
-    shape.style.willChange = "transform";
-    // На мобильных снижаем сложность фоновых эффектов
-    if (isMobile) {
-      shape.style.filter = "blur(200px)"; // Менее детализированное размытие
-      shape.style.opacity = "0.5"; // Снижаем непрозрачность
-    }
-  });
 
   // Оптимизация анимации раскрытия блоков
   deliveryItems.forEach(item => {

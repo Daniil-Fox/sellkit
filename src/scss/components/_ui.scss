@@ -127,7 +127,7 @@
     background-color: #006aff;
     opacity: 0;
     pointer-events: none;
-    transition: 0.2s ease-in;
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
   }
 
   &.hovered {
