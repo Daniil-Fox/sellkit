@@ -16166,19 +16166,6 @@ function initAOS() {
     }, 300);
   });
 
-  // Оптимизированный обработчик события прокрутки с троттлингом
-  let scrollTimeout;
-  window.addEventListener("scroll", function () {
-    if (!scrollTimeout) {
-      scrollTimeout = setTimeout(() => {
-        aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
-        scrollTimeout = null;
-      }, 100);
-    }
-  }, {
-    passive: true
-  });
-
   // При загрузке всех ресурсов
   window.addEventListener("load", function () {
     setTimeout(() => {
@@ -18103,18 +18090,17 @@ function initProducts() {
       if (video) {
         video.setAttribute("preload", "metadata");
         // Используем requestAnimationFrame для более плавного воспроизведения
-        requestAnimationFrame(() => {
-          // Воспроизводим видео только когда метаданные загружены
-          if (video.readyState >= 2) {
+
+        // Воспроизводим видео только когда метаданные загружены
+        if (video.readyState >= 2) {
+          video.play();
+        } else {
+          video.addEventListener("loadeddata", () => {
             video.play();
-          } else {
-            video.addEventListener("loadeddata", () => {
-              video.play();
-            }, {
-              once: true
-            });
-          }
-        });
+          }, {
+            once: true
+          });
+        }
       }
 
       // Оптимизированный эффект печатания текста

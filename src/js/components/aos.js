@@ -46,21 +46,6 @@ export default function initAOS() {
     }, 300);
   });
 
-  // Оптимизированный обработчик события прокрутки с троттлингом
-  let scrollTimeout;
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollTimeout) {
-        scrollTimeout = setTimeout(() => {
-          AOS.refresh();
-          scrollTimeout = null;
-        }, 100);
-      }
-    },
-    { passive: true }
-  );
-
   // При загрузке всех ресурсов
   window.addEventListener("load", function () {
     setTimeout(() => {

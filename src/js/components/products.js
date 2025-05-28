@@ -35,20 +35,19 @@ export default function initProducts() {
       if (video) {
         video.setAttribute("preload", "metadata");
         // Используем requestAnimationFrame для более плавного воспроизведения
-        requestAnimationFrame(() => {
-          // Воспроизводим видео только когда метаданные загружены
-          if (video.readyState >= 2) {
-            video.play();
-          } else {
-            video.addEventListener(
-              "loadeddata",
-              () => {
-                video.play();
-              },
-              { once: true }
-            );
-          }
-        });
+
+        // Воспроизводим видео только когда метаданные загружены
+        if (video.readyState >= 2) {
+          video.play();
+        } else {
+          video.addEventListener(
+            "loadeddata",
+            () => {
+              video.play();
+            },
+            { once: true }
+          );
+        }
       }
 
       // Оптимизированный эффект печатания текста
