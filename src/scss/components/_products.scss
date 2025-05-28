@@ -303,7 +303,10 @@ $shadows-big: multiple-box-shadow(100);
   background: none;
   box-shadow: $shadows-small;
   animation: animStar 30s linear infinite;
-
+  @include tablet {
+    display: none;
+    animation: none;
+  }
   &:after {
     content: " ";
     position: absolute;
@@ -322,7 +325,10 @@ $shadows-big: multiple-box-shadow(100);
   background: none;
   box-shadow: $shadows-medium;
   animation: animStar 30s linear infinite;
-
+  @include tablet {
+    display: none;
+    animation: none;
+  }
   &:after {
     content: " ";
     position: absolute;
@@ -341,7 +347,10 @@ $shadows-big: multiple-box-shadow(100);
   background: none;
   box-shadow: $shadows-big;
   animation: animStar 30s linear infinite;
-
+  @include tablet {
+    display: none;
+    animation: none;
+  }
   &:after {
     content: " ";
     position: absolute;
