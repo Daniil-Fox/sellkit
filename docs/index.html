@@ -512,7 +512,7 @@
           </div>
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
-              <video loop preload="metadata" loading="lazy">
+              <video loop preload="metadata" loading="lazy" poster="./img/site.webp">
 
                 <source src="./site.mp4" type="video/mp4">
               </video>
@@ -540,7 +540,7 @@
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
               <video loop autoplay muted disablePictureInPicture controlsList="nodownload nofullscreen"
-                preload="metadata">
+                preload="metadata" poster="./img/app.webp">
 
                 <source src="./app.mp4" type="video/mp4">
               </video>
@@ -567,7 +567,7 @@
           </div>
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
-              <video loop disablePictureInPicture controlsList="nodownload nofullscreen">
+              <video loop disablePictureInPicture controlsList="nodownload nofullscreen" poster="./img/loyal.webp">
 
                 <source src="./loyal.mp4" type="video/mp4">
               </video>
@@ -595,7 +595,7 @@
           </div>
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
-              <video loop>
+              <video loop poster="./img/cour.webp">
 
                 <source src="./cour.mp4" type="video/mp4">
               </video>
@@ -622,7 +622,7 @@
           </div>
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
-              <video loop disablePictureInPicture controlsList="nodownload nofullscreen">
+              <video loop disablePictureInPicture controlsList="nodownload nofullscreen" poster="./img/qr.webp">
 
                 <source src="./qr.mp4" type="video/mp4">
               </video>
@@ -649,7 +649,7 @@
           </div>
           <div class="prod-item__content" itemprop="description">
             <div class="prod-item__video">
-              <video loop>
+              <video loop poster="./img/market.webp">
 
                 <source src="./market.mp4" type="video/mp4">
               </video>
@@ -2884,11 +2884,11 @@
 
   <div class="business__header">
     <div class="business__video">
-      <video autoplay playsinline muted loop preload="metadata">
-        <source src="./marketing.webm" type="video/webm">
-        <source src="./marketing.mp4" type="video/mp4">
-        <p>Ваш браузер не поддерживает HTML5 видео.</p>
-      </video>
+      <picture>
+        <source srcset="./img/business-mob.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="./img/business.webp" type="image/webp">
+        <img loading="lazy" src="./img/business.jpg" class="image" width="100%" height="100%" alt="">
+      </picture>
     </div>
     <div class="container business__container">
       <div>
