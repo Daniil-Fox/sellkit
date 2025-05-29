@@ -16120,13 +16120,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var aos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js");
 
 function initAOS() {
-  console.log("Initializing AOS...");
-
   // Проверяем наличие элементов с AOS
   const aosElements = document.querySelectorAll("[data-aos]");
-  console.log("Found AOS elements:", aosElements.length);
   if (!aosElements.length) {
-    console.log("No AOS elements found, skipping initialization");
     return;
   }
   const isMob = window.innerWidth < 768;
@@ -16135,25 +16131,22 @@ function initAOS() {
     offset: isMob ? 0 : 60,
     // Настраиваем смещение для точного срабатывания
     delay: 0,
-    duration: 800,
+    duration: 500,
     easing: "ease",
     once: true,
     // Анимация будет срабатывать только один раз
     mirror: false,
     anchorPlacement: "top-center" // Привязка к центру вьюпорта
   });
-  console.log("AOS initialized with config");
 
   // Добавляем дополнительную проверку загрузки AOS
   document.addEventListener("DOMContentLoaded", function () {
     // Проверяем, что AOS успешно инициализирован
     setTimeout(() => {
       const aosElements = document.querySelectorAll("[data-aos]");
-      console.log("AOS elements found:", aosElements.length);
 
       // Если AOS не инициализировался должным образом, запускаем обновление
       if (!document.querySelector(".aos-init")) {
-        console.log("AOS not initialized properly, refreshing...");
         aos__WEBPACK_IMPORTED_MODULE_0__.refreshHard();
       }
 
@@ -16169,7 +16162,6 @@ function initAOS() {
   // При загрузке всех ресурсов
   window.addEventListener("load", function () {
     setTimeout(() => {
-      console.log("Window loaded, refreshing AOS");
       aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
     }, 100);
   });
@@ -16179,7 +16171,6 @@ function initAOS() {
   window.addEventListener("resize", function () {
     if (!resizeTimeout) {
       resizeTimeout = setTimeout(() => {
-        console.log("Window resized, refreshing AOS");
         aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
         resizeTimeout = null;
       }, 100);
