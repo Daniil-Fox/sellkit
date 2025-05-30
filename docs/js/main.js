@@ -16128,7 +16128,7 @@ function initAOS() {
   const isMob = window.innerWidth < 768;
   // Возвращаемся к стандартной реализации AOS с небольшими модификациями
   aos__WEBPACK_IMPORTED_MODULE_0__.init({
-    offset: isMob ? 0 : 60,
+    offset: isMob ? 0 : 40,
     // Настраиваем смещение для точного срабатывания
     delay: 0,
     duration: 500,
@@ -16136,7 +16136,7 @@ function initAOS() {
     once: true,
     // Анимация будет срабатывать только один раз
     mirror: false,
-    anchorPlacement: "top-center" // Привязка к центру вьюпорта
+    anchorPlacement: "top-bottom" // Привязка к центру вьюпорта
   });
 
   // Добавляем дополнительную проверку загрузки AOS
@@ -16165,7 +16165,14 @@ function initAOS() {
       aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
     }, 100);
   });
-
+  const clientsTab = document.querySelectorAll(".clients__tab");
+  if (clientsTab.length > 0) {
+    clientsTab.forEach(btn => {
+      btn.addEventListener("click", () => {
+        aos__WEBPACK_IMPORTED_MODULE_0__.refresh();
+      });
+    });
+  }
   // Оптимизированный обработчик изменения размера окна
   let resizeTimeout;
   window.addEventListener("resize", function () {

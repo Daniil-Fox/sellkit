@@ -10,13 +10,13 @@ export default function initAOS() {
   const isMob = window.innerWidth < 768;
   // Возвращаемся к стандартной реализации AOS с небольшими модификациями
   AOS.init({
-    offset: isMob ? 0 : 60, // Настраиваем смещение для точного срабатывания
+    offset: isMob ? 0 : 40, // Настраиваем смещение для точного срабатывания
     delay: 0,
     duration: 500,
     easing: "ease",
     once: true, // Анимация будет срабатывать только один раз
     mirror: false,
-    anchorPlacement: "top-center", // Привязка к центру вьюпорта
+    anchorPlacement: "top-bottom", // Привязка к центру вьюпорта
   });
 
   // Добавляем дополнительную проверку загрузки AOS
@@ -46,6 +46,14 @@ export default function initAOS() {
     }, 100);
   });
 
+  const clientsTab = document.querySelectorAll(".clients__tab");
+  if (clientsTab.length > 0) {
+    clientsTab.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        AOS.refresh();
+      });
+    });
+  }
   // Оптимизированный обработчик изменения размера окна
   let resizeTimeout;
   window.addEventListener("resize", function () {
